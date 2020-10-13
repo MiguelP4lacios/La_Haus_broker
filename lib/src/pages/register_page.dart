@@ -262,6 +262,7 @@ class RegisterPage extends StatelessWidget {
   }
 
   _register(RegisterBloc bloc, BuildContext context) async {
+    final blocLogin = BlocProvider.login(context);
     Map<String, dynamic> registerData = {
       'first_name': bloc.firstName,
       'last_name': bloc.lastName,
@@ -269,6 +270,8 @@ class RegisterPage extends StatelessWidget {
       'email': bloc.email,
       'password': bloc.password,
     };
+    blocLogin.changeEmail(registerData['email']);
+    blocLogin.changePassword(registerData['password']);
     Map info = await userProvider.newUser(registerData);
     if (info['ok']) {
       Navigator.pushReplacementNamed(context, 'home');
