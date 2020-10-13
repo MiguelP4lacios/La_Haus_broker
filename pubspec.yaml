@@ -32,6 +32,8 @@ dependencies:
   http: ^0.12.2
   shared_preferences:
   country_icons: ^1.1.1
+  intro_slider: ^2.3.3
+  image_picker:
 
 
 dev_dependencies:
@@ -51,8 +53,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  - assets/login/
-  #   - images/a_dot_ham.jpeg
+    - assets/login/
+    - assets/photoTour/
+    - assets/slides_intro/
+  #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
