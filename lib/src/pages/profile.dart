@@ -62,28 +62,36 @@ class _PerfilState extends State<Perfil> {
                     leading: Icon(Icons.person, color: Color.fromRGBO(0, 208, 175, 100)),
                     title: Text('Información personal'),
                     trailing: Icon(Icons.keyboard_arrow_right),
-                    onTap: (){}
+                    onTap: (){
+                      Navigator.of(context).pushNamed('personal');
+                    }
                   ),
                   _buildDivider(),
                   ListTile(
                     leading: Icon(Icons.lock_outline, color: Color.fromRGBO(0, 208, 175, 100)),
                     title: Text('Seguridad'),
                     trailing: Icon(Icons.keyboard_arrow_right),
-                    onTap: (){}
+                    onTap: (){
+                      Navigator.of(context).pushNamed('security');
+                    }
                   ),
                   _buildDivider(),
                   ListTile(
                     leading: Icon(Icons.settings, color: Color.fromRGBO(0, 208, 175, 100)),
                     title: Text('Configuración'),
                     trailing: Icon(Icons.keyboard_arrow_right),
-                    onTap: (){}
+                    onTap: (){
+                      Navigator.of(context).pushNamed('settings');
+                    }
                   ),
                   _buildDivider(),
                   ListTile(
                     leading: Icon(Icons.description, color: Color.fromRGBO(0, 208, 175, 100)),
-                    title: Text('Información de la app'),
+                    title: Text('Ayuda'),
                     trailing: Icon(Icons.keyboard_arrow_right),
-                    onTap: (){}
+                    onTap: (){
+                      Navigator.of(context).pushNamed('help');
+                    }
                   )
                 ],
               ),

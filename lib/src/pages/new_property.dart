@@ -27,7 +27,7 @@ class PropertyPage extends StatelessWidget {
                   color: Color.fromRGBO(103, 103, 103, 100),
                   icon: new Icon(Icons.highlight_off),
                   onPressed: (){
-                    Navigator.of(context).pushNamed('property2');
+                    Navigator.of(context).pushNamed('home');
                   },
                 ),
               ],
