@@ -16,6 +16,11 @@ class HomePage extends StatelessWidget {
           Text('Email: ${bloc.email}'),
           Divider(),
           Text('Pass: ${bloc.password}'),
+          FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('profile');
+              },
+          )
         ],
       ),
     );
