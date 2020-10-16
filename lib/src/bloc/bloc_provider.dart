@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:login_bloc_pattern/src/bloc/bloc_form.dart';
+export 'package:login_bloc_pattern/src/bloc/bloc_form.dart';
 import 'package:login_bloc_pattern/src/bloc/login_bloc.dart';
 import 'package:login_bloc_pattern/src/bloc/register_bloc.dart';
 export 'package:login_bloc_pattern/src/bloc/login_bloc.dart';
@@ -28,6 +30,7 @@ class BlocProvider extends InheritedWidget {
   /* Bloc instantiations */
   final loginBloc = LoginBloc();
   final registerBloc = RegisterBloc();
+  final fromBloc = FormBloc();
 
   /* Blocs should be here */
   static LoginBloc login(BuildContext context) {
@@ -38,5 +41,9 @@ class BlocProvider extends InheritedWidget {
     return context
         .dependOnInheritedWidgetOfExactType<BlocProvider>()
         .registerBloc;
+  }
+
+  static FormBloc form(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<BlocProvider>().fromBloc;
   }
 }
