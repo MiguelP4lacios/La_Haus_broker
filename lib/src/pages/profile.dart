@@ -31,7 +31,7 @@ class _PerfilState extends State<Perfil> {
             color: Color.fromRGBO(0, 208, 175, 1.0),
             child: ListTile(
               onTap: () {
-                // function of profile
+                Navigator.of(context).pushNamed('personal');
               },
               title: Text("Miguel Palacios",
                   style: TextStyle(
@@ -97,9 +97,11 @@ class _PerfilState extends State<Perfil> {
             ),
           ),
           // SizedBox(height: 20),
-          RaisedButton(
+          RaisedButton( 
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 17.0),
+              padding: EdgeInsets.symmetric(
+                horizontal: 40.0,
+                vertical: 10.0),
               child: Text(
                 'Cerrar Sesión',
                 style: TextStyle(fontSize: 18.0),
