@@ -7,7 +7,21 @@ class HomePage extends StatelessWidget {
     final bloc = BlocProvider.login(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/login/logoWhite.png',
+              scale: 6.0,
+            ),
+            SizedBox(width: 1.0),
+            Container(
+              margin: EdgeInsets.only(top: 10.0, left: 3.0),
+              child: Text('La Haus',
+                  style: TextStyle(color: Colors.white, fontSize: 20.0)),
+            ),
+          ],
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -16,13 +30,14 @@ class HomePage extends StatelessWidget {
           Text('Email: ${bloc.email}'),
           Divider(),
           Text('Pass: ${bloc.password}'),
-          FloatingActionButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('profile');
-              },
+          Container(
+            color: Colors.blue,
+            child: FloatingActionButton(
+                child: Text('press here'),
+                onPressed: () => Navigator.pushNamed(context, 'phototour')),
+
           )
         ],
-      ),
     );
   }
 }

@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
     print(_userPref.token);
     return BlocProvider(
       child: MaterialApp(
-        title: 'Material App',
+        title: 'La Haus Brokers',
         debugShowCheckedModeBanner: false,
-        initialRoute: 'login',
+        initialRoute: 'introslide',
         routes: getAppRoutes(),
         theme: ThemeData(primaryColor: Color.fromRGBO(0, 208, 174, 1.0)),
       ),

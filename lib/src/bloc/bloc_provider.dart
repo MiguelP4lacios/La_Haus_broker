@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:login_bloc_pattern/src/bloc/bloc_form.dart';
+import 'package:login_bloc_pattern/src/bloc/edit_bloc.dart';
+export 'package:login_bloc_pattern/src/bloc/bloc_form.dart';
 import 'package:login_bloc_pattern/src/bloc/login_bloc.dart';
 import 'package:login_bloc_pattern/src/bloc/register_bloc.dart';
+import 'package:login_bloc_pattern/src/pages/homa_page.dart';
 export 'package:login_bloc_pattern/src/bloc/login_bloc.dart';
 import 'package:login_bloc_pattern/src/bloc/profile_bloc.dart';
 
@@ -31,6 +35,9 @@ class BlocProvider extends InheritedWidget {
   final loginBloc = LoginBloc();
   final registerBloc = RegisterBloc();
   final profileBloc = ProfileBloc(); // Esto lo creó pablo
+  final fromBloc = FormBloc();
+  final homeBloc = HomePage();
+  final editBloc = EditBloc();
 
   /* Blocs should be here */
   static LoginBloc login(BuildContext context) {
@@ -43,9 +50,21 @@ class BlocProvider extends InheritedWidget {
         .registerBloc;
   }
 
+
   static ProfileBloc profile(BuildContext context) {
     return context
         .dependOnInheritedWidgetOfExactType<BlocProvider>()
         .profileBloc;
   }
-}
+  static FormBloc form(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<BlocProvider>().fromBloc;
+  }
+
+  static HomePage home(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<BlocProvider>().homeBloc;
+  }
+
+  static EditBloc edit(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<BlocProvider>().editBloc;
+  }
+
