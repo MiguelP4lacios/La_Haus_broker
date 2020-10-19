@@ -471,7 +471,6 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
     if (permissionStatus == PermissionStatus.granted) {
       print('Permission granted');
     }
-
     _imageProcess(ImageSource.gallery);
   }
 
