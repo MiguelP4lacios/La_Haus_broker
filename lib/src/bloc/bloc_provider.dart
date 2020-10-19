@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/bloc/login_bloc.dart';
-import 'package:login_bloc_pattern/src/bloc/profile_bloc.dart';
 import 'package:login_bloc_pattern/src/bloc/register_bloc.dart';
+export 'package:login_bloc_pattern/src/bloc/login_bloc.dart';
+import 'package:login_bloc_pattern/src/bloc/profile_bloc.dart';
+
 
 /* Bloc Provider is used to send each bloc
 through all the trees in the project 
