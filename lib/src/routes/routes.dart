@@ -8,6 +8,7 @@ import 'package:login_bloc_pattern/src/pages/personal_info.dart';
 import 'package:login_bloc_pattern/src/pages/security.dart';
 import 'package:login_bloc_pattern/src/pages/settings.dart';
 import 'package:login_bloc_pattern/src/pages/get_help.dart';
+// import 'package:login_bloc_pattern/src/pages/new_property(2).dart';
 
 Map<String, WidgetBuilder> getAppRoutes() {
   return <String, WidgetBuilder>{
@@ -20,5 +21,6 @@ Map<String, WidgetBuilder> getAppRoutes() {
     'security': ( BuildContext context ) => SecurityPage(),
     'settings': ( BuildContext context ) => SettingsPage(),
     'help': ( BuildContext context ) => HelpPage(),
+    // 'property2': ( BuildContext context ) => PropertyPage2(),
   };
 }

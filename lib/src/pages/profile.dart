@@ -18,7 +18,7 @@ class _PerfilState extends State<Perfil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor: Color.fromRGBO(227, 255, 246, 1.0),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -121,24 +121,42 @@ class _PerfilState extends State<Perfil> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         // menú inferior
-        items: const <BottomNavigationBarItem>[
+        items:  <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Container(
+                child: Image(
+                  image: AssetImage('assets/images/add.png'),
+                  fit: BoxFit.cover),
+                width: 30,
+                height: 30,
+              ),
               title: Text(
-                '',
-                style: TextStyle(fontSize: 0),
+                'Agregar',
+                style: TextStyle(fontSize: 14),
               )),
           BottomNavigationBarItem(
-              icon: Icon(Icons.folder),
+              icon: Container(
+                child: Image(
+                  image: AssetImage('assets/images/folder.png'),
+                  fit: BoxFit.cover),
+                width: 30,
+                height: 30,
+              ),
               title: Text(
-                '',
-                style: TextStyle(fontSize: 0),
+                'Propiedades',
+                style: TextStyle(fontSize: 14),
               )),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: Container(
+                child: Image(
+                  image: AssetImage('assets/images/user.png'),
+                  fit: BoxFit.cover),
+                width: 30,
+                height: 30,
+              ),
               title: Text(
-                '',
-                style: TextStyle(fontSize: 0),
+                'Perfil',
+                style: TextStyle(fontSize: 14),
               )),
         ],
         backgroundColor: Colors.white,

@@ -14,7 +14,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromRGBO(227, 255, 246, 1.0),
         title: Text(
           'Configuración',
           style: TextStyle(
@@ -25,7 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         elevation: 0.0,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromRGBO(227, 255, 246, 1.0),
       body: Center(
         child: Container(
           width: sizeScreen.width * 0.90,
@@ -33,7 +33,7 @@ class _SettingsPageState extends State<SettingsPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Card(
-                color: Color.fromRGBO(227, 255, 246, 1.0),
+                color: Colors.white,
                 elevation: 4.0,
                 margin: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
                 shape: RoundedRectangleBorder(

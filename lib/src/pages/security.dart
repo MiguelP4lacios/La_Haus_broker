@@ -15,7 +15,7 @@ class _SecurityPageState extends State<SecurityPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromRGBO(227, 255, 246, 1.0),
         title: Text(
           'Seguridad',
           style: TextStyle(
@@ -26,7 +26,7 @@ class _SecurityPageState extends State<SecurityPage> {
         ),
         elevation: 0.0,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromRGBO(227, 255, 246, 1.0),
       body: Stack(
         children: [
           _personalInfo(context), // Contenido central

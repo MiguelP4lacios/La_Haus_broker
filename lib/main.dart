@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'La Haus',
         debugShowCheckedModeBanner: false,
-        initialRoute: 'login',
+        initialRoute: 'property',
         routes: getAppRoutes(),
         theme: ThemeData(primaryColor: Color.fromRGBO(0, 208, 174, 1.0)),
       ),

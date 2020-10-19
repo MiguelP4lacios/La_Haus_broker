@@ -1,38 +1,7 @@
 import 'package:flutter/material.dart';
 import 'globals.dart' as globals;
 
-class PropertyPage extends StatefulWidget {
-
-  @override
-  _PropertyPageState createState() => _PropertyPageState();
-}
-
-class _PropertyPageState extends State<PropertyPage> {
-
-  final int _numPages = 4;
-  final PageController _pageController = PageController(initialPage: 0);
-  int _currentPage = 0; 
-
-  List<Widget> _buildPageIndicator() {
-    List<Widget> list = [];
-    for (int i = 0; i < _numPages; i++) {
-      list.add(i == _currentPage ? _indicator(true) : _indicator(false));
-    }
-    return list;
-  }
-
-  Widget _indicator(bool isActive) {
-    return AnimatedContainer(
-      duration: Duration(milliseconds: 150),
-      margin: EdgeInsets.symmetric(horizontal: 8.0),
-      height: 8.0,
-      width: isActive ? 24.0 : 16.0,
-      decoration: BoxDecoration(
-        color: isActive ? Colors.green[900] : Color.fromRGBO(0, 208, 175, 1.0),
-        borderRadius: BorderRadius.all(Radius.circular(12)),
-      ),
-    );
-  }
+class PropertyPage2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -71,17 +40,12 @@ class _PropertyPageState extends State<PropertyPage> {
               fontWeight: FontWeight.w400
               ),
             ), // fontFamily: 'Raleway', 
-            SizedBox(height: 50), // espacio
+            SizedBox(height: 100), // espacio
             Container( // sección de las imagenes del centro
               width: double.infinity, // ancho automático
               height: 250, // altura específica
               child: PageView( // scroll en el centro por defecto horizontal
-                controller: _pageController,
-                onPageChanged: (int page) {
-                  setState(() {
-                    _currentPage = page;
-                  });
-                },
+                controller: PageController(viewportFraction: 0.7), //para que se vean los siguientes - 70% de la pantalla
                 physics: BouncingScrollPhysics(), //para cuando llegue al final no me muestre un círculo de delimiter
                 children: <Widget>[ // Lista del contenido que va a estar en el scroll
                   cambiarImagen('assets/images/house.png', 'Casa', context, 1),
@@ -91,33 +55,10 @@ class _PropertyPageState extends State<PropertyPage> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: _buildPageIndicator(),
-            ),
-            _currentPage != _numPages - 1 ? Expanded(
-              child: Align(
-                alignment: FractionalOffset.bottomRight,
-                child: FlatButton(
-                  onPressed: () {
-                    _pageController.nextPage(
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.ease,
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                  ),
-                ),
-              ),
-            )
-            : Text(''),
             SizedBox(height: 50), // espacio
           ],
         ),
-    );
+      );
   }
 }
 
@@ -128,10 +69,10 @@ cambiarImagen(String imagen, String propertyType, BuildContext context, int idx)
       children: [
         IconButton(
           icon: Image.asset(imagen),
-          iconSize: 150.0,
+          iconSize: 170.0,
           onPressed: (){
             globals.propertyType = propertyType;
-            Navigator.of(context).pushNamed('profile');
+            Navigator.of(context).pushNamed('property');
             // Navigator.of(context).pushNamed(FormP1Screen());
           }
         ),

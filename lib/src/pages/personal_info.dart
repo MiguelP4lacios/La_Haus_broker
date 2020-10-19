@@ -15,7 +15,7 @@ class _PersonalPageState extends State<PersonalPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromRGBO(227, 255, 246, 1.0),
         title: Text(
           'Información personal',
           style: TextStyle(
@@ -26,7 +26,7 @@ class _PersonalPageState extends State<PersonalPage> {
         ),
         elevation: 0.0,
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromRGBO(227, 255, 246, 1.0),
       body: Stack(
         // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
