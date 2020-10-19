@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
     print(_userPref.token);
     return BlocProvider(
       child: MaterialApp(
-        title: 'La Haus',
+        title: 'Material App',
         debugShowCheckedModeBanner: false,
-        initialRoute: 'property',
+        initialRoute: 'login',
         routes: getAppRoutes(),
         theme: ThemeData(primaryColor: Color.fromRGBO(0, 208, 174, 1.0)),
       ),
