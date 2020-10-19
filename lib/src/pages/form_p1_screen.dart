@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'form_p2_screen.dart';
 /* import '../blocs/bloc_form_p1.dart';*/
 import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
+import 'package:login_bloc_pattern/src/widgets/show_alert.dart';
+
+/* import '../blocs/bloc_form_p1.dart';*/
+//import './widget/form_widgets.dart';
 
 class FormP1Screen extends StatelessWidget {
   const FormP1Screen({Key key}) : super(key: key);
@@ -22,11 +26,12 @@ class FormP1Screen extends StatelessWidget {
           padding: EdgeInsets.all(40.0),
           child: Column(
             children: <Widget>[
-              price(bloc),
-              adress(bloc),
-              admon(bloc),
-              buildArea(bloc),
-              privateArea(bloc),
+              cardForm(Icons.attach_money, price(bloc)),
+              cardForm(Icons.location_city, neighborhood(bloc)),
+              cardForm(Icons.place, adress(bloc)),
+              cardForm(Icons.build, admon(bloc)),
+              cardForm(Icons.adjust, buildArea(bloc)),
+              cardForm(Icons.lock, privateArea(bloc)),
               nextButton(bloc)
             ],
           ),
@@ -35,17 +40,64 @@ class FormP1Screen extends StatelessWidget {
     );
   }
 
+  cardForm(icon, item) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 7),
+      child: Card(
+          child: ListTile(
+              leading: Icon(
+                icon,
+                size: 40.0,
+                color: Color(0xFF003027),
+              ),
+              title: item)),
+    );
+  }
+
   Widget price(FormBloc bloc) {
     return StreamBuilder<num>(
         stream: bloc.price,
         builder: (context, snapshot) {
-          return TextField(
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'Price',
-              errorText: snapshot.error,
-            ),
-            onChanged: bloc.changePrice,
+          return Column(
+            children: [
+              TextField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'Precio',
+                  prefixText: '\$  ',
+                  hintText: '1000000',
+                  alignLabelWithHint: true,
+                  hintStyle: TextStyle(
+                    color: Color(0xFFD9D9D9),
+                  ),
+                  errorText: snapshot.error,
+                ),
+                onChanged: bloc.changePrice,
+              ),
+              SizedBox(height: 15.0)
+            ],
+          );
+        });
+  }
+
+  Widget neighborhood(FormBloc bloc) {
+    return StreamBuilder<String>(
+        stream: bloc.neighborhood,
+        builder: (context, snapshot) {
+          return Column(
+            children: [
+              TextField(
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                  labelText: 'Barrio',
+                  hintText: 'La Romana',
+                  hintStyle: TextStyle(color: Color(0xFFD9D9D9)),
+                  errorText: snapshot.error,
+                ),
+                onChanged: bloc.changeNeighborhood,
+              ),
+              SizedBox(height: 15.0)
+            ],
           );
         });
   }
@@ -54,13 +106,18 @@ class FormP1Screen extends StatelessWidget {
     return StreamBuilder<String>(
         stream: bloc.adress,
         builder: (context, snapshot) {
-          return TextField(
-            keyboardType: TextInputType.streetAddress,
-            decoration: InputDecoration(
-              labelText: 'Adress',
-              errorText: snapshot.error,
-            ),
-            onChanged: bloc.changeAdress,
+          return Column(
+            children: [
+              TextField(
+                keyboardType: TextInputType.streetAddress,
+                decoration: InputDecoration(
+                  labelText: 'Dirección',
+                  errorText: snapshot.error,
+                ),
+                onChanged: bloc.changeAdress,
+              ),
+              SizedBox(height: 15.0)
+            ],
           );
         });
   }
@@ -69,13 +126,24 @@ class FormP1Screen extends StatelessWidget {
     return StreamBuilder<num>(
         stream: bloc.admon,
         builder: (context, snapshot) {
-          return TextField(
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'Administration',
-              errorText: snapshot.error,
-            ),
-            onChanged: bloc.changeAdmon,
+          return Column(
+            children: [
+              TextField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'Administración',
+                  prefixText: '\$  ',
+                  hintText: '1000000',
+                  alignLabelWithHint: true,
+                  hintStyle: TextStyle(
+                    color: Color(0xFFD9D9D9),
+                  ),
+                  errorText: snapshot.error,
+                ),
+                onChanged: bloc.changeAdmon,
+              ),
+              SizedBox(height: 15.0)
+            ],
           );
         });
   }
@@ -84,13 +152,23 @@ class FormP1Screen extends StatelessWidget {
     return StreamBuilder<num>(
         stream: bloc.buildArea,
         builder: (context, snapshot) {
-          return TextField(
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'Build Area',
-              errorText: snapshot.error,
-            ),
-            onChanged: bloc.changeBuildArea,
+          return Column(
+            children: [
+              TextField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'Área construida',
+                  suffixText: 'km²',
+                  hintText: '48.6',
+                  hintStyle: TextStyle(
+                    color: Color(0xFFD9D9D9),
+                  ),
+                  errorText: snapshot.error,
+                ),
+                onChanged: bloc.changeBuildArea,
+              ),
+              SizedBox(height: 15.0)
+            ],
           );
         });
   }
@@ -99,13 +177,23 @@ class FormP1Screen extends StatelessWidget {
     return StreamBuilder<num>(
         stream: bloc.privateArea,
         builder: (context, snapshot) {
-          return TextField(
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'Private Area',
-              errorText: snapshot.error,
-            ),
-            onChanged: bloc.changePrivateArea,
+          return Column(
+            children: [
+              TextField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'Área privada',
+                  suffixText: 'km²',
+                  hintText: '58.4',
+                  hintStyle: TextStyle(
+                    color: Color(0xFFD9D9D9),
+                  ),
+                  errorText: snapshot.error,
+                ),
+                onChanged: bloc.changePrivateArea,
+              ),
+              SizedBox(height: 15.0)
+            ],
           );
         });
   }
@@ -115,18 +203,28 @@ class FormP1Screen extends StatelessWidget {
         stream: bloc.formP1Valid,
         builder: (context, snapshot) {
           return RaisedButton(
-            child: Text('Next'),
-            onPressed: () {
-              if (!snapshot.hasData) {
-                return (null); // pop Error
-              } else {
-                return (_pushScreen(context, FormP2Screen()));
-              }
-            },
-            focusColor: Colors.amber
-            /* !snapshot.hasData ? null : _pushScreen(context, FormP2Screen()) */,
-            splashColor: Color(0xFF56b473),
-          );
+              child: Center(
+                child: Text(
+                  'Siguiente',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+              onPressed: () {
+                if (!snapshot.hasData) {
+                  showAlert(context, 'Campos obligatorios vácios',
+                      'Para continuar, llene los campos.'); // pop Error
+                } else {
+                  return (_pushScreen(context, FormP2Screen()));
+                }
+              },
+              /* !snapshot.hasData ? null : _pushScreen(context, FormP2Screen()) */
+              splashColor: Color(0xFF56b473),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0)),
+              color: Color(0xFF00DDB3));
         });
   }
 }
