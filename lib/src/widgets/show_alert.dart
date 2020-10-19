@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-void showAlert(BuildContext context, String massage) {
+void showAlert(BuildContext context, String title, String massage) {
   showDialog(
       context: context,
       builder: (context) => AlertDialog(
-            title: Text('Invalid Data'),
+            title: Text(title),
             content: Text(massage),
             actions: <Widget>[
               FlatButton(
