@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
+import 'package:login_bloc_pattern/src/bloc/login_bloc.dart';
 import 'package:login_bloc_pattern/src/resources/user_resource.dart';
 import 'package:login_bloc_pattern/src/widgets/show_alert.dart';
 

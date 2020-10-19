@@ -35,6 +35,7 @@ class HomePage extends StatelessWidget {
             child: FloatingActionButton(
                 child: Text('press here'),
                 onPressed: () => Navigator.pushNamed(context, 'phototour')),
+
           )
         ],
     );
