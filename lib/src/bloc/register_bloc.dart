@@ -56,5 +56,6 @@ class RegisterBloc extends LoginBloc with RegisterValidators {
     _lastNameController.close();
     _phoneNumberController.close();
     _passwordConfirmController.close();
+    _indicativeController.close();
   }
 }

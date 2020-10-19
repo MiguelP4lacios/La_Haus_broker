@@ -7,6 +7,7 @@ class HomePage extends StatelessWidget {
     final bloc = BlocProvider.login(context);
     return Scaffold(
       appBar: AppBar(
+
         title: Row(
           children: [
             Image.asset(
@@ -22,7 +23,20 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Container(),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text('Email: ${bloc.email}'),
+          Divider(),
+          Text('Pass: ${bloc.password}'),
+          Container(
+            color: Colors.blue,
+            child: FloatingActionButton(
+                child: Text('press here'),
+                onPressed: () => Navigator.pushNamed(context, 'phototour')),
+          )
+        ],
     );
   }
 }
