@@ -16,6 +16,12 @@ class HomePage extends StatelessWidget {
           Text('Email: ${bloc.email}'),
           Divider(),
           Text('Pass: ${bloc.password}'),
+          Container(
+            color: Colors.blue,
+            child: FloatingActionButton(
+                child: Text('press here'),
+                onPressed: () => Navigator.pushNamed(context, 'phototour')),
+          )
         ],
       ),
     );
