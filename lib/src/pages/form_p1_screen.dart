@@ -80,7 +80,7 @@ class FormP1Screen extends StatelessWidget {
           return Column(
             children: [
               TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Precio',
                   prefixText: '\$  ',
@@ -148,7 +148,7 @@ class FormP1Screen extends StatelessWidget {
           return Column(
             children: [
               TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Administración',
                   prefixText: '\$  ',
@@ -174,10 +174,10 @@ class FormP1Screen extends StatelessWidget {
           return Column(
             children: [
               TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Área construida',
-                  suffixText: 'km²',
+                  suffixText: 'm²',
                   hintText: '48.6',
                   hintStyle: TextStyle(
                     color: Color(0xFFD9D9D9),
@@ -199,10 +199,10 @@ class FormP1Screen extends StatelessWidget {
           return Column(
             children: [
               TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Área privada',
-                  suffixText: 'km²',
+                  suffixText: 'm²',
                   hintText: '58.4',
                   hintStyle: TextStyle(
                     color: Color(0xFFD9D9D9),

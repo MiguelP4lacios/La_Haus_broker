@@ -75,7 +75,7 @@ class FormP3Screen extends StatelessWidget {
           return Column(
             children: [
               TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Habitaciones',
                   hintText: '3',
@@ -102,7 +102,7 @@ class FormP3Screen extends StatelessWidget {
           return Column(
             children: [
               TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Baños',
                   hintText: '2',
@@ -127,7 +127,7 @@ class FormP3Screen extends StatelessWidget {
           return Column(
             children: [
               TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Medios Baños',
                   hintText: '1',
@@ -152,7 +152,7 @@ class FormP3Screen extends StatelessWidget {
           return Column(
             children: [
               TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Estacionamientos',
                   hintText: '0',

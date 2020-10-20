@@ -4,8 +4,7 @@ import 'form_p3_screen.dart';
 /* import '../blocs/bloc_form_p2.dart'; */
 import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
 import 'package:login_bloc_pattern/src/widgets/show_alert.dart';
-
-final typeProperty = "Aparment";
+import 'globals.dart' as globals;
 
 class FormP2Screen extends StatelessWidget {
   const FormP2Screen({Key key}) : super(key: key);
@@ -37,7 +36,7 @@ class FormP2Screen extends StatelessWidget {
         cardForm(null, propertyTax(bloc)),
         nextButton(bloc)
       ];
-      if (typeProperty == "Aparment") {
+      if (globals.propertyType == "Apartamento") {
         return formAparment;
       } else {
         return formHouse;
@@ -96,7 +95,7 @@ class FormP2Screen extends StatelessWidget {
           return Column(
             children: [
               TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Estrato',
                   hintText: '2',
@@ -152,7 +151,7 @@ class FormP2Screen extends StatelessWidget {
           return Column(
             children: [
               TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Piso',
                   hintText: '3',
@@ -208,7 +207,7 @@ class FormP2Screen extends StatelessWidget {
           return Column(
             children: [
               TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Impuesto predial',
                   prefixText: '\$  ',
@@ -229,7 +228,7 @@ class FormP2Screen extends StatelessWidget {
 
   Widget nextButton(FormBloc bloc) {
     _switchWidgetBloc() {
-      if (typeProperty == "Aparment") {
+      if (globals.propertyType == "Apartamento") {
         return bloc.formP2Valid;
       } else {
         return bloc.formP2ValidHouse;
