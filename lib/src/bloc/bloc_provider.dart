@@ -3,11 +3,10 @@ import 'package:login_bloc_pattern/src/bloc/bloc_form.dart';
 import 'package:login_bloc_pattern/src/bloc/edit_bloc.dart';
 export 'package:login_bloc_pattern/src/bloc/bloc_form.dart';
 import 'package:login_bloc_pattern/src/bloc/login_bloc.dart';
+import 'package:login_bloc_pattern/src/bloc/properties_bloc.dart';
 import 'package:login_bloc_pattern/src/bloc/register_bloc.dart';
-import 'package:login_bloc_pattern/src/pages/homa_page.dart';
 export 'package:login_bloc_pattern/src/bloc/login_bloc.dart';
 import 'package:login_bloc_pattern/src/bloc/profile_bloc.dart';
-
 
 /* Bloc Provider is used to send each bloc
 through all the trees in the project 
@@ -36,7 +35,7 @@ class BlocProvider extends InheritedWidget {
   final registerBloc = RegisterBloc();
   final profileBloc = ProfileBloc(); // Esto lo creó pablo
   final fromBloc = FormBloc();
-  final homeBloc = HomePage();
+  final homeBloc = PropertiesBloc();
   final editBloc = EditBloc();
 
   /* Blocs should be here */
@@ -50,21 +49,21 @@ class BlocProvider extends InheritedWidget {
         .registerBloc;
   }
 
-
   static ProfileBloc profile(BuildContext context) {
     return context
         .dependOnInheritedWidgetOfExactType<BlocProvider>()
         .profileBloc;
   }
+
   static FormBloc form(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<BlocProvider>().fromBloc;
   }
 
-  static HomePage home(BuildContext context) {
+  static PropertiesBloc home(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<BlocProvider>().homeBloc;
   }
 
   static EditBloc edit(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<BlocProvider>().editBloc;
   }
-
+}

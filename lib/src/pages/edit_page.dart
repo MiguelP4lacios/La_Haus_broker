@@ -42,7 +42,7 @@ class _EditPageState extends State<EditPage> {
               onTap: () => Navigator.pushReplacementNamed(context, 'home'),
             ),
             laHausLogo(),
-            SizedBox(width: MediaQuery.of(context).size.width * 0.09),
+            SizedBox(width: MediaQuery.of(context).size.width * 0.07),
           ],
         ),
       ),

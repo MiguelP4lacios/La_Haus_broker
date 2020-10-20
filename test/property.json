@@ -1,0 +1,32 @@
+{
+  "abc1": {
+    "city":"bogota",
+    "img":"http://m.colombiaexclusive.com/sites/colombiaexclusive.com/files/styles/rio_property_large/public/properties/Bog001_.jpg?itok=0SaZVsDW",
+    "neighborhood":"rosales",
+    "price":50000000,
+    "property_type":"house",
+    "state":"cundinamarca",
+    "address": "Calle 22 # 44 - 80",
+    "bathrooms": "3"
+  },
+  "abc2": {
+    "city":"medellin",
+    "img":"https://d2gdo2i74ax4qq.cloudfront.net/inmuebles/images/1218807/venta_bogota_1_1564621263_335x530.jpg",
+    "neighborhood":"belen",
+    "price":2000,
+    "property_type":"house",
+    "state":"antioquia",
+    "address": "Calle 1 # 33 - 8",
+    "bathrooms": "3"
+  },
+  "abc3" : {
+    "city":"bogota",
+    "img":"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Casas_en_Chapinero_cra_5_con_clle_65.JPG/800px-Casas_en_Chapinero_cra_5_con_clle_65.JPG",
+    "neighborhood":"chapinero",
+    "price":3000,
+    "property_type":"house",
+    "state":"cundinamarca",
+    "address": "Calle 212 # 4 - 20",
+    "bathrooms": "1"
+  }
+}

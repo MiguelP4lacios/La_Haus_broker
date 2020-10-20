@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login_bloc_pattern/src/pages/homa_page.dart';
+import 'package:login_bloc_pattern/src/pages/edit_page.dart';
+import 'package:login_bloc_pattern/src/pages/form_p1_screen.dart';
+import 'package:login_bloc_pattern/src/pages/home_page.dart';
 import 'package:login_bloc_pattern/src/pages/initial_page.dart';
 import 'package:login_bloc_pattern/src/pages/login_page.dart';
 import 'package:login_bloc_pattern/src/pages/photoKitchen_page.dart';
@@ -18,12 +20,14 @@ Map<String, WidgetBuilder> getAppRoutes() {
     'login': (BuildContext context) => LoginPage(),
     'home': (BuildContext context) => HomePage(),
     'register': (BuildContext context) => RegisterPage(),
-    'profile' : ( BuildContext context ) => Perfil(),
-    'property': ( BuildContext context ) => PropertyPage(),
-    'personal': ( BuildContext context ) => PersonalPage(),
-    'security': ( BuildContext context ) => SecurityPage(),
-    'settings': ( BuildContext context ) => SettingsPage(),
-    'help': ( BuildContext context ) => HelpPage(),
+    'edition': (BuildContext context) => EditPage(),
+    'form': (BuildContext context) => FormP1Screen(),
+    'profile': (BuildContext context) => Perfil(),
+    'new_property': (BuildContext context) => PropertyPage(),
+    'personal': (BuildContext context) => PersonalPage(),
+    'security': (BuildContext context) => SecurityPage(),
+    'settings': (BuildContext context) => SettingsPage(),
+    'help': (BuildContext context) => HelpPage(),
     'introslide': (BuildContext context) => IntroSlide(),
     'phototour': (BuildContext context) => PhotoTourPage(),
     'phototourKitchen': (BuildContext context) => PhotoKitchen(),

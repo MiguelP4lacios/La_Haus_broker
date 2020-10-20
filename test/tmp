@@ -1,0 +1,111 @@
+import 'package:flutter/material.dart';
+import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
+import 'package:login_bloc_pattern/src/bloc/properties_bloc.dart';
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final bloc = BlocProvider.home(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: <Widget>[
+            Image.asset('assets/login/logoWhite.png', scale: 6.0),
+            Container(
+                margin: EdgeInsets.only(top: 16.0, left: 3.0),
+                child: Text('La Haus',
+                    style: TextStyle(color: Colors.white, fontSize: 22)))
+          ],
+        ),
+      ),
+      body: _getProperties(bloc),
+      floatingActionButton: _newHouseButton(context),
+    );
+  }
+
+  Widget _getProperties(PropertiesBloc bloc) {
+    return StreamBuilder(
+        stream: bloc.propertiesStream,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.data != null) {
+            return _createPropertiesList(bloc, snapshot.data);
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        });
+  }
+
+  Widget _createPropertiesList(PropertiesBloc bloc, dynamic properties) {
+    return RefreshIndicator(
+      onRefresh: bloc.getProperties(),
+      child: ListView.builder(
+        itemCount: properties.length,
+        itemBuilder: (context, idx) {
+          return _createProperty(bloc, properties[idx]);
+        },
+      ),
+    );
+  }
+
+  Widget _createProperty(PropertiesBloc bloc, dynamic property) {
+    /* Here is created the visual representation of the property */
+    ClipRRect propertyRepresentation = ClipRRect(
+      borderRadius: BorderRadius.circular(10.0),
+      child: Column(
+        children: <Widget>[
+          FadeInImage(
+            placeholder: AssetImage('assets/login/logo.png'),
+            image: NetworkImage(property.img),
+          ),
+          Text('${property.propertyType}'),
+          _propertyButtons(bloc, property),
+          SizedBox(height: 10.0),
+        ],
+      ),
+    );
+
+    return GestureDetector(
+      child: Container(
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.grey[200],
+              spreadRadius: 2.0,
+            )
+          ],
+          borderRadius: BorderRadius.circular(10),
+        ),
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        child: propertyRepresentation,
+      ),
+    );
+  }
+
+  Widget _propertyButtons(PropertiesBloc bloc, dynamic property) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(right: 20),
+          child: FloatingActionButton.extended(
+            elevation: 0,
+            icon: Icon(Icons.delete),
+            label: Text('Delete'),
+            backgroundColor: Color.fromRGBO(0, 208, 174, 1.0),
+            onPressed: () => bloc.deleteProperty(property.id),
+          ),
+        ),
+      ],
+    );
+  }
+
+  _newHouseButton(BuildContext context) {
+    return FloatingActionButton(
+      child: Icon(Icons.add),
+      backgroundColor: Color.fromRGBO(0, 208, 174, 1.0),
+      onPressed: () {},
+    );
+  }
+}

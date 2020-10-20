@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_bloc_pattern/src/widgets/app_bar.dart';
 import 'form_p3_screen.dart';
 /* import '../blocs/bloc_form_p2.dart'; */
 import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
@@ -44,7 +45,25 @@ class FormP2Screen extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('La Haus Brokers')),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Row(
+          // Botones superiores (puede ser un appbar)
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              color: Color.fromRGBO(103, 103, 103, 1.0),
+              icon: new Icon(Icons.arrow_back_ios, color: Colors.white),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            laHausLogo(),
+            SizedBox(width: MediaQuery.of(context).size.width * 0.13),
+          ],
+        ),
+      ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(40.0),
@@ -64,7 +83,7 @@ class FormP2Screen extends StatelessWidget {
               leading: Icon(
                 icon,
                 size: 40.0,
-                color: Color(0xFF003027),
+                color: Color.fromRGBO(0, 208, 174, 1.0),
               ),
               title: item)),
     );

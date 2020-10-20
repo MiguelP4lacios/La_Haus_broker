@@ -19,6 +19,7 @@ class PropertiesBloc {
 
   getProperties() async {
     /* Get all the properties */
+    // this.changeProperties([]);
     this.changeProperties(await loadProperties());
   }
 

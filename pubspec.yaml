@@ -65,6 +65,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
     - assets/
     - assets/login/
+    - assets/icons/
     - assets/photoTour/
     - assets/slides_intro/
     - assets/nice_kitchens/

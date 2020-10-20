@@ -10,6 +10,7 @@ class HomePage extends StatelessWidget {
     bloc.getProperties();
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: laHausLogo(),
       ),
       body: _getProperties(bloc),
@@ -170,7 +171,7 @@ class HomePage extends StatelessWidget {
         child: propertyView,
       ),
       onTap: () {
-        Navigator.pushReplacementNamed(context, 'edition', arguments: property);
+        Navigator.pushNamed(context, 'edition', arguments: property);
       },
     );
   }
@@ -219,7 +220,9 @@ class HomePage extends StatelessWidget {
       heroTag: null,
       child: Icon(Icons.add),
       backgroundColor: Color.fromRGBO(0, 208, 174, 1.0),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, 'new_property');
+      },
     );
   }
 

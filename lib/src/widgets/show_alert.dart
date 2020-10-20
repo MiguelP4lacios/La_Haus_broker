@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-void showAlert(BuildContext context, String title, String massage) {
+void showAlert(BuildContext context, String title, String message) {
   showDialog(
       context: context,
       builder: (context) => AlertDialog(
             title: Text(title),
-            content: Text(massage),
+            content: Text(message),
             actions: <Widget>[
               FlatButton(
                 child: Text('Ok'),
