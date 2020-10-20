@@ -126,7 +126,7 @@ class FormP4Screen extends StatelessWidget {
           return Column(
             children: [
               TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Arrendamiento',
                   prefixText: '\$  ',
@@ -152,7 +152,7 @@ class FormP4Screen extends StatelessWidget {
           return Column(
             children: [
               TextField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Hipoteca',
                   prefixText: '\$  ',
