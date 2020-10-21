@@ -15,19 +15,21 @@ class UserProvider {
       //'returnSecureToken': true,
     };
 
-    print("auth: "+ authData.toString());
+    print("auth: " + authData.toString());
 
-    final resp = await http.post('https://lahaus.herokuapp.com/api/v1/login',
-        body: json.encode(authData),
+    final resp = await http.post(
+        'https://lahaus.herokuapp.com/api/v1/login/?email=${email.toString()}&password=${password.toString()}',
         headers: {'Authorization': 'Bearer token'});
 
     print("my body:" + resp.body);
-    
+
     Map<String, dynamic> decodedResp = json.decode(resp.body);
     if (decodedResp.containsKey('token')) {
       _userPref.token = decodedResp['token'];
+      _userPref.userId = decodedResp['user']['id'].toString();
       return {'ok': true};
     } else {
+      // TODO: Manage better the error massages
       return {'ok': false, 'message': decodedResp['errors']};
     }
   }
@@ -43,17 +45,14 @@ class UserProvider {
       'cellphone': data['cellphone'].toString()
       //'returnSecureToken': true,
     };
-    print("my data: " + data.toString());
-    print(data['cellphone']);
     final resp = await http.post('https://lahaus.herokuapp.com/api/v1/signup',
         body: json.encode(authData),
         headers: {'Content-Type': 'application/json'});
-
-    //print("My body: "+resp.body);
-
+    print(resp.body);
     Map<String, dynamic> decodedResp = json.decode(resp.body);
     if (decodedResp.containsKey('token')) {
       _userPref.token = decodedResp['token'];
+      _userPref.userId = decodedResp['user']['id'];
       return {'ok': true};
     } else {
       return {'ok': false, 'message': decodedResp['errors']};

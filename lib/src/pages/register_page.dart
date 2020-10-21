@@ -275,7 +275,7 @@ class RegisterPage extends StatelessWidget {
     if (info['ok']) {
       Navigator.pushReplacementNamed(context, 'home');
     } else {
-      showAlert(context, null, 'Email already exists');
+      showAlert(context, '', 'Email already exists');
     }
   }
 
