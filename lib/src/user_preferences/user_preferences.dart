@@ -34,6 +34,14 @@ class UserPreferences {
     _prefs.setString('token', value);
   }
 
+  get userId {
+    return _prefs.getString('userId') ?? '';
+  }
+
+  set userId(String value) {
+    _prefs.setString('userId', value);
+  }
+
   // GET y SET de la última página
   get ultimaPagina {
     return _prefs.getString('ultimaPagina') ?? 'login';
