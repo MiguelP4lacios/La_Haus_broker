@@ -274,7 +274,7 @@ class RegisterPage extends StatelessWidget {
     blocLogin.changePassword(registerData['password']);
     Map info = await userProvider.newUser(registerData);
     if (info['ok']) {
-      Navigator.pushReplacementNamed(context, 'home');
+      Navigator.pushReplacementNamed(context, 'bottomBar');
     } else {
       showAlert(context, null, 'Email already exists');
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_bloc_pattern/src/pages/bottom_bar.dart';
 import 'package:login_bloc_pattern/src/pages/edit_page.dart';
 import 'package:login_bloc_pattern/src/pages/form_p1_screen.dart';
 import 'package:login_bloc_pattern/src/pages/home_page.dart';
@@ -32,5 +33,6 @@ Map<String, WidgetBuilder> getAppRoutes() {
     'phototour': (BuildContext context) => PhotoTourPage(),
     'phototourKitchen': (BuildContext context) => PhotoKitchen(),
     'propertyReview': (BuildContext context) => PropertyReview(),
+    'bottomBar': (BuildContext context) => BottomBar(),
   };
 }

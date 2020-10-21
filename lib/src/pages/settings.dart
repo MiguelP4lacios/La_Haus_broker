@@ -14,7 +14,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(227, 255, 246, 1.0),
+        backgroundColor: Colors.white,
         title: Text(
           'Configuración',
           style: TextStyle(
@@ -25,7 +25,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         elevation: 0.0,
       ),
-      backgroundColor: Color.fromRGBO(227, 255, 246, 1.0),
+      backgroundColor: Colors.white,
       body: Center(
         child: Container(
           width: sizeScreen.width * 0.90,
