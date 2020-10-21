@@ -4,8 +4,10 @@ part 'insert_property_aparment.g.dart';
 
 @JsonSerializable()
 class InsertPropertyAparmnet {
+  //String built_type;
+  //string proyect;
   String price;
-  String neighborhood;
+  String neighborhood; // → hood
   String adress;
   String admon;
   String buildArea;

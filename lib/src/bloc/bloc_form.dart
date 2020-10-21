@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import '../models/insert_property_aparment.dart';
+import '../resources/property_provider.dart';
 
 class FormBloc {
   //List DropDown
@@ -242,7 +243,8 @@ class FormBloc {
   });
 
   //Functions
-  submit() {
+  Future<bool> submit() async {
+    final propertyProvider = PropertyProvider();
     final aparmet = InsertPropertyAparmnet(
         price: _price.value.toString(),
         neighborhood: _neighborhood.value.toString(),
@@ -266,10 +268,12 @@ class FormBloc {
             _inhabitants.value == 'Si' ? true.toString() : false.toString(),
         rent: _rent.value.toString(),
         mortgage: _mortgage.value.toString());
-    //print('${_price.value}\n${_neighborhood.value}\n${_adress.value}\n${_admon.value}\n${_buildArea.value}\n${_privateArea.value}');
-    //print(${_socialClass.value}\n${_state.value}\n${_floor.value}\n${_elevator.value}\n${_propertyTax.value}');
-    //print('${_rooms.value}\n${_bathrooms.value}\n${_halfBathrooms.value}\n${_parkingLot.value}\n${_utilityRoom.value}');
-    //print('${_empty.value == 'Yes' ? true.toString() : false.toString()}\n${_rent.value}');
     print(aparmet.toJson());
+    Map info = await propertyProvider.newProperty(aparmet.toJson());
+    if (info['ok']) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
