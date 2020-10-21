@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:login_bloc_pattern/model/examplesModel.dart';
 import 'package:login_bloc_pattern/src/resources/customDialog.dart';
-import 'package:login_bloc_pattern/src/widgets/swipercard_examples.dart';
+// import 'package:login_bloc_pattern/src/widgets/lateral_menu.dart';
+// import 'package:login_bloc_pattern/src/widgets/swipercard_examples.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 // import 'dart:js';
@@ -51,47 +53,74 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => _showOption(context),
-          backgroundColor: Theme.of(context).primaryColor,
-          child: Icon(Icons.add),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         bottomNavigationBar: BottomAppBar(
           notchMargin: 4.0,
           shape: CircularNotchedRectangle(),
-          elevation: 100.0,
+          elevation: 200.0,
           color: Theme.of(context).primaryColor,
           child: Row(
             // mainAxisAlignment: MainAxisAlignment.center,
             // crossAxisAlignment: CrossAxisAlignment.start,
-            // mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              IconButton(
-                padding: EdgeInsets.symmetric(horizontal: 15.0),
-                splashColor: Colors.lightGreen[100],
-                color: Colors.white,
-                iconSize: 30.0,
-                icon: Icon(Icons.skip_next),
-                onPressed: () => _exampleCards(context),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    splashColor: Colors.lightGreen[100],
+                    color: Colors.white,
+                    iconSize: 40.0,
+                    icon: Icon(Icons.menu),
+                    onPressed: () => showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) => openBottomDrawer()),
+                  ),
+                  Text(
+                    'Ejemplos',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.white),
+                    textAlign: TextAlign.center,
+                  )
+                ],
               ),
               // SizedBox(width: 15.0),
-              IconButton(
-                padding: EdgeInsets.symmetric(horizontal: 15.0),
-                splashColor: Colors.lightGreen[100],
-                color: Colors.white,
-                iconSize: 30.0,
-                icon: Icon(Icons.photo_library),
-                onPressed: () => Navigator.pushNamed(context, 'propertyReview'),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    padding: EdgeInsets.symmetric(horizontal: 30.0),
+                    splashColor: Colors.lightGreen[100],
+                    color: Colors.white,
+                    iconSize: 40.0,
+                    icon: Icon(Icons.home),
+                    onPressed: () =>
+                        Navigator.pushNamed(context, 'propertyReview'),
+                  ),
+                  Text('Resumen',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.white))
+                ],
               ),
               // SizedBox(width: 15.0),
-              IconButton(
-                padding: EdgeInsets.symmetric(horizontal: 15.0),
-                splashColor: Colors.lightGreen[100],
-                color: Colors.white,
-                iconSize: 30.0,
-                icon: Icon(Icons.cake),
-                onPressed: () {},
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
+                    splashColor: Colors.lightGreen[100],
+                    color: Colors.white,
+                    iconSize: 40.0,
+                    icon: Icon(Icons.save_alt),
+                    onPressed: _showPictures,
+                  ),
+                  Text(
+                    'Guardar',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.white),
+                  )
+                ],
               ),
 
               // Container(
@@ -136,28 +165,6 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
               // ),
             ],
           ),
-          // bottomNavigationBar: BottomNavigationBar(
-          //   items: const <BottomNavigationBarItem>[
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.home),
-          //       // title: Text('Home'),
-          //       label: 'Home',
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.business),
-          //       // title: Text('Business'),
-          //       label: 'Business',
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.school),
-          //       // title: Text('School'),
-          //       label: 'School',
-          //     ),
-          //   ],
-          //   currentIndex: _selectedIndex,
-          //   selectedItemColor: Colors.amber[800],
-          //   onTap: _onItemTapped,
-          // ),
         ));
   }
 
@@ -188,11 +195,12 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
   Widget _description(Size _screen) {
     return Container(
         alignment: Alignment.center,
-        //color: Colors.brown[200],
+        margin: EdgeInsets.symmetric(horizontal: 10.0),
+        // color: Colors.brown[200],
         width: double.infinity,
-        height: _screen.height * 0.1,
+        height: _screen.height * 0.15,
         child: Text(
-          'Estos son algunos ejemplos de buenas fotos de cocinas.',
+          'Iniciemos este tour por la propiedad. Te quiaremos por cada lugar tomando las mejores fotos. Recuerda seguir las recomendaciones que te dimos.',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.black87,
@@ -203,18 +211,21 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
 
   Widget _swiper(BuildContext context, Size _screen) {
     return Container(
-      alignment: Alignment.center,
+      // alignment: Alignment.center,
       // padding: EdgeInsets.symmetric(vertical: 5.0),
       // margin: EdgeInsets.all(40.0),
       // color: Colors.red,
       width: double.infinity,
-      height: _screen.height * 0.52,
+      height: _screen.height * 0.50,
       child: MaterialButton(
+          padding: EdgeInsets.all(0),
+          // minWidth: double.infinity,
           onPressed: () => _showOption(context),
           child: Stack(
             alignment: Alignment.center,
             children: <Widget>[
               Image(
+                width: double.infinity,
                 colorBlendMode: BlendMode.lighten,
                 color: Colors.white54,
                 fit: BoxFit.cover,
@@ -232,33 +243,6 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
               ),
             ],
           )),
-
-      // ImageButton(
-      //   width: 200.0,
-      //   height: 200.0,
-      //   onTap: _takePhoto,
-      //   children: <Widget>[
-      //     Text(
-      //       'datbbbbbbbbbbba',
-      //       textAlign: TextAlign.center,
-      //       style: TextStyle(color: Colors.black),
-      //     )
-      //   ],
-      //   // width: double.infinity,
-      //   // mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //   // crossAxisAlignment: CrossAxisAlignment.center,
-      //   // paddingTop: 5,
-      //   unpressedImage: Image.asset(
-      //     'assets/photoTour/cocina.png',
-      //     fit: BoxFit.contain,
-      //   ),
-      //   pressedImage: Image.asset(
-      //     'assets/no-image.jpg',
-      //     fit: BoxFit.fitWidth,
-      //     color: Colors.red,
-      //     colorBlendMode: BlendMode.color,
-      //   ),
-      // ),
     );
   }
 
@@ -323,30 +307,6 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
   //   if ();
   // }
 
-  void _exampleCards(BuildContext context) {
-    showDialog(
-        context: context,
-        barrierDismissible: true,
-        builder: (context) {
-          return AlertDialog(
-            contentPadding: EdgeInsets.fromLTRB(5, 10, 5, 15),
-            // insetPadding: EdgeInsets.symmetric(horizontal: 15.0),
-            elevation: 8.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            title: Text('Ejemplos de Cocinas'),
-            content: SwiperCard(),
-            actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK')),
-            ],
-          );
-        });
-  }
-
   void _showOption(BuildContext context) {
     showDialog(
         context: context,
@@ -358,12 +318,14 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
                   style: TextStyle(color: Theme.of(context).primaryColor)),
               actions: [
                 Row(
-                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    // crossAxisAlignment: CrossAxisAlignment.stretch,
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15.0),
-                        // color: Colors.green[100],
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 30.0, vertical: 10.0),
+                        // color: Colors.red[100],
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Container(
@@ -381,23 +343,54 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
                         ),
                       ),
                       Container(
-                          alignment: Alignment.centerLeft,
-                          // margin: EdgeInsets.symmetric(horizontal: 10.0),
-                          padding: EdgeInsets.symmetric(horizontal: 10.0),
-                          // color: Colors.red[100],
-                          child: FlatButton(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 15.0, horizontal: 30.0),
-                              color: Theme.of(context).primaryColor,
-                              // textColor: Colors.black,
-                              onPressed: _showPictures,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: Text('Galeria',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20.0))))
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 30.0, vertical: 10.0),
+                          // color: Colors.green[100],
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  shape: BoxShape.rectangle,
+                                  color: Theme.of(context).primaryColor),
+                              // borderRadius: BorderRadius.circular(100.0)
+                              child: IconButton(
+                                iconSize: 40.0,
+                                icon: Icon(Icons.photo_library,
+                                    color: Colors.white),
+                                onPressed: _showPictures,
+                              ),
+                            ),
+
+                            // Container(
+                            //   alignment: Alignment.centerLeft,
+                            //   // margin: EdgeInsets.symmetric(horizontal: 10.0),
+                            //   padding: EdgeInsets.symmetric(horizontal: 10.0),
+                            //   color: Colors.red[100],
+                            //   child: IconButton(
+                            //     iconSize: 40.0,
+                            //     icon: Icon(Icons.camera_alt, color: Colors.white),
+                            //     onPressed: _showPictures,
+                            //   ),
+
+                            // FlatButton(
+                            //     padding: EdgeInsets.symmetric(
+                            //         vertical: 15.0, horizontal: 30.0),
+                            //     color: Theme.of(context).primaryColor,
+                            //     // textColor: Colors.black,
+                            //     onPressed: _showPictures,
+                            //     shape: RoundedRectangleBorder(
+                            //         borderRadius: BorderRadius.circular(20.0)),
+                            //     child: Text('Galeria',
+                            //         style: TextStyle(
+                            //             color: Colors.white,
+                            //             fontWeight: FontWeight.bold,
+                            //             fontSize: 20.0
+                            //             )
+                            //             )
+                            //             )
+                          ))
                     ])
               ]);
         });
@@ -493,6 +486,48 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
       //cleaning
     }
     setState(() {});
+  }
+
+  Widget openBottomDrawer() {
+    return Drawer(
+      child: ListView.builder(
+        padding: EdgeInsets.zero,
+        itemCount: examplesView.length,
+        itemBuilder: (context, i) => _createTile(context, examplesView[i]),
+      ),
+    );
+  }
+
+  void _exampleCards(BuildContext context, ExamplesView examplesView) {
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (context) {
+          return AlertDialog(
+            contentPadding: EdgeInsets.fromLTRB(5, 10, 5, 15),
+            // insetPadding: EdgeInsets.symmetric(horizontal: 15.0),
+            elevation: 8.0,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            title: Text(examplesView.description),
+            content: examplesView.onTap,
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK')),
+            ],
+          );
+        });
+  }
+
+  Widget _createTile(BuildContext context, ExamplesView examplesView) {
+    return ListTile(
+      leading: Icon(examplesView.icon),
+      title: Text(examplesView.title),
+      onTap: () => _exampleCards(context, examplesView),
+    );
   }
 
   // Future<void> retrieveLostData() async {
