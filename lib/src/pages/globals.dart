@@ -3,3 +3,6 @@
 library la_haus_broker.globals;
 
 String propertyType = '';
+String userId = '';
+String propertyId = '';
+String token = '';
