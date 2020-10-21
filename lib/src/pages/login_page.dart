@@ -95,7 +95,7 @@ class LoginPage extends StatelessWidget {
   _login(LoginBloc bloc, BuildContext context) async {
     Map info = await userProvider.login(bloc.email, bloc.password);
     if (info['ok']) {
-      Navigator.pushReplacementNamed(context, 'home');
+      Navigator.pushReplacementNamed(context, 'bottomBar');
     } else {
       showAlert(context, '', 'Email or Password incorrect');
     }

@@ -15,7 +15,7 @@ class _SecurityPageState extends State<SecurityPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(227, 255, 246, 1.0),
+        backgroundColor: Colors.white,
         title: Text(
           'Seguridad',
           style: TextStyle(
@@ -26,7 +26,7 @@ class _SecurityPageState extends State<SecurityPage> {
         ),
         elevation: 0.0,
       ),
-      backgroundColor: Color.fromRGBO(227, 255, 246, 1.0),
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           _personalInfo(context), // Contenido central
@@ -45,13 +45,13 @@ class _SecurityPageState extends State<SecurityPage> {
     return SingleChildScrollView(
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
               width: sizeScreen.width * 0.80,
               child: Column(
                 children: [
-                  // SizedBox(height: 50),
+                  SizedBox(height: 20),
                   _oldPassword(bloc),
                   SizedBox(height: 10),
                   _newPassword(bloc),
@@ -63,15 +63,38 @@ class _SecurityPageState extends State<SecurityPage> {
             SizedBox(height: 30.0),
             RaisedButton(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 40.0,
+                  vertical: 10.0),
                 child: Text(
                   'Guardar Cambios',
-                  style: TextStyle(fontSize: 15.0),
+                  style: TextStyle(fontSize: 18.0),
                 ),
               ),
               onPressed: () {
                 // lógica para sobreescribir y guardar la información 
                 Navigator.of(context).pushNamed('profile');
+              },
+              shape:
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+              elevation: 0.0,
+              color: Color.fromRGBO(0, 208, 175, 1.0),
+              textColor: Colors.white,
+            ),
+            SizedBox(height: 20.0),
+            RaisedButton(
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 40.0,
+                  vertical: 10.0),
+                child: Text(
+                  'Eliminar Usuario',
+                  style: TextStyle(fontSize: 18.0),
+                ),
+              ),
+              onPressed: () {
+                // lógica para sobreescribir y guardar la información 
+                Navigator.of(context).pushNamed('login');
               },
               shape:
                   RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),

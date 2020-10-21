@@ -7,22 +7,15 @@ class Perfil extends StatefulWidget {
 
 // ignore: unused_element
 class _PerfilState extends State<Perfil> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(227, 255, 246, 1.0),
+      backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SizedBox(height: 10),
+          // SizedBox(height: 10),
           Card(
             // Rectangulo superior
             shape: RoundedRectangleBorder(
@@ -118,52 +111,6 @@ class _PerfilState extends State<Perfil> {
             textColor: Colors.white,
           ),
         ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        // menú inferior
-        items:  <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Container(
-                child: Image(
-                  image: AssetImage('assets/images/add.png'),
-                  fit: BoxFit.cover),
-                width: 30,
-                height: 30,
-              ),
-              title: Text(
-                'Agregar',
-                style: TextStyle(fontSize: 14),
-              )),
-          BottomNavigationBarItem(
-              icon: Container(
-                child: Image(
-                  image: AssetImage('assets/images/folder.png'),
-                  fit: BoxFit.cover),
-                width: 30,
-                height: 30,
-              ),
-              title: Text(
-                'Propiedades',
-                style: TextStyle(fontSize: 14),
-              )),
-          BottomNavigationBarItem(
-              icon: Container(
-                child: Image(
-                  image: AssetImage('assets/images/user.png'),
-                  fit: BoxFit.cover),
-                width: 30,
-                height: 30,
-              ),
-              title: Text(
-                'Perfil',
-                style: TextStyle(fontSize: 14),
-              )),
-        ],
-        backgroundColor: Colors.white,
-        iconSize: 40.0,
-        selectedItemColor: Color.fromRGBO(0, 208, 175, 1.0),
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
       ),
     );
   }

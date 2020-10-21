@@ -9,10 +9,6 @@ class HomePage extends StatelessWidget {
     final bloc = BlocProvider.home(context);
     bloc.getProperties();
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: laHausLogo(),
-      ),
       body: _getProperties(bloc),
       floatingActionButton: _newHouseButton(context),
     );

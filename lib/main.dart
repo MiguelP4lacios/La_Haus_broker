@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'La Haus Brokers',
         debugShowCheckedModeBanner: false,
-        initialRoute: _userPref.token == '' ? 'introslide' : 'home',
+        initialRoute: _userPref.token == '' ? 'introslide' : 'bottomBar',
         routes: getAppRoutes(),
         theme: ThemeData(primaryColor: Color.fromRGBO(0, 208, 174, 1.0)),
       ),

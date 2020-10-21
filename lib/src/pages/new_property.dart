@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_bloc_pattern/src/widgets/app_bar.dart';
+// import 'package:login_bloc_pattern/src/widgets/app_bar.dart';
 import 'globals.dart' as globals;
 
 class PropertyPage extends StatefulWidget {
@@ -8,7 +8,7 @@ class PropertyPage extends StatefulWidget {
 }
 
 class _PropertyPageState extends State<PropertyPage> {
-  final int _numPages = 4;
+  final int _numPages = 2;
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
 
@@ -36,31 +36,11 @@ class _PropertyPageState extends State<PropertyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          // Botones superiores (puede ser un appbar)
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              color: Color.fromRGBO(103, 103, 103, 1.0),
-              icon: new Icon(Icons.arrow_back_ios, color: Colors.white),
-              onPressed: () {
-                Navigator.of(context).pushNamed('home');
-              },
-            ),
-            laHausLogo(),
-            SizedBox(width: MediaQuery.of(context).size.width * 0.13),
-          ],
-        ),
-      ),
       backgroundColor: Colors.white,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround, // esto daña el slider
         children: [
-          SizedBox(height: 20), // espacio
-          SizedBox(height: 20), // espacio
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1), // espacio
           Text(
             '¿Qué vas a ofrecer?',
             style: TextStyle(
@@ -68,10 +48,10 @@ class _PropertyPageState extends State<PropertyPage> {
                 color: Color.fromRGBO(103, 103, 103, 1.0),
                 fontWeight: FontWeight.w400),
           ), // fontFamily: 'Raleway',
-          SizedBox(height: 50), // espacio
+          SizedBox(height: 40), // espacio
           Container(
             // sección de las imagenes del centro
-            width: double.infinity, // ancho automático
+            width: 250, // ancho automático
             height: 250, // altura específica
             child: PageView(
               // scroll en el centro por defecto horizontal
@@ -81,15 +61,13 @@ class _PropertyPageState extends State<PropertyPage> {
                   _currentPage = page;
                 });
               },
-              physics:
-                  BouncingScrollPhysics(), //para cuando llegue al final no me muestre un círculo de delimiter
+              physics: BouncingScrollPhysics(), //para cuando llegue al final no me muestre un círculo de delimiter
               children: <Widget>[
                 // Lista del contenido que va a estar en el scroll
-                cambiarImagen('assets/images/house.png', 'Casa', context, 1),
-                cambiarImagen(
-                    'assets/images/building.png', 'Apartamento', context, 2),
-                cambiarImagen('assets/images/field.png', 'Finca', context, 3),
-                cambiarImagen('assets/images/trees.png', 'Lote', context, 4)
+                cambiarImagen('assets/images/house.png', 'Casa', context),
+                cambiarImagen('assets/images/building.png', 'Apartamento', context),
+                // cambiarImagen('assets/images/field.png', 'Finca', context),
+                // cambiarImagen('assets/images/trees.png', 'Lote', context)
               ],
             ),
           ),
@@ -117,7 +95,6 @@ class _PropertyPageState extends State<PropertyPage> {
                   ),
                 )
               : Text(''),
-          SizedBox(height: 50), // espacio
         ],
       ),
     );
@@ -125,8 +102,7 @@ class _PropertyPageState extends State<PropertyPage> {
 }
 
 // Función para escoger tipo de propiedad
-cambiarImagen(
-    String imagen, String propertyType, BuildContext context, int idx) {
+cambiarImagen(String imagen, String propertyType, BuildContext context) {
   return Container(
     child: Column(children: [
       IconButton(
