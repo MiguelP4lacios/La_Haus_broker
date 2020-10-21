@@ -264,11 +264,10 @@ class RegisterPage extends StatelessWidget {
   _register(RegisterBloc bloc, BuildContext context) async {
     final blocLogin = BlocProvider.login(context);
     Map<String, dynamic> registerData = {
-      'first_name': bloc.firstName,
-      'last_name': bloc.lastName,
-      'phone_number': '(' + bloc.indicative + ')' + bloc.phoneNumber,
       'email': bloc.email,
       'password': bloc.password,
+      'full_name': bloc.firstName + bloc.lastName,
+      'cellphone': bloc.phoneNumber,
     };
     blocLogin.changeEmail(registerData['email']);
     blocLogin.changePassword(registerData['password']);

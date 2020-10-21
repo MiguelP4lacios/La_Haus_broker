@@ -21,27 +21,27 @@ HouseModel houseModelFromJson(String str) =>
        "rent": "",
        "mortage": "",
        "photos": [],
-}
-*/
+} */
+
 String houseModelToJson(HouseModel data) => json.encode(data.toJson());
 
 class HouseModel {
   HouseModel(
       {this.id,
-      // this.userId,
+      this.userId,
       this.price,
       this.state,
       this.neighborhood,
       this.propertyType,
       this.address,
       this.bathrooms,
-      // this.admon,
-      // this.buidArea,
-      // this.privateArea,
-      // this.socialClass,
-      // this.propertyTax,
-      // this.rent,
-      // this.mortage,
+      this.admon,
+      this.buidArea,
+      this.privateArea,
+      this.socialClass,
+      this.propertyTax,
+      this.rent,
+      this.mortage,
       this.img});
   double heigth = 320.0;
   String id;
@@ -54,13 +54,13 @@ class HouseModel {
   String address;
   String bathrooms;
 
-  // String admon;
-  // String buidArea;
-  // String privateArea;
-  // String socialClass;
-  // String propertyTax;
-  // String rent;
-  // String mortage;
+  String admon;
+  String buidArea;
+  String privateArea;
+  String socialClass;
+  String propertyTax;
+  String rent;
+  String mortage;
 
   /* This is the position in the animatedList
   it is used only for UI */
@@ -74,14 +74,14 @@ class HouseModel {
         propertyType: json['property_type'],
         address: json["address"],
         bathrooms: json["bathrooms"],
-        // admon: json["admon"],
-        // buidArea: json["buid_area"],
-        // privateArea: json["private_area"],
-        // socialClass: json["social_class"],
-        // propertyTax: json["property_tax"],
-        // rent: json["rent"],
-        // mortage: json["mortage"],
-        // userId: json["user_id"],
+        admon: json["admon"],
+        buidArea: json["buid_area"],
+        privateArea: json["private_area"],
+        socialClass: json["social_class"],
+        propertyTax: json["property_tax"],
+        rent: json["rent"],
+        mortage: json["mortage"],
+        userId: json["user_id"],
       );
   void changeAttr(key, value) {
     /* since the map representation keys of this property does not have the same
@@ -121,12 +121,12 @@ class HouseModel {
         "address": address,
         "bathrooms": bathrooms,
         "img": img,
-        // "admon": admon,
-        // "buid_area": buidArea,
-        // "private_area": privateArea,
-        // "social_class": socialClass,
-        // "property_tax": propertyTax,
-        // "rent": rent,
-        // "mortage": mortage,
+        "admon": admon,
+        "buid_area": buidArea,
+        "private_area": privateArea,
+        "social_class": socialClass,
+        "property_tax": propertyTax,
+        "rent": rent,
+        "mortage": mortage,
       };
 }
