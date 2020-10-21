@@ -97,7 +97,7 @@ class LoginPage extends StatelessWidget {
     if (info['ok']) {
       Navigator.pushReplacementNamed(context, 'bottomBar');
     } else {
-      showAlert(context, null, 'Email or Password incorrect');
+      showAlert(context, '', 'Email or Password incorrect');
     }
     // Navigator.pushNamed(context, 'home');
   }
