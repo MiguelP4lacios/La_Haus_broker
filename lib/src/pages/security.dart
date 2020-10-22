@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
 import 'package:login_bloc_pattern/src/bloc/profile_bloc.dart';
+import 'package:login_bloc_pattern/src/resources/profile_resource.dart';
 
 class SecurityPage extends StatefulWidget {
   @override
@@ -72,7 +73,7 @@ class _SecurityPageState extends State<SecurityPage> {
                 ),
               ),
               onPressed: () {
-                // lógica para sobreescribir y guardar la información 
+                // hacer put para guardar la información nueva
                 Navigator.of(context).pushNamed('profile');
               },
               shape:
@@ -94,6 +95,7 @@ class _SecurityPageState extends State<SecurityPage> {
               ),
               onPressed: () {
                 // lógica para sobreescribir y guardar la información 
+                deleteUser();
                 Navigator.of(context).pushNamed('login');
               },
               shape:

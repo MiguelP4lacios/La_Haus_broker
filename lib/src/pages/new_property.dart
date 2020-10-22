@@ -40,7 +40,7 @@ class _PropertyPageState extends State<PropertyPage> {
       body: Column(
         // mainAxisAlignment: MainAxisAlignment.spaceAround, // esto daña el slider
         children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.1), // espacio
+          SizedBox(height: MediaQuery.of(context).size.height * 0.15), // espacio
           Text(
             '¿Qué vas a ofrecer?',
             style: TextStyle(

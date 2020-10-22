@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
 import 'package:login_bloc_pattern/src/bloc/profile_bloc.dart';
+import 'package:login_bloc_pattern/src/user_preferences/user_preferences.dart';
+
 
 class PersonalPage extends StatefulWidget {
   @override
@@ -9,6 +11,8 @@ class PersonalPage extends StatefulWidget {
 
 class _PersonalPageState extends State<PersonalPage> {
   final buttonColor = Color.fromRGBO(0, 208, 174, 1.0);
+  final _userPref = new UserPreferences();
+
   
   @override
   Widget build(BuildContext context) {
@@ -88,7 +92,8 @@ class _PersonalPageState extends State<PersonalPage> {
                 ),
               ),
               onPressed: () {
-                // lógica para sobreescribir y guardar la información 
+                // hacer put con la información nueva 
+                // moficiar las preferencias de usuario con la información nueva
                 Navigator.of(context).pushNamed('profile');
               },
               shape:
@@ -109,7 +114,7 @@ class _PersonalPageState extends State<PersonalPage> {
 
   Widget _modifyFirstName(ProfileBloc bloc) {
     return StreamBuilder(
-      stream: bloc.firstNameStream,
+      stream: bloc.firstNameStream, // devolver datos
       builder: (context, snapshot) {
         return Container(
           child: TextField(
@@ -119,7 +124,7 @@ class _PersonalPageState extends State<PersonalPage> {
               hintText: 'Miguel', // Aquí se va a leer los datos previos
               errorText: snapshot.error,
             ),
-            onChanged: (value) => bloc.changeFirstName(value),
+            onChanged: (value) => bloc.changeFirstName(value), // escuchar datos
           ),
         );
       },

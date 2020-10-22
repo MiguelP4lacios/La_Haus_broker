@@ -11,7 +11,6 @@ class _HelpPageState extends State<HelpPage> {
   
   @override
   Widget build(BuildContext context) {
-    final sizeScreen = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -27,12 +26,28 @@ class _HelpPageState extends State<HelpPage> {
         elevation: 0.0,
       ),
       backgroundColor: Colors.white,
-      body: Center(
+      body: Stack(
+        children: <Widget>[
+          _helpMenu(context)
+        ],
+        ),
+      );
+  }
+
+  Widget _helpMenu(BuildContext context) {
+    final sizeScreen = MediaQuery.of(context).size;
+
+    return SingleChildScrollView(
+      child: Center(
         child: Container(
           width: sizeScreen.width * 0.90,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              SafeArea(
+                child: Container(
+                  height: sizeScreen.height * 0.10,
+                )),
               Card(
                 color: Colors.white,
                 elevation: 4.0,
@@ -88,17 +103,20 @@ class _HelpPageState extends State<HelpPage> {
                   ]
                 )
               ),
-              RaisedButton(
+              SizedBox(height: sizeScreen.height * 0.1),
+              RaisedButton( 
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 40.0,
+                    vertical: 10.0),
                   child: Text(
                     'Contáctenos',
-                    style: TextStyle(fontSize: 15.0),
+                    style: TextStyle(fontSize: 18.0),
                   ),
                 ),
                 onPressed: () {
-                  // lógica para conseguir datos de contacto 
-                  Navigator.of(context).pushNamed('profile');
+                  //
+                  showAlertDialog(context);
                 },
                 shape:
                     RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
@@ -109,7 +127,54 @@ class _HelpPageState extends State<HelpPage> {
             ],
           ),
         ),
-      ));
+      ),
+    );
+  }
+        
+
+
+
+  showAlertDialog(BuildContext context) {
+
+    // set up the button
+    Widget sendButton = RaisedButton( 
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 40.0,
+          vertical: 10.0),
+        child: Text(
+          'Enviar',
+          style: TextStyle(fontSize: 18.0),
+        ),
+      ),
+      onPressed: () {},
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      elevation: 0.0,
+      color: Color.fromRGBO(0, 208, 175, 1.0),
+      textColor: Colors.white,
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Contáctenos"),
+      content: TextField(
+        autofocus: true,
+        decoration: new InputDecoration(
+            labelText: 'Déjanos tu mensaje'),
+      ),
+      actions: [
+        sendButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   Container _buildDivider() {

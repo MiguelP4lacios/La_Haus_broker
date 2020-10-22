@@ -26,6 +26,8 @@ class ProfileValidators {
       sink.addError('Name must be contain letters');
     }
   });
+
+
   final validateName =
       StreamTransformer<String, String>.fromHandlers(handleData: (name, sink) {
     RegExp regExp = new RegExp(r'[\d\s\W_]');
@@ -35,6 +37,8 @@ class ProfileValidators {
       sink.addError('Name must be contain letters');
     }
   });
+
+  
   final validateEmail =
     StreamTransformer<String, String>.fromHandlers(handleData: (email, sink) {
     Pattern pattern =
