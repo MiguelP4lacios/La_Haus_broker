@@ -16,10 +16,11 @@ class PropertyProvider {
         });
     print(resp.statusCode);
     print(resp.body.toString());
-    ResApartment ap = ResApartment.fromJson(json.decode(resp.body));
-    print(ap.id);
-    if (resp.statusCode == 200) {
-      return {'ok': true};
+    //ResApartment ap = ResApartment.fromJson(json.decode(resp.body));
+    Map<String, dynamic> ap = json.decode(resp.body);
+    print(ap['properties']['id']);
+    if (resp.statusCode == 201) {
+      return {'ok': true, 'id': ap['properties']['id']};
     } else {
       return {'ok': false}; //'message': decodedResp['errors']};
     }

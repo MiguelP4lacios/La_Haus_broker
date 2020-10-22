@@ -37,9 +37,7 @@ class FormBloc {
   final _rent = BehaviorSubject<String>();
   final _mortgage = BehaviorSubject<String>();
 
-  /*final _admon = BehaviorSubject<String>();
-  final _builArea = BehaviorSubject<String>();
-  final _privateArea = BehaviorSubject<String>();*/
+  final _idProperty = BehaviorSubject<dynamic>();
 
   //Get Data from Streams (out)
   // 1
@@ -73,6 +71,12 @@ class FormBloc {
       _inhabitants.stream.transform(validateDropDown);
   Stream<num> get rent => _rent.stream.transform(validateMoney);
   Stream<num> get mortgage => _mortgage.stream.transform(validateMoney);
+
+
+
+  Stream<dynamic> get idStream => _idProperty.stream;
+
+  dynamic get idProperty => _idProperty.value;
 
   // Form validate
   // 1
@@ -160,6 +164,8 @@ class FormBloc {
   Function(String) get changeRent => _rent.sink.add;
   Function(String) get changeMortgage => _mortgage.sink.add;
 
+  Function(dynamic) get changId => _idProperty.sink.add;
+
   dispose() {
     // 1
     _project.close();
@@ -188,6 +194,8 @@ class FormBloc {
     _inhabitants.close();
     _rent.close();
     _mortgage.close();
+
+    _idProperty.close();
   }
 
   //Transformers
@@ -286,6 +294,7 @@ class FormBloc {
     print(apartment.toJson());
     Map info = await propertyProvider.newProperty(apartment.toJson());
     if (info['ok']) {
+      changId(info['id']);
       return true;
     } else {
       return false;
