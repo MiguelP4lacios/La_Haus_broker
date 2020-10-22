@@ -6,6 +6,7 @@ import 'package:login_bloc_pattern/src/resources/customDialog.dart';
 // import 'package:login_bloc_pattern/src/widgets/lateral_menu.dart';
 // import 'package:login_bloc_pattern/src/widgets/swipercard_examples.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:login_bloc_pattern/src/providers/property_provider.dart';
 
 // import 'dart:js';
 // import 'package:flutter_swiper/flutter_swiper.dart';
@@ -32,7 +33,8 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
   // List<File> _photos = List<File>();
   // List<String> _photosUrls = List<String>();
   // List<PhotoSource> _photosSources = List<PhotoSource>();
-  File photo;
+  final propertyProvider = PropertyProvider();
+  PickedFile photo;
 
   @override
   Widget build(BuildContext context) {
@@ -398,6 +400,12 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
 
   _takePhoto() async {
     _imageProcess(ImageSource.camera);
+
+    final propertyUrl = await propertyProvider.uploadPhoto(photo);
+
+    print(propertyUrl);
+
+    // TODO: RESPUESTA DE BACKEND
 
     // final pickedFile = await _picker.getImage(...);
     // final File file = File(pickedFile.path);
