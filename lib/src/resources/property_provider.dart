@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:login_bloc_pattern/src/user_preferences/user_preferences.dart';
+import '../models/res_apartment.dart';
 
 class PropertyProvider {
   final _userPref = new UserPreferences();
@@ -15,6 +16,8 @@ class PropertyProvider {
         });
     print(resp.statusCode);
     print(resp.body.toString());
+    ResApartment ap = ResApartment.fromJson(json.decode(resp.body));
+    print(ap.id);
     if (resp.statusCode == 200) {
       return {'ok': true};
     } else {
