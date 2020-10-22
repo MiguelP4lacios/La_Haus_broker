@@ -45,8 +45,10 @@ class FormP1Screen extends StatelessWidget {
           padding: EdgeInsets.all(40.0),
           child: Column(
             children: <Widget>[
+              cardForm(null, project(bloc)),
               cardForm(Icons.attach_money, price(bloc)),
-              cardForm(Icons.location_city, neighborhood(bloc)),
+              cardForm(null, neighborhood(bloc)),
+              cardForm(Icons.location_city, city(bloc)),
               cardForm(Icons.place, adress(bloc)),
               cardForm(Icons.build, admon(bloc)),
               cardForm(Icons.adjust, buildArea(bloc)),
@@ -71,6 +73,29 @@ class FormP1Screen extends StatelessWidget {
               ),
               title: item)),
     );
+  }
+
+
+  Widget project(FormBloc bloc) {
+    return StreamBuilder<String>(
+        stream: bloc.project,
+        builder: (context, snapshot) {
+          return Column(
+            children: [
+              TextField(
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                  labelText: 'Proyecto',
+                  hintText: '',
+                  hintStyle: TextStyle(color: Color(0xFFD9D9D9)),
+                  errorText: snapshot.error,
+                ),
+                onChanged: bloc.changeProject,
+              ),
+              SizedBox(height: 15.0)
+            ],
+          );
+        });
   }
 
   Widget price(FormBloc bloc) {
@@ -114,6 +139,28 @@ class FormP1Screen extends StatelessWidget {
                   errorText: snapshot.error,
                 ),
                 onChanged: bloc.changeNeighborhood,
+              ),
+              SizedBox(height: 15.0)
+            ],
+          );
+        });
+  }
+
+  Widget city(FormBloc bloc) {
+    return StreamBuilder<String>(
+        stream: bloc.city,
+        builder: (context, snapshot) {
+          return Column(
+            children: [
+              TextField(
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                  labelText: 'Ciudad',
+                  hintText: 'Medellín',
+                  hintStyle: TextStyle(color: Color(0xFFD9D9D9)),
+                  errorText: snapshot.error,
+                ),
+                onChanged: bloc.changeCity,
               ),
               SizedBox(height: 15.0)
             ],

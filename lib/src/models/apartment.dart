@@ -1,13 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'insert_property_aparment.g.dart';
+part 'apartment.g.dart';
 
 @JsonSerializable()
-class InsertPropertyAparmnet {
-  //String built_type;
-  //string proyect;
+class Apartment {
+  String builtType;
+  String project;
   String price;
-  String neighborhood; // → hood
+  String hood; // → hood
+  String city;
   String adress;
   String admon;
   String buildArea;
@@ -15,9 +16,9 @@ class InsertPropertyAparmnet {
   // 2
   String socialClass;
   String state;
-  String floor;
+  String apt;
   String elevator;
-  //String commonArea
+  String commonArea;
   String propertyTax;
   // 3
   String rooms;
@@ -31,9 +32,12 @@ class InsertPropertyAparmnet {
   String rent;
   String mortgage;
 
-  InsertPropertyAparmnet(
-      {this.price,
-      this.neighborhood,
+  Apartment(
+      {this.builtType,
+      this.project,
+      this.price,
+      this.hood, // → hood
+      this.city,
       this.adress,
       this.admon,
       this.buildArea,
@@ -41,9 +45,9 @@ class InsertPropertyAparmnet {
       // 2
       this.socialClass,
       this.state,
-      this.floor,
+      this.apt,
       this.elevator,
-      //this.commonArea
+      this.commonArea,
       this.propertyTax,
       // 3
       this.rooms,
@@ -57,5 +61,5 @@ class InsertPropertyAparmnet {
       this.rent,
       this.mortgage});
 
-  Map<String, dynamic> toJson() => _$InsertPropertyAparmnetToJson(this);
+  Map<String, dynamic> toJson() => _$ApartmentToJson(this);
 }

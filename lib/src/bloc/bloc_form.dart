@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
-import '../models/insert_property_aparment.dart';
+import '../models/apartment.dart';
 import '../resources/property_provider.dart';
+import '../pages/globals.dart' as globals;
 
 class FormBloc {
   //List DropDown
@@ -9,8 +10,10 @@ class FormBloc {
   List<String> listDecision = ['Si', 'No'];
   //Declare Streams
   // 1
+  final _project = BehaviorSubject<String>();
   final _price = BehaviorSubject<String>();
   final _neighborhood = BehaviorSubject<String>();
+  final _city = BehaviorSubject<String>();
   final _adress = BehaviorSubject<String>();
   final _admon = BehaviorSubject<String>();
   final _buildArea = BehaviorSubject<String>();
@@ -20,7 +23,7 @@ class FormBloc {
   final _state = BehaviorSubject<String>();
   final _floor = BehaviorSubject<String>();
   final _elevator = BehaviorSubject<String>();
-  //final _commonArea = BehaviorSubject<String>();
+  final _commonArea = BehaviorSubject<String>();
   final _propertyTax = BehaviorSubject<String>();
   // 3
   final _rooms = BehaviorSubject<String>();
@@ -40,9 +43,11 @@ class FormBloc {
 
   //Get Data from Streams (out)
   // 1
+  Stream<String> get project => _project.stream.transform(validateString);
   Stream<num> get price => _price.stream.transform(validateMoney);
   Stream<String> get neighborhood =>
       _neighborhood.stream.transform(validateString);
+  Stream<String> get city => _city.stream.transform(validateString);
   Stream<String> get adress => _adress.stream.transform(validateString);
   Stream<num> get admon => _admon.stream.transform(validateMoney);
   Stream<num> get buildArea => _buildArea.stream.transform(validateNum);
@@ -52,6 +57,7 @@ class FormBloc {
   Stream<String> get state => _state.stream.transform(validateDropDown);
   Stream<num> get floor => _floor.stream.transform(validateMoney);
   Stream<String> get elevator => _elevator.stream.transform(validateDropDown);
+  Stream<String> get commonArea => _commonArea.stream.transform(validateString);
   Stream<num> get propertyTax => _propertyTax.stream.transform(validateMoney);
   // 3
   Stream<num> get rooms => _rooms.stream.transform(validateMoney);
@@ -124,8 +130,10 @@ class FormBloc {
 
   //Set Data (In)
   // 1
+  Function(String) get changeProject => _project.sink.add;
   Function(String) get changePrice => _price.sink.add;
   Function(String) get changeNeighborhood => _neighborhood.sink.add;
+  Function(String) get changeCity => _city.sink.add;
   Function(String) get changeAdress => _adress.sink.add;
   Function(String) get changeAdmon => _admon.sink.add;
   Function(String) get changeBuildArea => _buildArea.sink.add;
@@ -136,6 +144,7 @@ class FormBloc {
   Function(String) get changeState => _state.sink.add;
   Function(String) get changeFloor => _floor.sink.add;
   Function(String) get changeElevator => _elevator.sink.add;
+  Function(String) get changeCommonArea => _commonArea.sink.add;
   Function(String) get changePropertyTax => _propertyTax.sink.add;
 
   // 3
@@ -153,8 +162,10 @@ class FormBloc {
 
   dispose() {
     // 1
+    _project.close();
     _price.close();
     _neighborhood.close();
+    _city.close();
     _adress.close();
     _admon.close();
     _buildArea.close();
@@ -164,7 +175,7 @@ class FormBloc {
     _state.close();
     _floor.close();
     _elevator.close();
-    // _commonArea.close();
+    _commonArea.close();
     _propertyTax.close();
     // 3
     _rooms.close();
@@ -245,17 +256,21 @@ class FormBloc {
   //Functions
   Future<bool> submit() async {
     final propertyProvider = PropertyProvider();
-    final aparmet = InsertPropertyAparmnet(
+    final apartment = Apartment(
+        project: _project.value.toString(),
+        builtType: globals.propertyType,
         price: _price.value.toString(),
-        neighborhood: _neighborhood.value.toString(),
+        hood: _neighborhood.value.toString(),
+        city: _city.value.toString(),
         adress: _adress.value.toString(),
         admon: _admon.value.toString(),
         buildArea: _buildArea.value.toString(),
         privateArea: _privateArea.value.toString(),
         socialClass: _socialClass.value.toString(),
         state: _state.value.toString(),
-        floor: _floor.value.toString(),
+        apt: _floor.value.toString(),
         elevator: _elevator.value == 'Si' ? true.toString() : false.toString(),
+        commonArea: _commonArea.value.toString(),
         propertyTax: _propertyTax.value.toString(),
         rooms: _rooms.value.toString(),
         bathrooms: _bathrooms.value.toString(),
@@ -268,8 +283,8 @@ class FormBloc {
             _inhabitants.value == 'Si' ? true.toString() : false.toString(),
         rent: _rent.value.toString(),
         mortgage: _mortgage.value.toString());
-    print(aparmet.toJson());
-    Map info = await propertyProvider.newProperty(aparmet.toJson());
+    print(apartment.toJson());
+    Map info = await propertyProvider.newProperty(apartment.toJson());
     if (info['ok']) {
       return true;
     } else {

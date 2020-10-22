@@ -24,7 +24,7 @@ class FormP2Screen extends StatelessWidget {
         cardForm(Icons.star, state(bloc)),
         cardForm(null, floor(bloc)),
         cardForm(Icons.swap_vertical_circle, elevator(bloc)),
-        /* commonArea(), */
+        cardForm(null, commonArea(bloc)),
         cardForm(null, propertyTax(bloc)),
         nextButton(bloc)
       ];
@@ -32,7 +32,7 @@ class FormP2Screen extends StatelessWidget {
       List<Widget> formHouse = [
         cardForm(Icons.group, socialClass(bloc)),
         cardForm(null, state(bloc)),
-        /* commonArea(), */
+        cardForm(null, commonArea(bloc)),
         cardForm(null, propertyTax(bloc)),
         nextButton(bloc)
       ];
@@ -153,7 +153,7 @@ class FormP2Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Piso',
+                  labelText: 'Piso/Apartamento',
                   hintText: '3',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
@@ -195,6 +195,28 @@ class FormP2Screen extends StatelessWidget {
                 onChanged: bloc.changeElevator,
               ),
               //Container(height: 15.0),
+            ],
+          );
+        });
+  }
+
+  Widget commonArea(FormBloc bloc) {
+    return StreamBuilder<String>(
+        stream: bloc.commonArea,
+        builder: (context, snapshot) {
+          return Column(
+            children: [
+              TextField(
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                  labelText: 'Barrio',
+                  hintText: 'La Romana',
+                  hintStyle: TextStyle(color: Color(0xFFD9D9D9)),
+                  errorText: snapshot.error,
+                ),
+                onChanged: bloc.changeCommonArea,
+              ),
+              SizedBox(height: 15.0)
             ],
           );
         });
