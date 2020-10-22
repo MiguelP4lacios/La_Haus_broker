@@ -4,59 +4,59 @@ part 'apartment.g.dart';
 
 @JsonSerializable()
 class Apartment {
-  String builtType;
+  String built_type;
   String project;
   String price;
   String hood; // → hood
   String city;
-  String adress;
+  String address;
   String admon;
-  String buildArea;
-  String privateArea;
+  String build_area;
+  String private_area;
   // 2
-  String socialClass;
+  String social_class;
   String state;
   String apt;
   String elevator;
-  String commonArea;
-  String propertyTax;
+  String common_areas;
+  String property_tax;
   // 3
   String rooms;
   String bathrooms;
-  String halfBathrooms;
-  String parkingLot;
-  String utilityRoom;
+  String half_bathrooms;
+  String parking_lot;
+  String utility_room;
   // 4
-  String empty;
+  String empty_property;
   String inhabitants;
   String rent;
   String mortgage;
 
   Apartment(
-      {this.builtType,
+      {this.built_type,
       this.project,
       this.price,
       this.hood, // → hood
       this.city,
-      this.adress,
+      this.address,
       this.admon,
-      this.buildArea,
-      this.privateArea,
+      this.build_area,
+      this.private_area,
       // 2
-      this.socialClass,
+      this.social_class,
       this.state,
       this.apt,
       this.elevator,
-      this.commonArea,
-      this.propertyTax,
+      this.common_areas,
+      this.property_tax,
       // 3
       this.rooms,
       this.bathrooms,
-      this.halfBathrooms,
-      this.parkingLot,
-      this.utilityRoom,
+      this.half_bathrooms,
+      this.parking_lot,
+      this.utility_room,
       // 4
-      this.empty,
+      this.empty_property,
       this.inhabitants,
       this.rent,
       this.mortgage});

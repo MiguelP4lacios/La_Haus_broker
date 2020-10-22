@@ -188,13 +188,15 @@ class FormP4Screen extends StatelessWidget {
             ),
             onPressed: !snapshot.hasData
                 ? null
-                : () async{
-                  if (await bloc.submit()){
-                    Navigator.of(context).pushNamed('phototour');
-                  } else {
-                    showAlert(context, '', 'ERROR');
-                  }
-                },
+                : () async {
+                    if (await bloc.submit()) {
+                      /* print("Here → ${bloc.idProperty}"); */
+                      Navigator.of(context)
+                          .pushNamed('phototour', /* arguments: bloc.idProperty */);
+                    } else {
+                      showAlert(context, '', 'ERROR');
+                    }
+                  },
             splashColor: Color(0xFF56b473),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0)),
