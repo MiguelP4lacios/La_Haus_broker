@@ -209,8 +209,8 @@ class FormP2Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
-                  labelText: 'Barrio',
-                  hintText: 'La Romana',
+                  labelText: 'Areas comunes',
+                  hintText: 'Acomun 1, Acomun 2, ...',
                   hintStyle: TextStyle(color: Color(0xFFD9D9D9)),
                   errorText: snapshot.error,
                 ),

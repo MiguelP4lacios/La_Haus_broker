@@ -14,6 +14,7 @@ class PropertyProvider {
           'Authorization': 'Bearer ${_userPref.token}'
         });
     print(resp.statusCode);
+    print(resp.body.toString());
     if (resp.statusCode == 200) {
       return {'ok': true};
     } else {
