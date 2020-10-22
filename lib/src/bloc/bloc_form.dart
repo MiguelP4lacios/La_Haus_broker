@@ -37,7 +37,7 @@ class FormBloc {
   final _rent = BehaviorSubject<String>();
   final _mortgage = BehaviorSubject<String>();
 
-  final _idProperty = BehaviorSubject<dynamic>();
+  /* final _idProperty = BehaviorSubject<dynamic>(); */
 
   //Get Data from Streams (out)
   // 1
@@ -74,9 +74,9 @@ class FormBloc {
 
 
 
-  Stream<dynamic> get idStream => _idProperty.stream;
+  /* Stream<dynamic> get idStream => _idProperty.stream;
 
-  dynamic get idProperty => _idProperty.value;
+  dynamic get idProperty => _idProperty.value; */
 
   // Form validate
   // 1
@@ -164,7 +164,7 @@ class FormBloc {
   Function(String) get changeRent => _rent.sink.add;
   Function(String) get changeMortgage => _mortgage.sink.add;
 
-  Function(dynamic) get changId => _idProperty.sink.add;
+  /* Function(dynamic) get changId => _idProperty.sink.add; */
 
   dispose() {
     // 1
@@ -195,7 +195,7 @@ class FormBloc {
     _rent.close();
     _mortgage.close();
 
-    _idProperty.close();
+    /* _idProperty.close(); */
   }
 
   //Transformers
@@ -266,27 +266,27 @@ class FormBloc {
     final propertyProvider = PropertyProvider();
     final apartment = Apartment(
         project: _project.value.toString(),
-        builtType: globals.propertyType,
+        built_type: globals.propertyType,
         price: _price.value.toString(),
         hood: _neighborhood.value.toString(),
         city: _city.value.toString(),
-        adress: _adress.value.toString(),
+        address: _adress.value.toString(),
         admon: _admon.value.toString(),
-        buildArea: _buildArea.value.toString(),
-        privateArea: _privateArea.value.toString(),
-        socialClass: _socialClass.value.toString(),
+        build_area: _buildArea.value.toString(),
+        private_area: _privateArea.value.toString(),
+        social_class: _socialClass.value.toString(),
         state: _state.value.toString(),
         apt: _floor.value.toString(),
         elevator: _elevator.value == 'Si' ? true.toString() : false.toString(),
-        commonArea: _commonArea.value.toString(),
-        propertyTax: _propertyTax.value.toString(),
+        common_areas: _commonArea.value.toString(),
+        property_tax: _propertyTax.value.toString(),
         rooms: _rooms.value.toString(),
         bathrooms: _bathrooms.value.toString(),
-        halfBathrooms: _halfBathrooms.value.toString(),
-        parkingLot: _parkingLot.value.toString(),
-        utilityRoom:
+        half_bathrooms: _halfBathrooms.value.toString(),
+        parking_lot: _parkingLot.value.toString(),
+        utility_room:
             _utilityRoom.value == 'Si' ? true.toString() : false.toString(),
-        empty: _empty.value == 'Si' ? true.toString() : false.toString(),
+        empty_property: _empty.value == 'Si' ? true.toString() : false.toString(),
         inhabitants:
             _inhabitants.value == 'Si' ? true.toString() : false.toString(),
         rent: _rent.value.toString(),
@@ -294,7 +294,7 @@ class FormBloc {
     print(apartment.toJson());
     Map info = await propertyProvider.newProperty(apartment.toJson());
     if (info['ok']) {
-      changId(info['id']);
+      /* changId(info['id']); */
       return true;
     } else {
       return false;

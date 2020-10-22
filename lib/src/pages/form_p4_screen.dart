@@ -190,9 +190,9 @@ class FormP4Screen extends StatelessWidget {
                 ? null
                 : () async {
                     if (await bloc.submit()) {
-                      print("Here → ${bloc.idProperty}");
+                      /* print("Here → ${bloc.idProperty}"); */
                       Navigator.of(context)
-                          .pushNamed('phototour', arguments: bloc.idProperty);
+                          .pushNamed('phototour', /* arguments: bloc.idProperty */);
                     } else {
                       showAlert(context, '', 'ERROR');
                     }

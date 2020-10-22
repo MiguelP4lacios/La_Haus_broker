@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:login_bloc_pattern/src/user_preferences/user_preferences.dart';
 import '../models/res_apartment.dart';
+import '../pages/globals.dart' as globals;
 
 class PropertyProvider {
   final _userPref = new UserPreferences();
@@ -18,9 +19,12 @@ class PropertyProvider {
     print(resp.body.toString());
     //ResApartment ap = ResApartment.fromJson(json.decode(resp.body));
     Map<String, dynamic> ap = json.decode(resp.body);
-    print(ap['properties']['id']);
+    print(ap['properties']);
     if (resp.statusCode == 201) {
-      return {'ok': true, 'id': ap['properties']['id']};
+      globals.jsonProperty = ap['properties'];
+      return {
+        'ok': true, /* 'property': ap['properties'] */
+      };
     } else {
       return {'ok': false}; //'message': decodedResp['errors']};
     }
