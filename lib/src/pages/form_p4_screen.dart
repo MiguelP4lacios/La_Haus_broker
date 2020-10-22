@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
 import 'package:login_bloc_pattern/src/widgets/app_bar.dart';
+import 'package:login_bloc_pattern/src/widgets/show_alert.dart';
 
 class FormP4Screen extends StatelessWidget {
   const FormP4Screen({Key key}) : super(key: key);
@@ -187,9 +188,14 @@ class FormP4Screen extends StatelessWidget {
             ),
             onPressed: !snapshot.hasData
                 ? null
-                : () {
-                    bloc.submit();
-                    Navigator.of(context).pushNamed('phototour');
+                : () async {
+                    if (await bloc.submit()) {
+                      /* print("Here → ${bloc.idProperty}"); */
+                      Navigator.of(context)
+                          .pushNamed('phototour', /* arguments: bloc.idProperty */);
+                    } else {
+                      showAlert(context, '', 'ERROR');
+                    }
                   },
             splashColor: Color(0xFF56b473),
             shape: RoundedRectangleBorder(

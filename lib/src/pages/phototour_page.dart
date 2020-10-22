@@ -23,23 +23,24 @@ class PhotoTourPage extends StatelessWidget {
     final screen = MediaQuery.of(context).size;
     return Column(
       // crossAxisAlignment: CrossAxisAlignment.center,
-      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         _title(context),
-        SizedBox(height: 5.0),
+        // SizedBox(height: 5.0),
         _image(context),
-        SizedBox(height: 15.0),
+        // SizedBox(height: 15.0),
         _textRows(screen),
-        SizedBox(height: 25.0),
+        // SizedBox(height: 25.0),
         _comenzarButton(context)
       ],
     );
   }
 
   Widget _comenzarButton(BuildContext context) {
+    // final propData = ModalRoute.of(context).settings.arguments;
     return FlatButton(
       textColor: Colors.white,
-      onPressed: () => Navigator.pushNamed(context, 'phototourKitchen'),
+      onPressed: () => Navigator.pushNamed(context, 'propertyReview'),
       child: Text(
         'Comenzar',
         style: TextStyle(fontSize: 18.0),

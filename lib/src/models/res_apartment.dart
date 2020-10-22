@@ -1,11 +1,16 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'insert_property_aparment.g.dart';
+part 'res_apartment.g.dart';
 
 @JsonSerializable()
-class InsertPropertyAparmnet {
+class ResApartment {
+  num id;
+  num userId;
+  String builtType;
+  String project;
   String price;
-  String neighborhood;
+  String hood; // → hood
+  String city;
   String adress;
   String admon;
   String buildArea;
@@ -13,25 +18,28 @@ class InsertPropertyAparmnet {
   // 2
   String socialClass;
   String state;
-  String floor;
-  String elevator;
-  //String commonArea
+  String apt;
+  bool elevator;
+  String commonArea;
   String propertyTax;
   // 3
   String rooms;
   String bathrooms;
   String halfBathrooms;
   String parkingLot;
-  String utilityRoom;
+  bool utilityRoom;
   // 4
-  String empty;
-  String inhabitants;
+  bool empty;
+  bool inhabitants;
   String rent;
   String mortgage;
 
-  InsertPropertyAparmnet(
-      {this.price,
-      this.neighborhood,
+  ResApartment(
+      {this.builtType,
+      this.project,
+      this.price,
+      this.hood, // → hood
+      this.city,
       this.adress,
       this.admon,
       this.buildArea,
@@ -39,9 +47,9 @@ class InsertPropertyAparmnet {
       // 2
       this.socialClass,
       this.state,
-      this.floor,
+      this.apt,
       this.elevator,
-      //this.commonArea
+      this.commonArea,
       this.propertyTax,
       // 3
       this.rooms,
@@ -55,5 +63,8 @@ class InsertPropertyAparmnet {
       this.rent,
       this.mortgage});
 
-  Map<String, dynamic> toJson() => _$InsertPropertyAparmnetToJson(this);
+  //Map<String, dynamic> toJson() => _$ApartmentToJson(this);
+
+  factory ResApartment.fromJson(Map<String, dynamic> json) =>
+      _$ResApartmentFromJson(json);
 }

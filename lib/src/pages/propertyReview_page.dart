@@ -1,32 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:login_bloc_pattern/src/models/apartment.dart';
+import 'package:login_bloc_pattern/src/providers/photo_provider.dart';
+// import 'globals.dart' as globals;
 
 class PropertyReview extends StatelessWidget {
   // const PropertyReview({Key key}) : super(key: key);
+  final photoProvider = new PhotoProvider();
 
   @override
   Widget build(BuildContext context) {
+    // final Object propData = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      appBar: AppBar(title: Text('Resumen de la propiedad')),
+      appBar: AppBar(title: Text('Resumen de la Propiedad')),
       body: ListView(
         padding: EdgeInsets.all(10.0),
         children: <Widget>[
-          _cardTipo1(),
+          // _cardTipo1(context, propData),
           SizedBox(height: 30.0),
           _cardTipo2(),
           SizedBox(height: 30.0),
-          _cardTipo1(),
+          _cardTipo2(),
           SizedBox(height: 30.0),
           _cardTipo2(),
           SizedBox(height: 30.0),
-          _cardTipo1(),
+          _cardTipo2(),
           SizedBox(height: 30.0),
           _cardTipo2(),
           SizedBox(height: 30.0),
-          _cardTipo1(),
+          _cardTipo2(),
           SizedBox(height: 30.0),
           _cardTipo2(),
           SizedBox(height: 30.0),
-          _cardTipo1(),
+          _cardTipo2(),
           SizedBox(height: 30.0),
           _cardTipo2(),
           SizedBox(height: 30.0),
@@ -35,7 +40,9 @@ class PropertyReview extends StatelessWidget {
     );
   }
 
-  Widget _cardTipo1() {
+  Widget _cardTipo1(BuildContext context, Object propData) {
+    // final propertyMap = globals.propertyTour;
+
     return Card(
       elevation: 10.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -43,12 +50,15 @@ class PropertyReview extends StatelessWidget {
         children: [
           ListTile(
             leading: Icon(Icons.photo_album, color: Colors.purple[300]),
-            title: Text('Beverly Hills'),
-            subtitle: Text('Property located in HollyWood Springs'),
+            title: Text('propertyMap'),
+            // subtitle: Text('Property located in HollyWood Springs'),
           ),
           Row(
             children: [
-              FlatButton(onPressed: () {}, child: Text('Edit')),
+              FlatButton(
+                  onPressed: () =>
+                      Navigator.pushNamed(context, 'phototourKitchen'),
+                  child: Text('Edit')),
               FlatButton(onPressed: () {}, child: Text('Publish')),
             ],
             mainAxisAlignment: MainAxisAlignment.end,
@@ -56,8 +66,7 @@ class PropertyReview extends StatelessWidget {
           Column(
             children: [
               FadeInImage(
-                image: NetworkImage(
-                    'https://images.adsttc.com/media/images/5be9/fd5c/08a5/e5a5/8c00/008f/medium_jpg/CARLES_FAUS_ARQUITECTURA_-_CARMEN_HOUSE_(2).jpg?1542061390'),
+                image: AssetImage('assets/nice_kitchens/k7.jpg'),
                 placeholder: AssetImage('assets/jar-loading.gif'),
                 fadeInDuration: Duration(milliseconds: 200),
                 height: 300.0,
@@ -67,24 +76,29 @@ class PropertyReview extends StatelessWidget {
                   padding: EdgeInsets.all(10.0), child: Text('House Sold'))
             ],
           ),
-          Divider(),
-          ListTile(
-            leading: Icon(Icons.photo_album, color: Colors.yellowAccent),
-            title: Text('Do you want to know more?'),
-            subtitle: Text(
-                'Please refer to the owner of this house if you want more information'),
-          ),
-          Row(
-            children: [
-              FlatButton(onPressed: () {}, child: Text('Cancelar')),
-              FlatButton(onPressed: () {}, child: Text('OK')),
-            ],
-            mainAxisAlignment: MainAxisAlignment.end,
-          ),
         ],
       ),
     );
   }
+
+  // Widget _createList() {
+  //   return FutureBuilder(
+  //       future: photoProvider.loadProperty(),
+  //       builder:
+  //           (BuildContext context, AsyncSnapshot<List<Apartment>> snapshot) {
+  //         if (snapshot.hasData) {
+  //           final apartments = snapshot.data;
+  //           return ListView.builder(
+  //               itemCount: apartments.length,
+  //               itemBuilder: (context, i) =>
+  //                   _cardTipo1(context, apartments[i]));
+  //         } else {
+  //           return Center(
+  //             child: CircularProgressIndicator(),
+  //           );
+  //         }
+  //       });
+  // }
 
   Widget _cardTipo2() {
     return Card(

@@ -6,3 +6,5 @@ String propertyType = '';
 String userId = '';
 String propertyId = '';
 String token = '';
+
+Map<String, dynamic> jsonProperty;
