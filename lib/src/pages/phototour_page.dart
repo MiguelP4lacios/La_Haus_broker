@@ -37,9 +37,10 @@ class PhotoTourPage extends StatelessWidget {
   }
 
   Widget _comenzarButton(BuildContext context) {
+    // final propData = ModalRoute.of(context).settings.arguments;
     return FlatButton(
       textColor: Colors.white,
-      onPressed: () => Navigator.pushNamed(context, 'phototourKitchen'),
+      onPressed: () => Navigator.pushNamed(context, 'propertyReview'),
       child: Text(
         'Comenzar',
         style: TextStyle(fontSize: 18.0),

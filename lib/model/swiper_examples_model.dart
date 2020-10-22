@@ -105,10 +105,10 @@ final cardlistCommonAreas = [
   Card(
       imageUrl: 'assets/exteriors/common3.jpg',
       description: 'Captura el detalle y el ambiente que comunica el lugar.'),
-  // Card(
-  //     imageUrl: 'assets/exteriors/common4.jpg',
-  //     description:
-  //         'Captura todo el lugar haciendo la toma desde una distancia adecuada.'),
+  Card(
+      imageUrl: 'assets/exteriors/common4.jpg',
+      description:
+          'Captura todo el lugar haciendo la toma desde una distancia adecuada.'),
   Card(
       imageUrl: 'assets/exteriors/common5.jpg',
       description: 'Otro buen ejemplo de la distancia.'),

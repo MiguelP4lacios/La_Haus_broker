@@ -52,6 +52,14 @@ class SwiperCardBedroom extends StatelessWidget {
   }
 }
 
+class SwiperCardCommonAreas extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return _processSwiperCard(
+        cardlistCommonAreas, cardlistCommonAreas, cardlistCommonAreas, context);
+  }
+}
+
 Widget _processSwiperCard(
     List imageUrl, List description, List length, BuildContext context) {
   final _screenSize = MediaQuery.of(context).size;
@@ -90,30 +98,5 @@ Widget _processSwiperCard(
     },
     itemCount: length.length,
     pagination: new SwiperPagination(),
-    // control: new SwiperControl(),
   );
 }
-
-class SwiperCardCommonAreas extends StatelessWidget {
-  // final int index;
-  // SwiperCard(this.index);
-
-  @override
-  Widget build(BuildContext context) {
-    // final ExamplesView prodData = ModalRoute.of(context).settings.arguments;
-    return _processSwiperCard(
-        cardlistCommonAreas, cardlistCommonAreas, cardlistCommonAreas, context);
-  }
-}
-
-// class SwiperCardPatio extends StatelessWidget {
-//   // final int index;
-//   // SwiperCard(this.index);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // final ExamplesView prodData = ModalRoute.of(context).settings.arguments;
-//     return _processSwiperCard(
-//         cardlistPatio, cardlistPatio, cardlistPatio, context);
-//   }
-// }
