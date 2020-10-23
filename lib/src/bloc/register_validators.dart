@@ -34,7 +34,7 @@ class RegisterValidators {
     if (!regExp.hasMatch(name)) {
       sink.add(name);
     } else {
-      sink.addError('No use espacios o charácteres especiales');
+      sink.addError('No use espacios o signos');
     }
   });
 }
