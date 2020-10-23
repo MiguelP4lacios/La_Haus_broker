@@ -3,6 +3,7 @@ import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
 import 'package:login_bloc_pattern/src/bloc/edit_bloc.dart';
 import 'package:login_bloc_pattern/src/widgets/app_bar.dart';
 import 'package:login_bloc_pattern/src/widgets/custom_dialog.dart';
+import '../pages/globals.dart' as globals;
 
 class EditPage extends StatefulWidget {
   EditPage({Key key}) : super(key: key);
@@ -14,7 +15,7 @@ class EditPage extends StatefulWidget {
 class _EditPageState extends State<EditPage> {
   /* This page is used to edit the attributes of the property
   selected in the home page */
-  dynamic property;
+  dynamic _property;
   /* specialKeyboards are used to tell the _showAlertDialog function
   what kind of TextInput needs to use, each key of the variable represent 
   a key inside the property map representation, when any keyboard is found
@@ -33,18 +34,18 @@ class _EditPageState extends State<EditPage> {
   Widget build(BuildContext context) {
     final propData = ModalRoute.of(context).settings.arguments;
     if (propData != null) {
-      property = propData;
-      inhabitants[0] = property.inhabitants;
-      inhabitants[1] = !property.inhabitants;
-      empty[0] = property.empty;
-      empty[1] = !property.empty;
-      utilityRoom[0] = property.utilityRoom;
-      utilityRoom[1] = !property.utilityRoom;
-      state[0] = property.state == 'Nuevo' ? true : false;
+      _property = propData;
+      inhabitants[0] = _property.inhabitants;
+      inhabitants[1] = !_property.inhabitants;
+      empty[0] = _property.empty;
+      empty[1] = !_property.empty;
+      utilityRoom[0] = _property.utilityRoom;
+      utilityRoom[1] = !_property.utilityRoom;
+      state[0] = _property.state == 'Nuevo' ? true : false;
       state[1] = !state[0];
     }
     final bloc = BlocProvider.edit(context);
-    bloc.changeProperty(property);
+    bloc.changeProperty(_property);
     bloc.getMapProperty();
     return Scaffold(
       appBar: AppBar(
@@ -54,7 +55,7 @@ class _EditPageState extends State<EditPage> {
           children: [
             GestureDetector(
               child: Icon(Icons.arrow_back_ios, color: Colors.white),
-              onTap: () => Navigator.pushReplacementNamed(context, 'home'),
+              onTap: () => Navigator.pushReplacementNamed(context, 'bottomBar'),
             ),
             laHausLogo(),
             SizedBox(width: MediaQuery.of(context).size.width * 0.07),
@@ -91,6 +92,9 @@ class _EditPageState extends State<EditPage> {
     fields.add(_isEmpty(context));
     fields.add(_hasUtilityRoom(context));
     fields.add(_state(context));
+    fields.add(Divider());
+    fields.add(_phothosButton(context));
+    fields.add(Divider());
     property.remove('Inhabitado');
     property.remove('Vacío');
     property.remove('Cuarto Util');
@@ -118,8 +122,21 @@ class _EditPageState extends State<EditPage> {
     return fields;
   }
 
-  /* toggle buttons must be here */
+  Widget _phothosButton(BuildContext context) {
+    return ListTile(
+      title: Text('Editar Galería'),
+      trailing: FlatButton(
+        onPressed: () {
+          globals.jsonProperty = _property.toJson();
+          Navigator.of(context).pushNamed('phototour');
+        },
+        child:
+            Icon(Icons.photo_library, color: Color.fromRGBO(0, 208, 174, 1.0)),
+      ),
+    );
+  }
 
+  /* toggle buttons must be here */
   Widget _state(BuildContext context) {
     /* used to create a toggle button to ask for boolean values of the property
     */
@@ -154,7 +171,7 @@ class _EditPageState extends State<EditPage> {
                 } else {
                   state[buttonIndex] = false;
                 }
-                property.state = state[0] == true ? 'Nuevo' : 'Usado';
+                _property.state = state[0] == true ? 'Nuevo' : 'Usado';
               }
             });
           },
@@ -198,7 +215,7 @@ class _EditPageState extends State<EditPage> {
                 } else {
                   utilityRoom[buttonIndex] = true;
                 }
-                property.utilityRoom = utilityRoom[1];
+                _property.utilityRoom = utilityRoom[1];
               }
             });
           },
@@ -242,7 +259,7 @@ class _EditPageState extends State<EditPage> {
                 } else {
                   empty[buttonIndex] = true;
                 }
-                property.empty = empty[1];
+                _property.empty = empty[1];
               }
             });
           },
@@ -286,7 +303,7 @@ class _EditPageState extends State<EditPage> {
                 } else {
                   inhabitants[buttonIndex] = true;
                 }
-                property.inhabitants = inhabitants[1];
+                _property.inhabitants = inhabitants[1];
               }
             });
           },
@@ -378,8 +395,8 @@ class _EditPageState extends State<EditPage> {
             label: Text('Eliminar'),
             backgroundColor: Color.fromRGBO(0, 208, 174, 1.0),
             onPressed: () {
-              homeBloc.deleteProperty(property.id);
-              Navigator.pushReplacementNamed(context, 'home');
+              homeBloc.deleteProperty(_property.id);
+              Navigator.pushReplacementNamed(context, 'bottomBar');
             },
           ),
         ),
@@ -392,7 +409,7 @@ class _EditPageState extends State<EditPage> {
               label: Text('Guardar'),
               backgroundColor: Color.fromRGBO(0, 208, 174, 1.0),
               onPressed: () {
-                homeBloc.saveProperty(property);
+                homeBloc.saveProperty(_property);
                 Navigator.pushReplacementNamed(context, 'home');
               },
             )),

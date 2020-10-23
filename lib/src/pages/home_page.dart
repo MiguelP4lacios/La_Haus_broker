@@ -12,10 +12,6 @@ class HomePage extends StatelessWidget {
         stream: bloc.connectionStream,
         builder: (context, snapshot) {
           return Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              title: laHausLogo(),
-            ),
             body: _getProperties(bloc),
             floatingActionButton: _newHouseButton(context, bloc),
             floatingActionButtonLocation:
