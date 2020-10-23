@@ -212,7 +212,7 @@ class RegisterPage extends StatelessWidget {
     if (info['ok']) {
       Navigator.pushReplacementNamed(context, 'home');
     } else {
-      showAlert(context, '', info['message']);
+      showAlert(context, '', 'El correo ingresado ya existe');
     }
   }
 
