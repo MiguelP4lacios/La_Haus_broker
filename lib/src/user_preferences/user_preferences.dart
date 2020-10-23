@@ -42,6 +42,30 @@ class UserPreferences {
     _prefs.setString('userId', value);
   }
 
+  get name {
+    return _prefs.getString('userId') ?? '';
+  }
+
+  set name(String value) {
+    _prefs.setString('userId', value);
+  }
+
+  get cellphone {
+    return _prefs.getString('userId') ?? '';
+  }
+
+  set cellphone(String value) {
+    _prefs.setString('userId', value);
+  }
+
+  get email {
+    return _prefs.getString('userId') ?? '';
+  }
+
+  set email(String value) {
+    _prefs.setString('userId', value);
+  }
+
   // GET y SET de la última página
   get ultimaPagina {
     return _prefs.getString('ultimaPagina') ?? 'login';
