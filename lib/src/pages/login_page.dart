@@ -49,7 +49,7 @@ class LoginPage extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Text('Authentication'),
+                Text('Autenticación'),
                 SizedBox(height: 30.0),
                 _createEmail(bloc),
                 SizedBox(height: 30),
@@ -61,7 +61,7 @@ class LoginPage extends StatelessWidget {
           ),
           SizedBox(height: 20),
           FlatButton(
-            child: Text('Create a new account'),
+            child: Text('Crear nuevo usuario'),
             onPressed: () =>
                 Navigator.pushReplacementNamed(context, 'register'),
           ),
@@ -78,7 +78,7 @@ class LoginPage extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 17.0),
               child: Text(
-                'Login',
+                'Ingresar',
                 style: TextStyle(fontSize: 18.0),
               ),
             ),
@@ -94,10 +94,11 @@ class LoginPage extends StatelessWidget {
 
   _login(LoginBloc bloc, BuildContext context) async {
     Map info = await userProvider.login(bloc.email, bloc.password);
+    print(info);
     if (info['ok']) {
-      Navigator.pushReplacementNamed(context, 'bottomBar');
+      Navigator.pushReplacementNamed(context, 'home');
     } else {
-      showAlert(context, '', 'Email or Password incorrect');
+      showAlert(context, '', 'Correo o Contraseña incorrectos');
     }
     // Navigator.pushNamed(context, 'home');
   }
@@ -112,7 +113,7 @@ class LoginPage extends StatelessWidget {
             obscureText: true,
             decoration: InputDecoration(
               icon: Icon(Icons.lock, color: buttonColor),
-              labelText: 'Password',
+              labelText: 'Contraseña',
               errorText: snapshot.error,
             ),
             onChanged: (value) => bloc.changePassword(value),
@@ -133,7 +134,7 @@ class LoginPage extends StatelessWidget {
               decoration: InputDecoration(
                 icon: Icon(Icons.alternate_email, color: buttonColor),
                 hintText: 'Example@email.com',
-                labelText: 'Email',
+                labelText: 'Correo',
                 errorText: snapshot.error,
               ),
               onChanged: (value) => bloc.changeEmail(value),
