@@ -15,24 +15,6 @@ class Item {
 class RegisterPage extends StatelessWidget {
   final buttonColor = Color.fromRGBO(0, 208, 174, 1.0);
   final userProvider = new UserProvider();
-  final _indicatives = [
-    Item(
-      '+57',
-      Image.asset(
-        'icons/flags/png/co.png',
-        package: 'country_icons',
-        scale: 5,
-      ),
-    ),
-    Item(
-      '+52',
-      Image.asset(
-        'icons/flags/png/mx.png',
-        package: 'country_icons',
-        scale: 5,
-      ),
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +57,7 @@ class RegisterPage extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Text('Create Account'),
+                Text('Crear Cuenta'),
                 SizedBox(height: 30.0),
                 _createFirstName(bloc),
                 SizedBox(height: 10.0),
@@ -97,7 +79,7 @@ class RegisterPage extends StatelessWidget {
           ),
           SizedBox(height: 20),
           FlatButton(
-            child: Text('Do you have an account? Login'),
+            child: Text('¿Ya tienes una cuenta? Ingresar'),
             onPressed: () => Navigator.pushReplacementNamed(context, 'login'),
           ),
         ],
@@ -115,34 +97,16 @@ class RegisterPage extends StatelessWidget {
             obscureText: true,
             decoration: InputDecoration(
               icon: Icon(Icons.lock_outline, color: buttonColor),
-              labelText: 'Confirm Password',
+              labelText: 'Confirmar Contraseña',
               errorText: snapshot.data == null || snapshot.data == true
                   ? null
-                  : 'Passwords must be identicals',
+                  : 'Las contraseñas deben ser idénticas',
             ),
             onChanged: (value) => bloc.changePasswordConfirm(value),
           ),
         );
       },
     );
-  }
-
-  List<DropdownMenuItem<String>> getIndicatives() {
-    List<DropdownMenuItem<String>> newList = new List();
-    _indicatives.forEach((indicative) {
-      newList.add(DropdownMenuItem(
-        child: Row(
-          children: [
-            indicative.icon,
-            SizedBox(width: 5),
-            Text(indicative.name),
-          ],
-        ),
-        value: indicative.name,
-      ));
-    });
-
-    return newList;
   }
 
   Widget _phoneField(BuildContext context, RegisterBloc bloc, double width) {
@@ -155,7 +119,7 @@ class RegisterPage extends StatelessWidget {
             keyboardType: TextInputType.phone,
             decoration: InputDecoration(
               icon: Icon(Icons.phone, color: buttonColor),
-              labelText: 'Phone Number',
+              labelText: 'Celular',
               errorText: snapshot.error,
             ),
             onChanged: (value) => bloc.changePhoneNumber(value),
@@ -165,38 +129,11 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  Widget _indicativeDropDown(RegisterBloc bloc, double width) {
-    return StreamBuilder(
-      stream: bloc.indicativeStream,
-      builder: (context, snapshot) {
-        return Container(
-          margin: EdgeInsets.only(left: 18),
-          width: width * 0.215,
-          child: DropdownButton(
-            value: snapshot.data == null
-                ? bloc.changeIndicative(_indicatives[0].name)
-                : snapshot.data,
-            isExpanded: true,
-            items: getIndicatives(),
-            onChanged: (ind) {
-              bloc.changeIndicative(ind);
-            },
-          ),
-        );
-      },
-    );
-  }
-
   Widget _createPhoneNumber(BuildContext context, RegisterBloc bloc) {
     final widthScreen = MediaQuery.of(context).size.width;
     return Container(
-      width: widthScreen,
-      child: Row(
-        children: <Widget>[
-          _indicativeDropDown(bloc, widthScreen),
-          _phoneField(context, bloc, widthScreen),
-        ],
-      ),
+      width: widthScreen * 0.7,
+      child: _phoneField(context, bloc, widthScreen),
     );
   }
 
@@ -209,7 +146,7 @@ class RegisterPage extends StatelessWidget {
           child: TextField(
             decoration: InputDecoration(
               icon: Icon(Icons.perm_identity, color: buttonColor),
-              labelText: 'Last Name',
+              labelText: 'Apellido',
               errorText: snapshot.error,
             ),
             onChanged: (value) => bloc.changeLastName(value),
@@ -228,7 +165,7 @@ class RegisterPage extends StatelessWidget {
           child: TextField(
             decoration: InputDecoration(
               icon: Icon(Icons.perm_identity, color: buttonColor),
-              labelText: 'First Name',
+              labelText: 'Nombre',
               errorText: snapshot.error,
             ),
             onChanged: (value) => bloc.changeFirstName(value),
@@ -246,7 +183,7 @@ class RegisterPage extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 17.0),
               child: Text(
-                'Create',
+                'Registrar',
                 style: TextStyle(fontSize: 18.0),
               ),
             ),
@@ -273,9 +210,9 @@ class RegisterPage extends StatelessWidget {
     blocLogin.changePassword(registerData['password']);
     Map info = await userProvider.newUser(registerData);
     if (info['ok']) {
-      Navigator.pushReplacementNamed(context, 'bottomBar');
+      Navigator.pushReplacementNamed(context, 'home');
     } else {
-      showAlert(context, '', 'Email already exists');
+      showAlert(context, '', 'El correo ingresado ya existe');
     }
   }
 
@@ -289,7 +226,7 @@ class RegisterPage extends StatelessWidget {
             obscureText: true,
             decoration: InputDecoration(
               icon: Icon(Icons.lock_open, color: buttonColor),
-              labelText: 'Password',
+              labelText: 'Contraseña',
               errorText: snapshot.error,
             ),
             onChanged: (value) => bloc.changePassword(value),
@@ -310,10 +247,10 @@ class RegisterPage extends StatelessWidget {
               decoration: InputDecoration(
                 icon: Icon(Icons.alternate_email, color: buttonColor),
                 hintText: 'Example@email.com',
-                labelText: 'Confirm Email',
+                labelText: 'Confirmar Correo',
                 errorText: snapshot.data == null || snapshot.data == true
                     ? null
-                    : 'Email must be identicals',
+                    : 'Los correos deben ser idénticos',
               ),
               onChanged: (value) => bloc.changeEmailConfirm(value),
             ),
@@ -332,7 +269,7 @@ class RegisterPage extends StatelessWidget {
               decoration: InputDecoration(
                 icon: Icon(Icons.alternate_email, color: buttonColor),
                 hintText: 'Example@email.com',
-                labelText: 'Email',
+                labelText: 'Correo',
                 errorText: snapshot.error,
               ),
               onChanged: (value) => bloc.changeEmail(value),
