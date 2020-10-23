@@ -7,7 +7,7 @@ import '../pages/globals.dart' as globals;
 class FormBloc {
   //List DropDown
   List<String> listUse = ['Nuevo', 'Usado', 'Remodelado', 'Por remodelar'];
-  List<String> listDecision = ['Si', 'No', ''];
+  List<String> listDecision = ['Si', 'No'];
   //Declare Streams
   // 1
   final _project = BehaviorSubject<String>();
@@ -267,7 +267,7 @@ class FormBloc {
     final propertyProvider = PropertyProvider();
     final apartment = Apartment(
         project: _project.value.toString(),
-        built_type: globals.propertyType,
+        built_type: globals.propertyType.toString(),
         price: _price.value.toString(),
         hood: _neighborhood.value.toString(),
         city: _city.value.toString(),
@@ -291,8 +291,9 @@ class FormBloc {
             _empty.value == 'Si' ? true.toString() : false.toString(),
         inhabitants:
             _inhabitants.value == 'Si' ? true.toString() : false.toString(),
+        rent_desition: _rentDesition.value == 'Si' ? true.toString(): false.toString(),
         rent: _rent.value.toString(),
-        mortgage: _mortgage.value.toString());
+        mortgage: _mortgage.value == 'Si' ? true.toString(): false.toString());
     print(apartment.toJson());
     Map info = await propertyProvider.newProperty(apartment.toJson());
     if (info['ok']) {

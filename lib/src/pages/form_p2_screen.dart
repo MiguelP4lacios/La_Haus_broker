@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/widgets/app_bar.dart';
 import 'form_p3_screen.dart';
@@ -10,7 +11,7 @@ class FormP2Screen extends StatelessWidget {
   const FormP2Screen({Key key}) : super(key: key);
 
   _pushScreen(BuildContext context, Widget screen) {
-    Navigator.of(context).push(MaterialPageRoute(
+    Navigator.of(context).push(CupertinoPageRoute(
       builder: (context) => screen,
     ));
   }
