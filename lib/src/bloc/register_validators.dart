@@ -20,10 +20,12 @@ class RegisterValidators {
   final validateNumber = StreamTransformer<String, String>.fromHandlers(
       handleData: (number, sink) {
     RegExp regExp = new RegExp(r'[\D]');
-    if (!regExp.hasMatch(number)) {
+    if (number.length != 10) {
+      sink.addError('Debe contener 10 dígitos');
+    } else if (!regExp.hasMatch(number)) {
       sink.add(number);
     } else {
-      sink.addError('Name must be contain letters');
+      sink.addError('Solo los número son permitidos');
     }
   });
   final validateName =
@@ -32,7 +34,7 @@ class RegisterValidators {
     if (!regExp.hasMatch(name)) {
       sink.add(name);
     } else {
-      sink.addError('Name must be contain letters');
+      sink.addError('No use espacios o charácteres especiales');
     }
   });
 }
