@@ -15,24 +15,6 @@ class Item {
 class RegisterPage extends StatelessWidget {
   final buttonColor = Color.fromRGBO(0, 208, 174, 1.0);
   final userProvider = new UserProvider();
-  final _indicatives = [
-    Item(
-      '+57',
-      Image.asset(
-        'icons/flags/png/co.png',
-        package: 'country_icons',
-        scale: 5,
-      ),
-    ),
-    Item(
-      '+52',
-      Image.asset(
-        'icons/flags/png/mx.png',
-        package: 'country_icons',
-        scale: 5,
-      ),
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
