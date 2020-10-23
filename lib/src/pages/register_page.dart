@@ -226,7 +226,7 @@ class RegisterPage extends StatelessWidget {
             obscureText: true,
             decoration: InputDecoration(
               icon: Icon(Icons.lock_open, color: buttonColor),
-              labelText: 'Password',
+              labelText: 'Contraseña',
               errorText: snapshot.error,
             ),
             onChanged: (value) => bloc.changePassword(value),
