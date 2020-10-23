@@ -52,7 +52,7 @@ class UserProvider {
     Map<String, dynamic> decodedResp = json.decode(resp.body);
     if (decodedResp.containsKey('token')) {
       _userPref.token = decodedResp['token'];
-      _userPref.userId = decodedResp['users']['id'];
+      _userPref.userId = decodedResp['users']['id'].toString();
       return {'ok': true};
     } else {
       return {'ok': false, 'message': decodedResp['errors']};

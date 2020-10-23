@@ -18,15 +18,30 @@ class _EditPageState extends State<EditPage> {
   /* specialKeyboards are used to tell the _showAlertDialog function
   what kind of TextInput needs to use, each key of the variable represent 
   a key inside the property map representation, when any keyboard is found
-  _showAlertDialog will use the default keyboard */
+  _showAlertDialog will use the phone type */
   Map<String, TextInputType> specialKeyboards = {
-    'Precio': TextInputType.phone,
+    'Barrio': TextInputType.text,
+    'Dirección': TextInputType.text,
   };
+  /* toggle button states */
+  List<bool> inhabitants = [true, false];
+  List<bool> empty = [true, false];
+  List<bool> utilityRoom = [true, false];
+  List<bool> state = [true, false];
+
   @override
   Widget build(BuildContext context) {
     final propData = ModalRoute.of(context).settings.arguments;
     if (propData != null) {
       property = propData;
+      inhabitants[0] = property.inhabitants;
+      inhabitants[1] = !property.inhabitants;
+      empty[0] = property.empty;
+      empty[1] = !property.empty;
+      utilityRoom[0] = property.utilityRoom;
+      utilityRoom[1] = !property.utilityRoom;
+      state[0] = property.state == 'Nuevo' ? true : false;
+      state[1] = !state[0];
     }
     final bloc = BlocProvider.edit(context);
     bloc.changeProperty(property);
@@ -72,14 +87,17 @@ class _EditPageState extends State<EditPage> {
     if (property == null) {
       return fields;
     }
-    if (property['img'] != null) {
-      fields.add(FadeInImage(
-        placeholder: AssetImage('assets/login/logo.png'),
-        //TODO: create a place holder to use when the hosue images does not exists
-        image: NetworkImage(property['img']),
-      ));
-      property.remove('img');
-    }
+    fields.add(_isInhabitants(context));
+    fields.add(_isEmpty(context));
+    fields.add(_hasUtilityRoom(context));
+    fields.add(_state(context));
+    property.remove('Inhabitado');
+    property.remove('Vacío');
+    property.remove('Cuarto Util');
+    // TODO: cambiar el éstado del inmueble
+    property.remove('Estado');
+    property.remove('Hipoteca');
+    property.remove('Areas Comunes');
     /* CREATING THE PROPERTY ATTRIBUTES */
     property.forEach((key, value) {
       Widget tile = ListTile(
@@ -98,6 +116,184 @@ class _EditPageState extends State<EditPage> {
     fields.add(_propertyButtons(context, bloc));
 
     return fields;
+  }
+
+  /* toggle buttons must be here */
+
+  Widget _state(BuildContext context) {
+    /* used to create a toggle button to ask for boolean values of the property
+    */
+    double widthScreen = MediaQuery.of(context).size.width;
+    return ListTile(
+      title: Center(
+        child: ToggleButtons(
+          borderRadius: BorderRadius.circular(20),
+          borderColor: Colors.grey[300],
+          color: Color.fromRGBO(0, 208, 174, 1.0),
+          selectedColor: Colors.white,
+          fillColor: Color.fromRGBO(0, 208, 174, 1.0),
+          children: <Widget>[
+            Container(
+                alignment: Alignment.center,
+                height: 60,
+                width: widthScreen * 0.39,
+                child: Text('Nuevo')),
+            Container(
+                alignment: Alignment.center,
+                height: 60,
+                width: widthScreen * 0.39,
+                child: Text('Usado')),
+          ],
+          onPressed: (int index) {
+            setState(() {
+              for (int buttonIndex = 0;
+                  buttonIndex < state.length;
+                  buttonIndex++) {
+                if (buttonIndex == index) {
+                  state[buttonIndex] = true;
+                } else {
+                  state[buttonIndex] = false;
+                }
+                property.state = state[0] == true ? 'Nuevo' : 'Usado';
+              }
+            });
+          },
+          isSelected: state,
+        ),
+      ),
+    );
+  }
+
+  Widget _hasUtilityRoom(BuildContext context) {
+    /* used to create a toggle button to ask for boolean values of the property
+    */
+    double widthScreen = MediaQuery.of(context).size.width;
+    return ListTile(
+      title: Center(
+        child: ToggleButtons(
+          borderRadius: BorderRadius.circular(20),
+          borderColor: Colors.grey[300],
+          color: Color.fromRGBO(0, 208, 174, 1.0),
+          selectedColor: Colors.white,
+          fillColor: Color.fromRGBO(0, 208, 174, 1.0),
+          children: <Widget>[
+            Container(
+                alignment: Alignment.center,
+                height: 60,
+                width: widthScreen * 0.39,
+                child: Text('Cuartos Utiles')),
+            Container(
+                alignment: Alignment.center,
+                height: 60,
+                width: widthScreen * 0.39,
+                child: Text('No cuartos útiles')),
+          ],
+          onPressed: (int index) {
+            setState(() {
+              for (int buttonIndex = 0;
+                  buttonIndex < utilityRoom.length;
+                  buttonIndex++) {
+                if (buttonIndex == index) {
+                  utilityRoom[buttonIndex] = false;
+                } else {
+                  utilityRoom[buttonIndex] = true;
+                }
+                property.utilityRoom = utilityRoom[1];
+              }
+            });
+          },
+          isSelected: utilityRoom,
+        ),
+      ),
+    );
+  }
+
+  Widget _isEmpty(BuildContext context) {
+    /* used to create a toggle button to ask for boolean values of the property
+    */
+    double widthScreen = MediaQuery.of(context).size.width;
+    return ListTile(
+      title: Center(
+        child: ToggleButtons(
+          borderRadius: BorderRadius.circular(20),
+          borderColor: Colors.grey[300],
+          color: Color.fromRGBO(0, 208, 174, 1.0),
+          selectedColor: Colors.white,
+          fillColor: Color.fromRGBO(0, 208, 174, 1.0),
+          children: <Widget>[
+            Container(
+                alignment: Alignment.center,
+                height: 60,
+                width: widthScreen * 0.39,
+                child: Text('Vacía')),
+            Container(
+                alignment: Alignment.center,
+                height: 60,
+                width: widthScreen * 0.39,
+                child: Text('Amoblada')),
+          ],
+          onPressed: (int index) {
+            setState(() {
+              for (int buttonIndex = 0;
+                  buttonIndex < empty.length;
+                  buttonIndex++) {
+                if (buttonIndex == index) {
+                  empty[buttonIndex] = false;
+                } else {
+                  empty[buttonIndex] = true;
+                }
+                property.empty = empty[1];
+              }
+            });
+          },
+          isSelected: empty,
+        ),
+      ),
+    );
+  }
+
+  Widget _isInhabitants(BuildContext context) {
+    /* used to create a toggle button to ask for boolean values of the property
+    */
+    double widthScreen = MediaQuery.of(context).size.width;
+    return ListTile(
+      title: Center(
+        child: ToggleButtons(
+          borderRadius: BorderRadius.circular(20),
+          borderColor: Colors.grey[300],
+          color: Color.fromRGBO(0, 208, 174, 1.0),
+          selectedColor: Colors.white,
+          fillColor: Color.fromRGBO(0, 208, 174, 1.0),
+          children: <Widget>[
+            Container(
+                alignment: Alignment.center,
+                height: 60,
+                width: widthScreen * 0.39,
+                child: Text('Habitada')),
+            Container(
+                alignment: Alignment.center,
+                height: 60,
+                width: widthScreen * 0.39,
+                child: Text('No habitada')),
+          ],
+          onPressed: (int index) {
+            setState(() {
+              for (int buttonIndex = 0;
+                  buttonIndex < inhabitants.length;
+                  buttonIndex++) {
+                if (buttonIndex == index) {
+                  inhabitants[buttonIndex] = false;
+                } else {
+                  inhabitants[buttonIndex] = true;
+                }
+                property.inhabitants = inhabitants[1];
+              }
+            });
+          },
+          isSelected: inhabitants,
+        ),
+      ),
+    );
   }
 
   void _showAlertDialog(BuildContext context, EditBloc bloc, String key) {
@@ -137,7 +333,7 @@ class _EditPageState extends State<EditPage> {
                       TextField(
                         keyboardType: specialKeyboards[key] != null
                             ? specialKeyboards[key]
-                            : TextInputType.text,
+                            : TextInputType.phone,
                         decoration: InputDecoration(
                           hintText: key,
                           labelText: key,
@@ -169,6 +365,7 @@ class _EditPageState extends State<EditPage> {
 
   _propertyButtons(BuildContext context, EditBloc bloc) {
     /* The buttons related with the behavoir of this view */
+    final homeBloc = BlocProvider.home(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -181,7 +378,7 @@ class _EditPageState extends State<EditPage> {
             label: Text('Eliminar'),
             backgroundColor: Color.fromRGBO(0, 208, 174, 1.0),
             onPressed: () {
-              bloc.deleteProperty(property.id);
+              homeBloc.deleteProperty(property.id);
               Navigator.pushReplacementNamed(context, 'home');
             },
           ),
@@ -195,7 +392,7 @@ class _EditPageState extends State<EditPage> {
               label: Text('Guardar'),
               backgroundColor: Color.fromRGBO(0, 208, 174, 1.0),
               onPressed: () {
-                bloc.saveProperty(property);
+                homeBloc.saveProperty(property);
                 Navigator.pushReplacementNamed(context, 'home');
               },
             )),
