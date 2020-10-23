@@ -29,6 +29,7 @@ class Apartment {
   // 4
   String empty_property;
   String inhabitants;
+  String rent_desition;
   String rent;
   String mortgage;
 
@@ -58,6 +59,7 @@ class Apartment {
       // 4
       this.empty_property,
       this.inhabitants,
+      this.rent_desition,
       this.rent,
       this.mortgage});
 

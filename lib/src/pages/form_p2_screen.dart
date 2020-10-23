@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/widgets/app_bar.dart';
 import 'form_p3_screen.dart';
@@ -10,7 +11,7 @@ class FormP2Screen extends StatelessWidget {
   const FormP2Screen({Key key}) : super(key: key);
 
   _pushScreen(BuildContext context, Widget screen) {
-    Navigator.of(context).push(MaterialPageRoute(
+    Navigator.of(context).push(CupertinoPageRoute(
       builder: (context) => screen,
     ));
   }
@@ -97,7 +98,7 @@ class FormP2Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Estrato',
+                  labelText: 'Estrato *',
                   hintText: '2',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
@@ -121,7 +122,7 @@ class FormP2Screen extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  'Estado del inmueble',
+                  'Estado del inmueble *',
                 ),
               ),
               DropdownButton(
@@ -153,7 +154,7 @@ class FormP2Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Piso/Apartamento',
+                  labelText: 'Piso/Apartamento *',
                   hintText: '3',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
@@ -177,7 +178,7 @@ class FormP2Screen extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  'Ascensor',
+                  'Ascensor ?*',
                 ),
               ),
               DropdownButton(
@@ -209,7 +210,7 @@ class FormP2Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
-                  labelText: 'Areas comunes',
+                  labelText: 'Areas comunes *',
                   hintText: 'Acomun 1, Acomun 2, ...',
                   hintStyle: TextStyle(color: Color(0xFFD9D9D9)),
                   errorText: snapshot.error,
@@ -231,7 +232,7 @@ class FormP2Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Impuesto predial',
+                  labelText: 'Impuesto predial *',
                   prefixText: '\$  ',
                   hintText: '1000000',
                   alignLabelWithHint: true,
