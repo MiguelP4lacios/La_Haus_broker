@@ -39,20 +39,6 @@ class EditBloc {
     }
   }
 
-  deleteProperty(String id) {
-    /* call a resource function in charge to delete the property from the db
-    id is the only one data necesary to work with */
-    deleteProp(id);
-  }
-
-  saveProperty(dynamic property) {
-    /* call a resource function in charge to change the property attributes
-    from the db 
-    
-    The proprty instance is necessary to work with*/
-    editProperty(property.id, property);
-  }
-
   changeAttr(String key, dynamic value) {
     /* Change the state of the property model once time the user type a letter
    into the text field input*/

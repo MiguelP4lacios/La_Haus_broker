@@ -8,10 +8,20 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = BlocProvider.home(context);
     bloc.getProperties();
-    return Scaffold(
-      body: _getProperties(bloc),
-      floatingActionButton: _newHouseButton(context),
-    );
+    return StreamBuilder(
+        stream: bloc.connectionStream,
+        builder: (context, snapshot) {
+          return Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: laHausLogo(),
+            ),
+            body: _getProperties(bloc),
+            floatingActionButton: _newHouseButton(context, bloc),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+          );
+        });
   }
 
   Widget _getProperties(PropertiesBloc bloc) {
@@ -21,13 +31,109 @@ class HomePage extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.propertiesStream,
       builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
-        if (snapshot.hasData) {
-          return _propertyList(bloc, snapshot.data);
-        } else {
+        if (snapshot.hasData != true) {
           return Center(child: CircularProgressIndicator());
+        } else if (snapshot.data.length == 0) {
+          bloc.changeConnection(true);
+          return _emptyProperties(bloc);
+        } else if (snapshot.data[0] == 'error_connection') {
+          bloc.changeConnection(false);
+          return _connectionLost(bloc);
+        } else {
+          bloc.changeConnection(true);
+          return _propertyList(bloc, snapshot.data);
         }
         //TODO: create a condition to show an user advice indicading the http request fail and how to refresh the page
       },
+    );
+  }
+
+  Widget _emptyProperties(bloc) {
+    return RefreshIndicator(
+      onRefresh: () => bloc.getProperties(),
+      child: ListView(
+        children: [
+          SizedBox(height: 60),
+          Image.asset('assets/images/new-property.png'),
+          SizedBox(height: 30),
+          Center(
+            child: Text(
+              'Aún no tienes Propiedades publicadas',
+              style: TextStyle(
+                color: Color.fromRGBO(0, 40, 32, 0.8),
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ),
+          SizedBox(height: 30),
+          Center(
+            child: Text(
+              'Presiona para comenzar a',
+              style: TextStyle(
+                color: Color.fromRGBO(0, 40, 32, 0.8),
+                fontSize: 18,
+              ),
+            ),
+          ),
+          Center(
+            child: Text(
+              'vender tus inmuebles',
+              style: TextStyle(
+                color: Color.fromRGBO(0, 40, 32, 0.8),
+                fontSize: 18,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _connectionLost(PropertiesBloc bloc) {
+    return Center(
+      child: RefreshIndicator(
+        onRefresh: () => bloc.getProperties(),
+        child: ListView(
+          children: <Widget>[
+            SizedBox(height: 30),
+            Column(
+              children: [
+                Text(
+                  'No se pudo comunicar con el servidor',
+                  style: TextStyle(
+                      color: Color.fromRGBO(0, 208, 174, 0.4), fontSize: 15),
+                ),
+                Text(
+                  'Verifique su conexión',
+                  style: TextStyle(
+                      color: Color.fromRGBO(0, 208, 174, 0.4), fontSize: 15),
+                ),
+                Image.asset(
+                  'assets/icons/no-wifi.png',
+                  scale: 9,
+                  color: Color.fromRGBO(0, 208, 174, 0.3),
+                ),
+              ],
+            ),
+            SizedBox(height: 90),
+            Column(
+              children: [
+                Text(
+                  'Deslice hacia abajo para refrescar',
+                  style: TextStyle(
+                    color: Color.fromRGBO(0, 208, 174, 1.0),
+                    fontSize: 20,
+                  ),
+                ),
+                SizedBox(height: 30),
+                Image.asset('assets/icons/down-arrow.png',
+                    scale: 6, color: Color.fromRGBO(0, 208, 174, 1.0)),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -138,7 +244,8 @@ class HomePage extends StatelessWidget {
         children: <Widget>[
           FadeInImage(
             placeholder: AssetImage('assets/login/logo.png'),
-            image: NetworkImage(property.img),
+            image: NetworkImage(
+                'https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=6&m=1222357475&s=612x612&w=0&h=p8Qv0TLeMRxaES5FNfb09jK3QkJrttINH2ogIBXZg-c='),
           ),
           SizedBox(height: 10.0),
           address,
@@ -147,8 +254,6 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [rooms, price]),
           SizedBox(height: 20.0),
-          // _propertyButtons(context, bloc, property),
-          // SizedBox(height: 10.0),
         ],
       ),
     );
@@ -172,57 +277,20 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  /* property buttons have been commented until will be defined where do they go
-  */
-  // /* property buttons */
-  // _propertyButtons(BuildContext context, PropertiesBloc bloc, property) {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.end,
-  //     children: <Widget>[
-  //       Container(
-  //         margin: EdgeInsets.only(right: 20),
-  //         child: FloatingActionButton.extended(
-  //           heroTag: null,
-  //           elevation: 0,
-  //           icon: Icon(Icons.delete),
-  //           label: Text('Delete'),
-  //           backgroundColor: Color.fromRGBO(0, 208, 174, 1.0),
-  //           onPressed: () => bloc.deleteProperty(property.id),
-  //         ),
-  //       ),
-  //       Container(
-  //         margin: EdgeInsets.only(right: 20),
-  //         child: FloatingActionButton.extended(
-  //           heroTag: null,
-  //           elevation: 0,
-  //           icon: Icon(Icons.mode_edit),
-  //           label: Text('Edit'),
-  //           backgroundColor: Color.fromRGBO(0, 208, 174, 1.0),
-  //           onPressed: () => Navigator.popAndPushNamed(
-  //             context,
-  //             'edition',
-  //             arguments: property,
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  _newHouseButton(BuildContext context) {
+  _newHouseButton(BuildContext context, PropertiesBloc bloc) {
     /* Floating button to create a new House
     it goes to the view in charge to create a new one */
     return FloatingActionButton(
       heroTag: null,
-      child: Icon(Icons.add),
-      backgroundColor: Color.fromRGBO(0, 208, 174, 1.0),
-      onPressed: () {
-        Navigator.pushNamed(context, 'new_property');
-      },
+      child:
+          Image.asset('assets/images/add.png', color: Colors.white, scale: 3),
+      backgroundColor:
+          bloc.connection ? Color.fromRGBO(0, 208, 174, 1.0) : Colors.grey[300],
+      onPressed: bloc.connection == true
+          ? () {
+              Navigator.pushNamed(context, 'new_property');
+            }
+          : null,
     );
-  }
-
-  dispose(bloc) {
-    bloc.dispose();
   }
 }
