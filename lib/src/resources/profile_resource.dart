@@ -66,5 +66,15 @@ import 'package:login_bloc_pattern/src/user_preferences/user_preferences.dart';
       headers: {'accept':'application/json', 'Authorization': 'Bearer ${_userPref.token}'}
       );
   }
-
+  // Otra forma de hacer un delete
+  // Future<Response> deleteUser() async {
+  //   final http.Response response = await http.delete(
+  //     '$_url/users/${_userPref.userId}',
+  //     headers: <String, String>{
+  //       'accept':'application/json',
+  //       'Authorization': 'Bearer ${_userPref.token}'
+  //       }
+  //   );
+  //   return response;
+  // }
 
