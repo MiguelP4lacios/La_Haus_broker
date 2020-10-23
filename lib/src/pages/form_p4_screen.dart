@@ -323,7 +323,7 @@ class _ProgressButtonState extends State<ProgressButton>
       _state = 1;
     });
 
-    Timer(Duration(milliseconds: 5000), () {
+    Timer(Duration(milliseconds: 3600), () {
       setState(() {
         _state = 0;
         _width = double.infinity;
