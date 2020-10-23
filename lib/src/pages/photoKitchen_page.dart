@@ -3,13 +3,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/model/examplesModel.dart';
 import 'package:login_bloc_pattern/src/models/apartment.dart';
+import 'package:login_bloc_pattern/src/pages/globals.dart';
 import 'package:login_bloc_pattern/src/providers/photo_provider.dart';
 import 'package:login_bloc_pattern/src/resources/customDialog.dart';
 // import 'package:login_bloc_pattern/src/widgets/lateral_menu.dart';
 // import 'package:login_bloc_pattern/src/widgets/swipercard_examples.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-enum PhotoSource { FILE, NETWORK }
+// enum PhotoSource { FILE, NETWORK }
 
 class PhotoKitchen extends StatelessWidget {
   // const PhotoKitchen({Key key}) : super(key: key);
@@ -27,141 +28,192 @@ class PhotoKitchen2 extends StatefulWidget {
 }
 
 class _PhotoKitchen2State extends State<PhotoKitchen2> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   Apartment apartmentId = new Apartment();
   final photoProvider = PhotoProvider();
-  PickedFile photo;
+  PickedFile _photo;
+  // bool isImage = false;
+  // String _retrieveDataError;
+  _takePhoto() async {
+    // final propData = ModalRoute.of(context).settings.arguments;
+    _conditionPermissions(context);
+
+    _imageProcess(ImageSource.camera);
+  }
+
+  _showPictures() async {
+    _conditionPermissions(context);
+    _imageProcess(ImageSource.gallery);
+  }
+
+  _imageProcess(ImageSource origin) async {
+    final _picker = ImagePicker();
+    // _photo = await _picker.getImage(source: origin);
+
+    _photo = await _picker.getImage(source: origin);
+    final File photo = File(_photo.path);
+
+    if (photo == null) {
+      print('MISTAKE');
+    }
+    print(photo.path + '    first');
+
+    // print(photo.path);
+    setState(() {
+      // _photo = photo;
+    });
+    print(photo.path + '   text');
+    Navigator.pushReplacementNamed(context, 'phototourKitchen',
+        arguments: photo);
+  }
+
+  void _submit() async {
+    final File image = ModalRoute.of(context).settings.arguments;
+    if (image != null) {
+      final picUrl = photoProvider.uploadPhoto(image);
+      print(picUrl);
+    }
+
+    showSnackbar('Foto Enviada');
+  }
+
+  // void showSnackbar(String mensaje) {
+  //   final snackbar = SnackBar(
+  //     content: Text(mensaje),
+  //     duration: Duration(milliseconds: 1500),
+  //   );
+  //   scaffoldKey.currentState.showSnackBar(snackbar);
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final Apartment aparData = ModalRoute.of(context).settings.arguments;
-    if (aparData != null) {
-      apartmentId = aparData;
-    }
+    // final Apartment aparData = ModalRoute.of(context).settings.arguments;
+    // if (aparData != null) {
+    //   apartmentId = aparData;
+    // }
+    // final propData = ModalRoute.of(context).settings.arguments;
+
     final _screen = MediaQuery.of(context).size;
     return Scaffold(
-        body: Container(
-          // color: Colors.blue[50],
-          width: double.infinity,
-          height: double.infinity,
-          padding: EdgeInsets.only(top: 30.0, left: 15.0, right: 15.0),
-          child: Column(
-            children: [
-              _dotsProgress(_screen),
-              _title(_screen, context),
-              _description(_screen),
-              _swiper(context, _screen),
-              // _photoExistence(_screen),
-              // _buttons(context),
-            ],
-          ),
+      key: scaffoldKey,
+      body: Container(
+        // color: Colors.blue[50],
+        width: double.infinity,
+        height: double.infinity,
+        padding: EdgeInsets.only(top: 30.0, left: 15.0, right: 15.0),
+        child: Column(
+          children: [
+            // _dotsProgress(_screen),
+            _title(_screen, context),
+            _description(_screen),
+            SizedBox(height: 20.0),
+            _swiper(context, _screen),
+            // _photoExistence(_screen),
+            // _buttons(context),
+          ],
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.camera),
-          onPressed: () => _showOption(context),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        bottomNavigationBar: BottomAppBar(
-          notchMargin: 4.0,
-          shape: CircularNotchedRectangle(),
-          elevation: 200.0,
-          color: Theme.of(context).primaryColor,
-          child: Row(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    padding: EdgeInsets.symmetric(horizontal: 30.0),
-                    splashColor: Colors.lightGreen[100],
-                    color: Colors.white,
-                    iconSize: 40.0,
-                    icon: Icon(Icons.menu),
-                    onPressed: () => showModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) => openBottomDrawer()),
-                  ),
-                  Text(
-                    'Ejemplos',
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.camera),
+        onPressed: () => _showOption(context),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
+      bottomNavigationBar: BottomAppBar(
+        notchMargin: 4.0,
+        shape: CircularNotchedRectangle(),
+        elevation: 200.0,
+        color: Theme.of(context).primaryColor,
+        child: Row(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                  splashColor: Colors.lightGreen[100],
+                  color: Colors.white,
+                  iconSize: 40.0,
+                  icon: Icon(Icons.menu),
+                  onPressed: () => showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) => openBottomDrawer()),
+                ),
+                Text('Ejemplos',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.white),
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-              // SizedBox(width: 15.0),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    padding: EdgeInsets.symmetric(horizontal: 30.0),
-                    splashColor: Colors.lightGreen[100],
-                    color: Colors.white,
-                    iconSize: 40.0,
-                    icon: Icon(Icons.home),
-                    onPressed: () =>
-                        Navigator.pushNamed(context, 'propertyReview'),
-                  ),
-                  Text('Resumen',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.white))
-                ],
-              ),
-              // SizedBox(width: 15.0),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
-                    splashColor: Colors.lightGreen[100],
-                    color: Colors.white,
-                    iconSize: 40.0,
-                    icon: Icon(Icons.search),
-                    onPressed: _showPictures,
-                  ),
-                  Text(
-                    'Analizar',
+                    textAlign: TextAlign.center)
+              ],
+            ),
+            // SizedBox(width: 15.0),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                  splashColor: Colors.lightGreen[100],
+                  color: Colors.white,
+                  iconSize: 40.0,
+                  icon: Icon(Icons.home),
+                  onPressed: () =>
+                      Navigator.pushNamed(context, 'propertyReview'),
+                ),
+                Text('Resumen',
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ));
+                        fontWeight: FontWeight.bold, color: Colors.white))
+              ],
+            ),
+            // SizedBox(width: 15.0),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 0),
+                  splashColor: Colors.lightGreen[100],
+                  color: Colors.white,
+                  iconSize: 40.0,
+                  icon: Icon(Icons.search),
+                  onPressed: () => _submit(),
+                ),
+                Text(
+                  'Analizar',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.white),
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
-  // Widget _photoExistence(Size _screen) {
-  //   if (apartment.price != null) {
-  //     // print(photo);
-  //     return Container();
-  //   } else {
-  //     return Container(
-  //         child: Image(
-  //             fit: BoxFit.cover,
-  //             image: AssetImage(photo?.path ?? _swiper(context, _screen))));
-  //   }
+  // Widget _dotsProgress(Size _screen) {
+  //   return Container(
+  //       // color: Colors.amberAccent[100],
+  //       width: double.infinity,
+  //       height: _screen.height * 0.07,
+  //       child: Text('Slide of dots'));
   // }
 
-  Widget _dotsProgress(Size _screen) {
-    return Container(
-        // color: Colors.amberAccent[100],
-        width: double.infinity,
-        height: _screen.height * 0.07,
-        child: Text('Slide of dots'));
+  void showSnackbar(String mensaje) {
+    final snackbar = SnackBar(
+      content: Text(mensaje),
+      duration: Duration(milliseconds: 1500),
+    );
+    scaffoldKey.currentState.showSnackBar(snackbar);
   }
 
   Widget _title(Size _screen, BuildContext context) {
     return Container(
       width: double.infinity,
-      height: _screen.height * 0.10,
+      height: _screen.height * 0.08,
       // color: Colors.purple[100],
       alignment: Alignment.center,
       child: Text(
-        'Dirigete a la cocina',
+        'Dirigete al lugar.',
         style: TextStyle(
             color: Theme.of(context).primaryColor,
             fontSize: 22.0,
@@ -176,13 +228,13 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
         margin: EdgeInsets.symmetric(horizontal: 10.0),
         // color: Colors.brown[200],
         width: double.infinity,
-        height: _screen.height * 0.15,
+        height: _screen.height * 0.20,
         child: Text(
-          'Iniciemos este tour por la propiedad. Te quiaremos por cada lugar tomando las mejores fotos. Recuerda seguir las recomendaciones que te dimos.',
+          'Las fotos dependen mucho de la iluminacion y ubicacion del receptor. Ubica tu dispositivo en modo horizontal para realizar tomas planas. Recuerda seguir las recomendaciones que te dimos.',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.black87,
-            fontSize: 18.0,
+            fontSize: 17.0,
           ),
         ));
   }
@@ -194,7 +246,7 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
         // margin: EdgeInsets.all(40.0),
         // color: Colors.red,
         width: double.infinity,
-        height: _screen.height * 0.50,
+        height: _screen.height * 0.48,
         child: _decideWhich()
         // MaterialButton(
         //   padding: EdgeInsets.all(0),
@@ -206,42 +258,63 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
   }
 
   Widget _decideWhich() {
-    if (photo != null) {
+    final File image = ModalRoute.of(context).settings.arguments;
+    print(propertyId);
+    print(userId);
+    print(image);
+    if (image == null) {
       return Stack(alignment: Alignment.center, children: <Widget>[
         Image(
-            width: double.infinity,
-            colorBlendMode: BlendMode.lighten,
-            color: Colors.white54,
-            fit: BoxFit.cover,
-            image: AssetImage(photo?.path ?? 'assets/no-image.jpg'))
+          width: double.infinity,
+          // colorBlendMode: BlendMode.lighten,
+          // color: Colors.white54,
+          fit: BoxFit.cover,
+          height: 300.0,
+          image: AssetImage('assets/source.gif'),
+        ),
       ]);
     } else {
       return Stack(alignment: Alignment.center, children: <Widget>[
         Image(
           width: double.infinity,
-          colorBlendMode: BlendMode.lighten,
-          color: Colors.white54,
-          fit: BoxFit.cover,
-          image: AssetImage('assets/nice_kitchens/k1.jpg'),
+          height: 300.0,
+          // colorBlendMode: BlendMode.lighten,
+          // color: Colors.white54,
+          fit: BoxFit.scaleDown,
+          image: FileImage(image),
         ),
-        Text(
-          'Presione para realizar toma de fotos',
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-        ),
+        // Text(
+        //   'Presione para realizar toma de fotos',
+        //   style: TextStyle(
+        //     fontSize: 20.0,
+        //     fontWeight: FontWeight.bold,
+        //   ),
+        //   textAlign: TextAlign.center,
+        // ),
       ]);
     }
   }
 
-  _takePhoto() async {
-    // final propData = ModalRoute.of(context).settings.arguments;
-    _conditionPermissions(context);
-
-    _imageProcess(ImageSource.camera);
-  }
+  // Future<void> retrieveLostData() async {
+  //   final _picker = ImagePicker();
+  //   final LostData response = await _picker.getLostData();
+  //   if (response.isEmpty) {
+  //     return;
+  //   }
+  //   if (response.file != null) {
+  //     if (response.type == RetrieveType.image) {
+  //       isImage = true;
+  //       await _playVideo(response.file);
+  //     } else {
+  //       isVideo = false;
+  //       setState(() {
+  //         _imageFile = response.file;
+  //       });
+  //     }
+  //   } else {
+  //     _retrieveDataError = response.exception.code;
+  //   }
+  // }
 
   // final propertyUrl = await photoProvider.uploadPhoto(photo);
 
@@ -265,22 +338,6 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
   // final pickedFile = await _picker.getImage(...);
   // final File file = File(pickedFile.path);
   // final bytes = await pickedFile.readAsBytes();
-
-  _showPictures() async {
-    _conditionPermissions(context);
-    _imageProcess(ImageSource.gallery);
-  }
-
-  _imageProcess(ImageSource origin) async {
-    final _picker = ImagePicker();
-    PickedFile photo =
-        await _picker.getImage(imageQuality: 100, source: origin);
-
-    if (photo != null) {
-      //cleaning
-    }
-    setState(() {});
-  }
 
   void _showOption(BuildContext context) {
     showDialog(

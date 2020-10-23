@@ -1,10 +1,12 @@
 // import 'package:flutter/material.dart';
 // import 'dart:js';
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+// import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
-import 'package:login_bloc_pattern/src/models/apartment.dart';
+// import 'package:login_bloc_pattern/src/models/apartment.dart';
 import 'dart:convert';
 // import 'dart:io';
 import 'package:mime_type/mime_type.dart';
@@ -60,7 +62,8 @@ class PhotoProvider {
   //   return properties;
   // }
 
-  Future<String> uploadPhoto(PickedFile image) async {
+  Future<String> uploadPhoto(File image) async {
+    // final img = FileImage(image).;
     final url = Uri.parse(
         'https://api.cloudinary.com/v1_1/dfne0hspy/image/upload/?upload_preset=wp889nbl');
 
@@ -82,7 +85,7 @@ class PhotoProvider {
       return null;
     }
     final respData = json.decode(resp.body);
-    print(respData);
+    print(respData['secure_url']);
 
     return respData['secure_url'];
   }

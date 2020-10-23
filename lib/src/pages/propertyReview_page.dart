@@ -15,32 +15,32 @@ class PropertyReview extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(10.0),
         children: <Widget>[
-          // _cardTipo1(context, propData),
+          _cardTipo1(context),
           SizedBox(height: 30.0),
-          _cardTipo2(),
-          SizedBox(height: 30.0),
-          _cardTipo2(),
-          SizedBox(height: 30.0),
-          _cardTipo2(),
-          SizedBox(height: 30.0),
-          _cardTipo2(),
-          SizedBox(height: 30.0),
-          _cardTipo2(),
-          SizedBox(height: 30.0),
-          _cardTipo2(),
-          SizedBox(height: 30.0),
-          _cardTipo2(),
-          SizedBox(height: 30.0),
-          _cardTipo2(),
-          SizedBox(height: 30.0),
-          _cardTipo2(),
-          SizedBox(height: 30.0),
+          // _cardTipo2(),
+          // SizedBox(height: 30.0),
+          // _cardTipo2(),
+          // SizedBox(height: 30.0),
+          // _cardTipo2(),
+          // SizedBox(height: 30.0),
+          // _cardTipo2(),
+          // SizedBox(height: 30.0),
+          // _cardTipo2(),
+          // SizedBox(height: 30.0),
+          // _cardTipo2(),
+          // SizedBox(height: 30.0),
+          // _cardTipo2(),
+          // SizedBox(height: 30.0),
+          // _cardTipo2(),
+          // SizedBox(height: 30.0),
+          // _cardTipo2(),
+          // SizedBox(height: 30.0),
         ],
       ),
     );
   }
 
-  Widget _cardTipo1(BuildContext context, Object propData) {
+  Widget _cardTipo1(BuildContext context) {
     // final propertyMap = globals.propertyTour;
 
     return Card(
