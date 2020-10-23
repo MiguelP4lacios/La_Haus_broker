@@ -30,6 +30,7 @@ Apartment _$ApartmentFromJson(Map<String, dynamic> json) {
     utility_room: json['utility_room'] as String,
     empty_property: json['empty_property'] as String,
     inhabitants: json['inhabitants'] as String,
+    rent_desition: json['rent_desition'] as String,
     rent: json['rent'] as String,
     mortgage: json['mortgage'] as String,
   );
@@ -58,6 +59,7 @@ Map<String, dynamic> _$ApartmentToJson(Apartment instance) => <String, dynamic>{
       'utility_room': instance.utility_room,
       'empty_property': instance.empty_property,
       'inhabitants': instance.inhabitants,
+      'rent_desition': instance.rent_desition,
       'rent': instance.rent,
       'mortgage': instance.mortgage,
     };

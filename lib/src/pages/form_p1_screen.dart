@@ -49,7 +49,7 @@ class FormP1Screen extends StatelessWidget {
               cardForm(Icons.attach_money, price(bloc)),
               cardForm(null, neighborhood(bloc)),
               cardForm(Icons.location_city, city(bloc)),
-              cardForm(Icons.place, adress(bloc)),
+              cardForm(Icons.place, address(bloc)),
               cardForm(Icons.build, admon(bloc)),
               cardForm(Icons.adjust, buildArea(bloc)),
               cardForm(Icons.lock, privateArea(bloc)),
@@ -86,7 +86,7 @@ class FormP1Screen extends StatelessWidget {
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   labelText: 'Proyecto',
-                  hintText: '',
+                  hintText: 'Urbanización',
                   hintStyle: TextStyle(color: Color(0xFFD9D9D9)),
                   errorText: snapshot.error,
                 ),
@@ -107,7 +107,7 @@ class FormP1Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Precio',
+                  labelText: 'Precio *',
                   prefixText: '\$  ',
                   hintText: '1000000',
                   alignLabelWithHint: true,
@@ -133,8 +133,8 @@ class FormP1Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
-                  labelText: 'Barrio',
-                  hintText: 'La Romana',
+                  labelText: 'Barrio *',
+                  hintText: 'El Poblado',
                   hintStyle: TextStyle(color: Color(0xFFD9D9D9)),
                   errorText: snapshot.error,
                 ),
@@ -155,7 +155,7 @@ class FormP1Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
-                  labelText: 'Ciudad',
+                  labelText: 'Ciudad *',
                   hintText: 'Medellín',
                   hintStyle: TextStyle(color: Color(0xFFD9D9D9)),
                   errorText: snapshot.error,
@@ -168,19 +168,20 @@ class FormP1Screen extends StatelessWidget {
         });
   }
 
-  Widget adress(FormBloc bloc) {
+  Widget address(FormBloc bloc) {
     return StreamBuilder<String>(
-        stream: bloc.adress,
+        stream: bloc.address,
         builder: (context, snapshot) {
           return Column(
             children: [
               TextField(
                 keyboardType: TextInputType.streetAddress,
                 decoration: InputDecoration(
-                  labelText: 'Dirección',
+                  labelText: 'Dirección *',
+                  hintText: 'Calle 45#12-34',
                   errorText: snapshot.error,
                 ),
-                onChanged: bloc.changeAdress,
+                onChanged: bloc.changeAddress,
               ),
               SizedBox(height: 15.0)
             ],
@@ -197,7 +198,7 @@ class FormP1Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Administración',
+                  labelText: 'Administración *',
                   prefixText: '\$  ',
                   hintText: '1000000',
                   alignLabelWithHint: true,
@@ -223,7 +224,7 @@ class FormP1Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Área construida',
+                  labelText: 'Área construida *',
                   suffixText: 'm²',
                   hintText: '48.6',
                   hintStyle: TextStyle(

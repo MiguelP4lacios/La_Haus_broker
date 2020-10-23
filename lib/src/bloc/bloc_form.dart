@@ -6,15 +6,15 @@ import '../pages/globals.dart' as globals;
 
 class FormBloc {
   //List DropDown
-  List<String> listUse = ['Nuevo', 'Usado'];
-  List<String> listDecision = ['Si', 'No'];
+  List<String> listUse = ['Nuevo', 'Usado', 'Remodelado', 'Por remodelar'];
+  List<String> listDecision = ['Si', 'No', ''];
   //Declare Streams
   // 1
   final _project = BehaviorSubject<String>();
   final _price = BehaviorSubject<String>();
   final _neighborhood = BehaviorSubject<String>();
   final _city = BehaviorSubject<String>();
-  final _adress = BehaviorSubject<String>();
+  final _address = BehaviorSubject<String>();
   final _admon = BehaviorSubject<String>();
   final _buildArea = BehaviorSubject<String>();
   final _privateArea = BehaviorSubject<String>();
@@ -34,6 +34,7 @@ class FormBloc {
   // 4
   final _empty = BehaviorSubject<String>();
   final _inhabitants = BehaviorSubject<String>();
+  final _rentDesition = BehaviorSubject<String>();
   final _rent = BehaviorSubject<String>();
   final _mortgage = BehaviorSubject<String>();
 
@@ -46,7 +47,7 @@ class FormBloc {
   Stream<String> get neighborhood =>
       _neighborhood.stream.transform(validateString);
   Stream<String> get city => _city.stream.transform(validateString);
-  Stream<String> get adress => _adress.stream.transform(validateString);
+  Stream<String> get address => _address.stream.transform(validateString);
   Stream<num> get admon => _admon.stream.transform(validateMoney);
   Stream<num> get buildArea => _buildArea.stream.transform(validateNum);
   Stream<num> get privateArea => _privateArea.stream.transform(validateNum);
@@ -69,10 +70,10 @@ class FormBloc {
   Stream<String> get empty => _empty.stream.transform(validateDropDown);
   Stream<String> get inhabitants =>
       _inhabitants.stream.transform(validateDropDown);
+  Stream<String> get rentDesition =>
+      _rentDesition.stream.transform(validateDropDown);
   Stream<num> get rent => _rent.stream.transform(validateMoney);
-  Stream<num> get mortgage => _mortgage.stream.transform(validateMoney);
-
-
+  Stream<String> get mortgage => _mortgage.stream.transform(validateDropDown);
 
   /* Stream<dynamic> get idStream => _idProperty.stream;
 
@@ -83,17 +84,17 @@ class FormBloc {
   Stream<bool> get formP1Valid => Rx.combineLatest6(
       price,
       neighborhood,
-      adress,
+      city,
+      address,
       admon,
       buildArea,
-      privateArea,
       (
         price,
         neighborhood,
+        city,
         adress,
         admon,
         buildArea,
-        privateArea,
       ) =>
           true);
 
@@ -119,15 +120,13 @@ class FormBloc {
       (rooms, bathrooms, halfBathrooms, parkingLot, utilityRoom) => true);
 
   // 4
-  Stream<bool> get formP4Valid => Rx.combineLatest4(
-      empty,
+  Stream<bool> get formP4Valid => Rx.combineLatest3(
       inhabitants,
-      rent,
+      rentDesition,
       mortgage,
       (
-        empty,
         inhabitants,
-        rent,
+        rentDesition,
         mortgage,
       ) =>
           true);
@@ -138,7 +137,7 @@ class FormBloc {
   Function(String) get changePrice => _price.sink.add;
   Function(String) get changeNeighborhood => _neighborhood.sink.add;
   Function(String) get changeCity => _city.sink.add;
-  Function(String) get changeAdress => _adress.sink.add;
+  Function(String) get changeAddress => _address.sink.add;
   Function(String) get changeAdmon => _admon.sink.add;
   Function(String) get changeBuildArea => _buildArea.sink.add;
   Function(String) get changePrivateArea => _privateArea.sink.add;
@@ -161,6 +160,7 @@ class FormBloc {
   // 4
   Function(String) get changeEmpty => _empty.sink.add;
   Function(String) get changeInhabitants => _inhabitants.sink.add;
+  Function(String) get changeRentDesition => _rentDesition.sink.add;
   Function(String) get changeRent => _rent.sink.add;
   Function(String) get changeMortgage => _mortgage.sink.add;
 
@@ -172,7 +172,7 @@ class FormBloc {
     _price.close();
     _neighborhood.close();
     _city.close();
-    _adress.close();
+    _address.close();
     _admon.close();
     _buildArea.close();
     _privateArea.close();
@@ -192,6 +192,7 @@ class FormBloc {
     // 4
     _empty.close();
     _inhabitants.close();
+    _rentDesition.close();
     _rent.close();
     _mortgage.close();
 
@@ -270,7 +271,7 @@ class FormBloc {
         price: _price.value.toString(),
         hood: _neighborhood.value.toString(),
         city: _city.value.toString(),
-        address: _adress.value.toString(),
+        address: _address.value.toString(),
         admon: _admon.value.toString(),
         build_area: _buildArea.value.toString(),
         private_area: _privateArea.value.toString(),
@@ -286,7 +287,8 @@ class FormBloc {
         parking_lot: _parkingLot.value.toString(),
         utility_room:
             _utilityRoom.value == 'Si' ? true.toString() : false.toString(),
-        empty_property: _empty.value == 'Si' ? true.toString() : false.toString(),
+        empty_property:
+            _empty.value == 'Si' ? true.toString() : false.toString(),
         inhabitants:
             _inhabitants.value == 'Si' ? true.toString() : false.toString(),
         rent: _rent.value.toString(),

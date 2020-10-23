@@ -36,6 +36,7 @@ class FormP4Screen extends StatelessWidget {
             children: <Widget>[
               cardForm(null, empty(bloc)),
               cardForm(null, inhabitants(bloc)),
+              cardForm(null, rentDesition(bloc)),
               cardForm(null, rent(bloc)),
               cardForm(null, mortgage(bloc)),
               nextButton(bloc)
@@ -68,7 +69,7 @@ class FormP4Screen extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  'Vácio ?',
+                  '¿El Inmueble esta vacio?',
                 ),
               ),
               DropdownButton(
@@ -98,7 +99,7 @@ class FormP4Screen extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  'Ocupado',
+                  '¿Vive el algien el inmueble? *',
                 ),
               ),
               DropdownButton(
@@ -114,6 +115,37 @@ class FormP4Screen extends StatelessWidget {
                   );
                 }).toList(),
                 onChanged: bloc.changeInhabitants,
+              ),
+            ],
+          );
+        });
+  }
+
+
+  Widget rentDesition(FormBloc bloc) {
+    return StreamBuilder<String>(
+        stream: bloc.rentDesition,
+        builder: (context, snapshot) {
+          return Column(
+            children: [
+              Center(
+                child: Text(
+                  '¿El inmueble está arrendado? *',
+                ),
+              ),
+              DropdownButton(
+                hint: Text("Select item"),
+                value: snapshot.data,
+                isExpanded: true,
+                items: bloc.listDecision.map((item) {
+                  return DropdownMenuItem(
+                    value: item,
+                    child: Row(children: <Widget>[
+                      Text(item),
+                    ]),
+                  );
+                }).toList(),
+                onChanged: bloc.changeRentDesition,
               ),
             ],
           );
@@ -147,26 +179,30 @@ class FormP4Screen extends StatelessWidget {
   }
 
   Widget mortgage(FormBloc bloc) {
-    return StreamBuilder<num>(
+    return StreamBuilder<String>(
         stream: bloc.mortgage,
         builder: (context, snapshot) {
           return Column(
             children: [
-              TextField(
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  labelText: 'Hipoteca',
-                  prefixText: '\$  ',
-                  hintText: '1000000',
-                  alignLabelWithHint: true,
-                  hintStyle: TextStyle(
-                    color: Color(0xFFD9D9D9),
-                  ),
-                  errorText: snapshot.error,
+              Center(
+                child: Text(
+                  '¿Tiene Hipoteca o Leasing? *',
                 ),
+              ),
+              DropdownButton(
+                hint: Text("Select item"),
+                value: snapshot.data,
+                isExpanded: true,
+                items: bloc.listDecision.map((item) {
+                  return DropdownMenuItem(
+                    value: item,
+                    child: Row(children: <Widget>[
+                      Text(item),
+                    ]),
+                  );
+                }).toList(),
                 onChanged: bloc.changeMortgage,
               ),
-              SizedBox(height: 15.0)
             ],
           );
         });
