@@ -287,7 +287,7 @@ class _ProgressButtonState extends State<ProgressButton>
                     : () async {
                         if (await bloc.submit()) {
                           /* print("Here → ${bloc.idProperty}"); */
-                          Navigator.of(context).pushNamed(
+                          Navigator.of(context).pushReplacementNamed(
                             'phototour', /* arguments: bloc.idProperty */
                           );
                         } else {

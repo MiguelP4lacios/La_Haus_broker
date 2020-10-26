@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:collection';
 import 'package:rxdart/rxdart.dart';
 import '../models/apartment.dart';
 import '../resources/property_provider.dart';
 import '../pages/globals.dart' as globals;
+import '../models/amenities.dart';
 
 class FormBloc {
   //List DropDown
@@ -39,6 +41,12 @@ class FormBloc {
   final _mortgage = BehaviorSubject<String>();
 
   /* final _idProperty = BehaviorSubject<dynamic>(); */
+
+  // Checkbox Management - Item Model ID and checkbox value
+  BehaviorSubject<Map<int, bool>> checkboxController =
+      BehaviorSubject<Map<int, bool>>();
+  Stream<Map<int, bool>> get mapModelCheckbox => checkboxController.stream;
+  Function(Map<int, bool>) get setCheckbox => checkboxController.sink.add;
 
   //Get Data from Streams (out)
   // 1
@@ -182,6 +190,7 @@ class FormBloc {
     _floor.close();
     _elevator.close();
     _commonArea.close();
+    checkboxController.close();
     _propertyTax.close();
     // 3
     _rooms.close();
@@ -262,8 +271,45 @@ class FormBloc {
     }
   });
 
+  Item _item = Item();
+  Map<int, bool> mapCheckbox = HashMap<int, bool>();
+  Map<int, String> _mapAmenities = HashMap<int, String>();
+
+
+  FormBloc() {
+    // Initial data for list and map
+    List<Item> _theAmenities = _item.getItems();
+    for (var i = 0; i < _theAmenities.length; i++) {
+      _mapAmenities[i] = _theAmenities[i].title;
+      mapCheckbox[i] = false;
+    }
+    // Insert initial data in controller
+    checkboxController.add(mapCheckbox);
+    checkboxController.stream.listen(setCheckboxHandler);
+  }
+
+
+  setCheckboxHandler(Map<int, bool> newMapCheckbox) {
+    // New checkbox value for the itemModel id
+    int id = newMapCheckbox.entries.elementAt(0).key;
+    bool check = newMapCheckbox.entries.elementAt(0).value;
+    if (mapCheckbox.containsKey(id)) {
+      mapCheckbox[id] = check;
+    }
+
+    /* print('-----------');
+    print('newMapCheckbox: $newMapCheckbox');
+    print('_mapCheckbox: $mapCheckbox');
+    print('-----------');
+    print(mapCheckbox.length); */
+
+    /* print(a.toString());
+    print(a.toString().runtimeType); */
+  }
+
   //Functions
   Future<bool> submit() async {
+    List<String> a = _item.getAm(mapCheckbox, _mapAmenities);
     final propertyProvider = PropertyProvider();
     final apartment = Apartment(
         project: _project.value.toString(),
@@ -279,7 +325,7 @@ class FormBloc {
         state: _state.value.toString(),
         apt: _floor.value.toString(),
         elevator: _elevator.value == 'Si' ? true.toString() : false.toString(),
-        common_areas: _commonArea.value.toString(),
+        common_areas: a.toString(),/* _commonArea.value.toString(), */
         property_tax: _propertyTax.value.toString(),
         rooms: _rooms.value.toString(),
         bathrooms: _bathrooms.value.toString(),
@@ -291,10 +337,11 @@ class FormBloc {
             _empty.value == 'Si' ? true.toString() : false.toString(),
         inhabitants:
             _inhabitants.value == 'Si' ? true.toString() : false.toString(),
-        rent_desition: _rentDesition.value == 'Si' ? true.toString(): false.toString(),
+        rent_desition:
+            _rentDesition.value == 'Si' ? true.toString() : false.toString(),
         rent: _rent.value.toString(),
-        mortgage: _mortgage.value == 'Si' ? true.toString(): false.toString());
-    print(apartment.toJson());
+        mortgage: _mortgage.value == 'Si' ? true.toString() : false.toString());
+    //print(apartment.toJson());
     Map info = await propertyProvider.newProperty(apartment.toJson());
     if (info['ok']) {
       /* changId(info['id']); */
