@@ -72,7 +72,7 @@ class FormP4Screen extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  '¿El Inmueble esta vacio?',
+                  '¿El Inmueble esta vacío?',
                 ),
               ),
               DropdownButton(
@@ -102,7 +102,7 @@ class FormP4Screen extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  '¿Vive el algien el inmueble? *',
+                  '¿Vive el alguien el inmueble? *',
                 ),
               ),
               DropdownButton(
@@ -256,9 +256,11 @@ class _ProgressButtonState extends State<ProgressButton>
   Animation _animation;
   GlobalKey _globalKey = GlobalKey();
   AnimationController _controller;
+  bool _disposed = false;
 
   @override
   dispose() {
+    _disposed = true;
     _controller.dispose();
     super.dispose();
   }
@@ -267,7 +269,7 @@ class _ProgressButtonState extends State<ProgressButton>
   Widget build(BuildContext context) {
     final bloc = BlocProvider.form(context);
     return PhysicalModel(
-        color: Colors.blue,
+        color: Colors.transparent,
         borderRadius: BorderRadius.circular(30.0),
         child: Container(
           key: _globalKey,
@@ -324,10 +326,13 @@ class _ProgressButtonState extends State<ProgressButton>
     });
 
     Timer(Duration(milliseconds: 3600), () {
-      setState(() {
+      if (!_disposed) {
+        setState(() {
         _state = 0;
         _width = double.infinity;
+
       });
+      }
     });
   }
 
