@@ -45,3 +45,4 @@ class UserPreferences {
   get ultimaPagina {
     return _prefs.getString('ultimaPagina') ?? 'login';
   }
+}
