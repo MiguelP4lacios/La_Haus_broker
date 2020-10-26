@@ -37,7 +37,7 @@ class PhotoTourPage extends StatelessWidget {
   }
 
   Widget _comenzarButton(BuildContext context) {
-    // final propData = ModalRoute.of(context).settings.arguments;
+    // final Object propData = ModalRoute.of(context).settings.arguments;
     return FlatButton(
       textColor: Colors.white,
       onPressed: () => Navigator.pushNamed(context, 'propertyReview'),
@@ -79,7 +79,7 @@ class PhotoTourPage extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 30.0),
           // color: Colors.yellow[50],
           alignment: Alignment.topLeft,
-          child: Text('Recuerda...',
+          child: Text('Ten en cuenta...',
               // textAlign: TextAlign.left,
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
