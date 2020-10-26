@@ -16,31 +16,47 @@ import 'package:login_bloc_pattern/src/user_preferences/user_preferences.dart';
 
 class PhotoProvider {
   final _userPref = new UserPreferences();
-  // final String _url = 'https://lahaus.herokuapp.com/api/v1/users/13';
-  // final _url = 'https://lahaus.herokuapp.com/api/v1/users';
+  final String urlApi = "https://lahaus.herokuapp.com/api/v1/";
 
-  // final endpointAnal = 'https://lahaus.heroku.com';
+  // ***** David's code ******
+  // Future<bool> sendPhoto(
+  //     String propertyUrl, BuildContext context, dynamic propData) async {
+  //   // final propData = ModalRoute.of(context).settings.arguments;
+  //   final endpoint = Uri.parse(
+  //       'https://lahaus.herokuapp.com/api/v1/users/13/properties/__________');
+  //   final photoAcceptance = http.MultipartRequest('POST', endpoint);
 
-  Future<bool> sendPhoto(
-      String propertyUrl, BuildContext context, dynamic propData) async {
-    // final propData = ModalRoute.of(context).settings.arguments;
-    final endpoint = Uri.parse(
-        'https://lahaus.herokuapp.com/api/v1/users/${_userPref.userId}/properties/${propData}');
+  //   final imageAccept = http.MultipartFile.fromString('text', propertyUrl);
 
-    final photoAcceptance = http.MultipartRequest('POST', endpoint);
+  //   photoAcceptance.files.add(imageAccept);
 
-    final imageAccept = http.MultipartFile.fromString('text', propertyUrl);
+  //   final response = await photoAcceptance.send();
+  //   final resp = await http.Response.fromStream(response);
 
-    photoAcceptance.files.add(imageAccept);
+  //   if (resp.statusCode != 200) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
-    final response = await photoAcceptance.send();
-    final resp = await http.Response.fromStream(response);
-
-    if (resp.statusCode != 200) {
-      return false;
-    } else {
-      return true;
-    }
+  Future sendPhoto(Future<String> urlPhoto, String propertyId) async {
+    final url =
+        "$urlApi/users/${_userPref.userId}/properties/$propertyId/photos";
+    final response = await http.post(url, headers: {
+      'accept': 'application/json',
+      'Authorization': 'Bearer ${_userPref.token}'
+    }, body: {
+      'url': urlPhoto
+    });
+    Map<String, dynamic> decodedResp = json.decode(response.body);
+    print(decodedResp);
+//     if (decodedResp.containsKey('idToken')) {
+//       _userPref.token = decodedResp['idToken'];
+//       return {'ok': true};
+//     } else {
+//       return {'ok': false, 'message': decodedResp['error']['message']};
+//     }
   }
 
   // Future<List<Apartment>> loadProperty() async {
@@ -89,4 +105,45 @@ class PhotoProvider {
 
     return respData['secure_url'];
   }
+
+  //pooling para recibir la información de la foto (GET)
+  Future getInfoPhoto(String photoId, String propertyId) async {
+    Future.delayed(Duration(seconds: 1));
+    final url =
+        "$urlApi/users/${_userPref.userId}/properties/$propertyId/photos/$photoId";
+
+    final response = await http.get(url, headers: {
+      'accept': 'application/json',
+      'Authorization': 'Bearer ${_userPref.token}'
+    });
+    Map<String, dynamic> decodedResp = json.decode(response.body);
+    print(decodedResp);
+//     if (decodedResp.containsKey('idToken')) {
+//       _userPref.token = decodedResp['idToken'];
+//       return {'ok': true};
+//     } else {
+//       return {'ok': false, 'message': decodedResp['error']['message']};
+//     }
+
+// Debe de haber una animación de cargando mientras se hace el pooling
+//  mientras la respuesta sea difernete a null haga la petición
+  }
 }
+
+// enviar la foto a la API(POST)
+// Future sendPhoto(String urlPhoto, String propertyId) async {
+//   final url = "$urlApi/users/${_userPref.userId}/properties/$propertyId/photos";
+//   final response = await http.post(
+//     url,
+//     headers: {'accept':'application/json', 'Authorization': 'Bearer ${_userPref.token}'},
+//     body: {'url': urlPhoto}
+//     );
+//   Map<String, dynamic> decodedResp = json.decode(response.body);
+//   print(decodedResp);
+// //     if (decodedResp.containsKey('idToken')) {
+// //       _userPref.token = decodedResp['idToken'];
+// //       return {'ok': true};
+// //     } else {
+// //       return {'ok': false, 'message': decodedResp['error']['message']};
+// //     }
+// }

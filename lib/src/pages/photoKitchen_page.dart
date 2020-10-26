@@ -3,12 +3,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/model/examplesModel.dart';
 import 'package:login_bloc_pattern/src/models/apartment.dart';
-import 'package:login_bloc_pattern/src/pages/globals.dart';
+// import 'package:login_bloc_pattern/src/pages/globals.dart';
 import 'package:login_bloc_pattern/src/providers/photo_provider.dart';
 import 'package:login_bloc_pattern/src/resources/customDialog.dart';
 // import 'package:login_bloc_pattern/src/widgets/lateral_menu.dart';
 // import 'package:login_bloc_pattern/src/widgets/swipercard_examples.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'globals.dart' as globals;
 
 // enum PhotoSource { FILE, NETWORK }
 
@@ -72,9 +73,21 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
     if (image != null) {
       final picUrl = photoProvider.uploadPhoto(image);
       print(picUrl);
+      if (picUrl == null) {
+        showSnackbar('No se pudo enviar foto');
+      } else {
+        print('hola');
+        showSnackbar('Foto Enviada');
+        print(globals.jsonProperty);
+        // photoProvider.sendPhoto(
+        //     picUrl, globals.jsonProperty['properties']['id']);
+        // photoProvider.getInfoPhoto(photoId, propertyId)
+      }
+      // _dialogWaiting(context);
+      // animation of waiting
     }
-
-    showSnackbar('Foto Enviada');
+    // sendPhoto - ya recibio url de la nube y la envioa a heroapp
+    // alertDialog con
   }
 
   // void showSnackbar(String mensaje) {
@@ -259,8 +272,8 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
 
   Widget _decideWhich() {
     final File image = ModalRoute.of(context).settings.arguments;
-    print(propertyId);
-    print(userId);
+    // print(propertyId);
+    // print(userId);
     print(image);
     if (image == null) {
       return Stack(alignment: Alignment.center, children: <Widget>[
@@ -513,4 +526,73 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
       openAppSettings,
     );
   }
+
+  // void _dialogWaiting(BuildContext context) {
+  //   showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return AlertDialog(
+  //             shape: RoundedRectangleBorder(
+  //                 borderRadius: BorderRadius.circular(10.0)),
+  //             title: Text('Analizando...',
+  //                 style: TextStyle(color: Theme.of(context).primaryColor)),
+  //             actions: [
+  //               Column(
+  //                 children: [
+  //                   if ()
+  //                   FadeInImage(
+  //                     placeholder: CircularProgressIndicator(), image: null)
+  //                 ],
+  //               )
+
+  //               Row(
+  //                   // crossAxisAlignment: CrossAxisAlignment.stretch,
+  //                   // mainAxisAlignment: MainAxisAlignment.center,
+  //                   children: [
+  //                     Container(
+  //                       alignment: Alignment.center,
+  //                       padding: EdgeInsets.symmetric(
+  //                           horizontal: 30.0, vertical: 10.0),
+  //                       // color: Colors.red[100],
+  //                       child: Padding(
+  //                         padding: const EdgeInsets.all(5.0),
+  //                         child: Container(
+  //                           decoration: BoxDecoration(
+  //                               borderRadius: BorderRadius.circular(10.0),
+  //                               shape: BoxShape.rectangle,
+  //                               color: Theme.of(context).primaryColor),
+  //                           // borderRadius: BorderRadius.circular(100.0)
+  //                           child: IconButton(
+  //                             iconSize: 40.0,
+  //                             icon: Icon(Icons.camera_alt, color: Colors.white),
+  //                             onPressed: _takePhoto,
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                     Container(
+  //                         alignment: Alignment.center,
+  //                         padding: EdgeInsets.symmetric(
+  //                             horizontal: 30.0, vertical: 10.0),
+  //                         // color: Colors.green[100],
+  //                         child: Padding(
+  //                           padding: const EdgeInsets.all(5.0),
+  //                           child: Container(
+  //                             decoration: BoxDecoration(
+  //                                 borderRadius: BorderRadius.circular(10.0),
+  //                                 shape: BoxShape.rectangle,
+  //                                 color: Theme.of(context).primaryColor),
+  //                             // borderRadius: BorderRadius.circular(100.0)
+  //                             child: IconButton(
+  //                               iconSize: 40.0,
+  //                               icon: Icon(Icons.photo_library,
+  //                                   color: Colors.white),
+  //                               onPressed: _showPictures,
+  //                             ),
+  //                           ),
+  //                         ))
+  //                   ])
+  //             ]);
+  //       });
+  // }
 }
