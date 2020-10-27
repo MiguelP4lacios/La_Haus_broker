@@ -108,7 +108,7 @@ class _PerfilState extends State<Perfil> {
               ),
             ),
             onPressed: () {
-              //
+              // No se están borrando los datos!!!!!
               _userPref.token = "";
               _userPref.userId = "";
               Navigator.of(context).pushNamed('login');

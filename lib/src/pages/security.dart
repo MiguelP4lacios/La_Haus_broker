@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
 import 'package:login_bloc_pattern/src/bloc/profile_bloc.dart';
 import 'package:login_bloc_pattern/src/resources/profile_resource.dart';
+import 'package:login_bloc_pattern/src/user_preferences/user_preferences.dart';
 
 class SecurityPage extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class SecurityPage extends StatefulWidget {
 
 class _SecurityPageState extends State<SecurityPage> {
   final buttonColor = Color.fromRGBO(0, 208, 174, 1.0);
+  final _userPref = new UserPreferences();
   
   @override
   Widget build(BuildContext context) {
@@ -94,9 +96,8 @@ class _SecurityPageState extends State<SecurityPage> {
                 ),
               ),
               onPressed: () {
-                // lógica para sobreescribir y guardar la información 
-                deleteUser();
-                Navigator.of(context).pushNamed('login');
+                //Aquí debería de ir un alert dialog antes de eliminar usuario!!!
+                showAlertDialog(context);
               },
               shape:
                   RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
@@ -170,5 +171,54 @@ class _SecurityPageState extends State<SecurityPage> {
       },
     );
   }
+
+
+
+
+  showAlertDialog(BuildContext context) {
+
+    // set up the button
+    Widget sendButton = RaisedButton( 
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 40.0,
+          vertical: 10.0),
+        child: Text(
+          'Aceptar',
+          style: TextStyle(fontSize: 18.0),
+        ),
+      ),
+      onPressed: () {
+        deleteUser();
+        _userPref.userId = '';
+        _userPref.token = '';
+        Navigator.of(context).pushNamed('login');
+      },
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      elevation: 0.0,
+      color: Color.fromRGBO(0, 208, 175, 1.0),
+      textColor: Colors.white,
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Eliminar usuario"),
+      content: Text("Este usuario se eliminará para siempre, estás seguro?"
+      ),
+      actions: [
+        sendButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
 
 }
