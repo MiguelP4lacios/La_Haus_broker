@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
 import 'package:login_bloc_pattern/src/widgets/app_bar.dart';
@@ -8,7 +9,7 @@ class FormP3Screen extends StatelessWidget {
   const FormP3Screen({Key key}) : super(key: key);
 
   _pushScreen(BuildContext context, Widget screen) {
-    Navigator.of(context).push(MaterialPageRoute(
+    Navigator.of(context).push(CupertinoPageRoute(
       builder: (context) => screen,
     ));
   }
@@ -77,7 +78,7 @@ class FormP3Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Habitaciones',
+                  labelText: 'Habitaciones *',
                   hintText: '3',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
@@ -104,7 +105,7 @@ class FormP3Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Baños',
+                  labelText: 'Baños *',
                   hintText: '2',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
@@ -129,7 +130,7 @@ class FormP3Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Medios Baños',
+                  labelText: '(½)Medios Baños *',
                   hintText: '1',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
@@ -154,7 +155,7 @@ class FormP3Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Estacionamientos',
+                  labelText: 'Estacionamientos *',
                   hintText: '0',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
@@ -178,7 +179,7 @@ class FormP3Screen extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  'Cuartos utiles',
+                  'Cuartos utiles *',
                 ),
               ),
               DropdownButton(

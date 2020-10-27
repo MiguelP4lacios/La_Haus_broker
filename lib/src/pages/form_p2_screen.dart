@@ -1,16 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/widgets/app_bar.dart';
 import 'form_p3_screen.dart';
 /* import '../blocs/bloc_form_p2.dart'; */
 import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
 import 'package:login_bloc_pattern/src/widgets/show_alert.dart';
+import '../models/amenities.dart';
 import 'globals.dart' as globals;
 
 class FormP2Screen extends StatelessWidget {
   const FormP2Screen({Key key}) : super(key: key);
 
   _pushScreen(BuildContext context, Widget screen) {
-    Navigator.of(context).push(MaterialPageRoute(
+    Navigator.of(context).push(CupertinoPageRoute(
       builder: (context) => screen,
     ));
   }
@@ -24,7 +26,7 @@ class FormP2Screen extends StatelessWidget {
         cardForm(Icons.star, state(bloc)),
         cardForm(null, floor(bloc)),
         cardForm(Icons.swap_vertical_circle, elevator(bloc)),
-        cardForm(null, commonArea(bloc)),
+        Card(child: commonArea(bloc)),
         cardForm(null, propertyTax(bloc)),
         nextButton(bloc)
       ];
@@ -32,7 +34,7 @@ class FormP2Screen extends StatelessWidget {
       List<Widget> formHouse = [
         cardForm(Icons.group, socialClass(bloc)),
         cardForm(null, state(bloc)),
-        cardForm(null, commonArea(bloc)),
+        Card(child: commonArea(bloc)),
         cardForm(null, propertyTax(bloc)),
         nextButton(bloc)
       ];
@@ -97,7 +99,7 @@ class FormP2Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Estrato',
+                  labelText: 'Estrato *',
                   hintText: '2',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
@@ -121,7 +123,7 @@ class FormP2Screen extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  'Estado del inmueble',
+                  'Estado del inmueble *',
                 ),
               ),
               DropdownButton(
@@ -153,7 +155,7 @@ class FormP2Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Piso/Apartamento',
+                  labelText: 'Piso/Apartamento *',
                   hintText: '3',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
@@ -177,7 +179,7 @@ class FormP2Screen extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  'Ascensor',
+                  'Ascensor ?*',
                 ),
               ),
               DropdownButton(
@@ -201,23 +203,45 @@ class FormP2Screen extends StatelessWidget {
   }
 
   Widget commonArea(FormBloc bloc) {
-    return StreamBuilder<String>(
-        stream: bloc.commonArea,
-        builder: (context, snapshot) {
-          return Column(
-            children: [
-              TextField(
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  labelText: 'Areas comunes',
-                  hintText: 'Acomun 1, Acomun 2, ...',
-                  hintStyle: TextStyle(color: Color(0xFFD9D9D9)),
-                  errorText: snapshot.error,
-                ),
-                onChanged: bloc.changeCommonArea,
-              ),
-              SizedBox(height: 15.0)
-            ],
+    Item _item = Item();
+    List<Item> checkBoxList = _item.getItems();
+    return Column(
+      children: [
+        Center(child: Text("Areas comunes"),),
+        Container(
+          height: 225.0,
+          child: grupCheck(checkBoxList, bloc)),
+        SizedBox(height: 15.0)
+      ],
+    );
+  }
+
+
+  ListView grupCheck(List<Item> checkBoxList, FormBloc _bloc) {
+    return new ListView.builder(
+        itemCount: checkBoxList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return new Container(
+            padding: new EdgeInsets.all(0.0),
+            child: new Column(
+              children: <Widget>[
+                StreamBuilder<Object>(
+                    stream: _bloc.checkboxController,
+                    builder: (context, snapshot) {
+                      return new CheckboxListTile(
+                        activeColor:
+                            Color.fromRGBO(0, 208, 174, 1.0), //Check is true color is green
+                        dense: true, //font change
+                        value: _bloc.mapCheckbox[index],
+                        title: new Text(checkBoxList[index].title),
+                        controlAffinity: ListTileControlAffinity
+                            .leading, //Display check box first, remove this line checkbox display last
+                        onChanged: (value) =>
+                            _bloc.setCheckbox(<int, bool>{index: value}),
+                      );
+                    })
+              ],
+            ),
           );
         });
   }
@@ -231,7 +255,7 @@ class FormP2Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Impuesto predial',
+                  labelText: 'Impuesto predial *',
                   prefixText: '\$  ',
                   hintText: '1000000',
                   alignLabelWithHint: true,

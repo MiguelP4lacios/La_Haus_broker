@@ -6,7 +6,8 @@ class PropertiesBloc {
   PropertiesBloc() {
     /* this constructor is used to ask the server for properties each time
     an instance is made */
-    getProperties();
+    // getProperties();
+    changeConnection(false);
   }
   final _propertyController = BehaviorSubject<List<dynamic>>();
   final _connectionController = BehaviorSubject<bool>();
@@ -25,6 +26,21 @@ class PropertiesBloc {
     /* Get all the properties */
     // this.changeProperties([]);
     this.changeProperties(await loadProperties());
+  }
+
+  saveProperty(dynamic property) async {
+    /* call a resource function in charge to change the property attributes
+    from the db 
+    The proprty instance is necessary to work with*/
+    List<dynamic> properties = this.properties;
+    for (int i = 0; i < properties.length; i++) {
+      if (properties[i].id == property.id) {
+        properties[i] = property;
+        await editProperty(property);
+        break;
+      }
+    }
+    this.changeProperties(properties);
   }
 
   deleteProperty(String id) async {
