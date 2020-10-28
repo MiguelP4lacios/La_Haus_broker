@@ -11,8 +11,8 @@ class Perfil extends StatefulWidget {
 class _PerfilState extends State<Perfil> {
   final _userPref = new UserPreferences();
   // Estas dfos variables estarán en userpreferences
-  final nombre = "Miguel";
-  final apellido = "Palacios";
+  // final nombre = "Miguel"; // unused
+  // final apellido = "Palacios"; // unused
 
 
   @override
@@ -40,7 +40,7 @@ class _PerfilState extends State<Perfil> {
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w500)),
               leading: CircleAvatar(
-                child: Text(nombre[0]+apellido[0], //estas variables serán del user preferences
+                child: Text(_userPref.name[0], //estas variables serán del user preferences
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.w800)),
                 backgroundColor: Color.fromRGBO(255, 174, 0, 1.0),
