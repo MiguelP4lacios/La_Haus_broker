@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:login_bloc_pattern/src/user_preferences/user_preferences.dart';
-import '../models/res_apartment.dart';
 import '../pages/globals.dart' as globals;
 
 class PropertyProvider {

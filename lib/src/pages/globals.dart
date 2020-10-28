@@ -3,8 +3,8 @@
 library la_haus_broker.globals;
 
 String propertyType = '';
-String userId = '';
-String propertyId = '';
-String token = '';
+String photoID = '';
 
 Map<String, dynamic> jsonProperty;
+Map<String, dynamic> propertyPlace = {'place': '', 'url': []};
+String place = '';
