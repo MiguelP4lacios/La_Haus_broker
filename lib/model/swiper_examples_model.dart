@@ -7,7 +7,7 @@ class Card {
   Card({@required this.imageUrl, @required this.description});
 }
 
-final cardlistKitchen = [
+final List<Card> cardlistKitchen = [
   Card(
       imageUrl: 'assets/nice_kitchens/k1.jpg',
       description:

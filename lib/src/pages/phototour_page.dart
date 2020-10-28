@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:login_bloc_pattern/src/providers/photo_provider.dart';
+import 'globals.dart' as globals;
 
 class PhotoTourPage extends StatelessWidget {
   // const PhotoTourPage({Key key}) : super(key: key);
+  final photoProvider = PhotoProvider();
 
   @override
   Widget build(BuildContext context) {
+    photoProvider.getAllPhotos(globals.jsonProperty['id'].toString());
     return Scaffold(
         body: Container(
       // color: Colors.green[100],

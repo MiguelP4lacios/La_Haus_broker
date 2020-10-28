@@ -14,7 +14,7 @@ class ExamplesView {
       @required this.description});
 }
 
-final examplesView = [
+final List<ExamplesView> examplesView = [
   ExamplesView(
       icon: Icons.account_box,
       title: 'Cocinas',
