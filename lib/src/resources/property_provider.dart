@@ -19,7 +19,7 @@ class PropertyProvider {
     print(resp.body.toString());
     //ResApartment ap = ResApartment.fromJson(json.decode(resp.body));
     Map<String, dynamic> ap = json.decode(resp.body);
-    print(ap['properties']);
+    print(ap);
     if (resp.statusCode == 201) {
       globals.jsonProperty = ap['properties'];
       return {
