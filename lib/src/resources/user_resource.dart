@@ -27,6 +27,9 @@ class UserProvider {
     if (decodedResp.containsKey('token')) {
       _userPref.token = decodedResp['token'];
       _userPref.userId = decodedResp['users']['id'].toString();
+      _userPref.name = decodedResp['users']['full_name'].toString();
+      _userPref.email = decodedResp['users']['email'].toString();
+      _userPref.cellphone = decodedResp['users']['cellphone'].toString();
       return {'ok': true};
     } else {
       // TODO: Manage better the error massages

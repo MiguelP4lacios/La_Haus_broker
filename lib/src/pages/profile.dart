@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/user_preferences/user_preferences.dart';
 
-
 class Perfil extends StatefulWidget {
   @override
   _PerfilState createState() => _PerfilState();
@@ -13,7 +12,6 @@ class _PerfilState extends State<Perfil> {
   // Estas dfos variables estarán en userpreferences
   // final nombre = "Miguel"; // unused
   // final apellido = "Palacios"; // unused
-
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +31,16 @@ class _PerfilState extends State<Perfil> {
               onTap: () {
                 Navigator.of(context).pushNamed('personal');
               },
-              title: Text("Miguel Palacios",
+              title: Text(_userPref.name,
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w900)),
               subtitle: Text('Medellin',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w500)),
               leading: CircleAvatar(
-                child: Text(_userPref.name[0], //estas variables serán del user preferences
+                child: Text(
+                    _userPref
+                        .name[0], //estas variables serán del user preferences
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.w800)),
                 backgroundColor: Color.fromRGBO(255, 174, 0, 1.0),
@@ -97,11 +97,9 @@ class _PerfilState extends State<Perfil> {
             ),
           ),
           // SizedBox(height: 20),
-          RaisedButton( 
+          RaisedButton(
             child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 40.0,
-                vertical: 10.0),
+              padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
               child: Text(
                 'Cerrar Sesión',
                 style: TextStyle(fontSize: 18.0),

@@ -131,7 +131,8 @@ class PhotoProvider {
     print(photos);
     for (var item in photos) {
       if (item['location'] != null) {
-        photoModel.agregar(item['location'], item['url']);
+        photoModel.agregar(
+            item['location'], item['url'], item['id'].toString());
       }
     }
     return;

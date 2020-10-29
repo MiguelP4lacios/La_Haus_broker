@@ -27,11 +27,9 @@ class Photos {
 class Photo {
   String place;
   List<String> url;
+  List<String> id;
 
-  Photo({
-    this.place,
-    this.url,
-  });
+  Photo({this.place, this.url, this.id});
 
   factory Photo.fromJson(Map<String, dynamic> json) => Photo(
         place: json["place"],
@@ -43,160 +41,38 @@ class Photo {
         "url": url,
       };
 
-  agregar(String place, String url) {
+  agregar(String place, String url, String id) {
     for (var item in cardPro) {
       if (item.place == place) {
         item.url.add(url);
+        item.id.add(id);
       }
     }
   }
 
-  eliminar(String place, String url) {
+  eliminar(String place, String url, String id) {
     for (var item in cardPro) {
       if (item.place == place) {
         item.url.remove(url);
+        item.id.remove(id);
       }
+    }
+  }
+
+  resetList() {
+    for (var item in cardPro) {
+      item.url = [];
+      item.id = [];
     }
   }
 }
 
-// Photos photosFromJson(String str) => Photos.fromJson(json.decode(str));
-
-// String photosToJson(Photos data) => json.encode(data.toJson());
-
-// class Photos {
-//   String place;
-//   // String url;
-//   List<String> url;
-
-//   Photos({
-//     this.place,
-//     this.url,
-//   });
-
-//   factory Photos.fromJson(Map<String, dynamic> json) => Photos(
-//         place: json["place"],
-//         url: json["url"],
-//       );
-
-//   Map<String, dynamic> toJson() => {
-//         "place": place,
-//         "url": url,
-//       };
-
-//   void addPhoto(String urlPhoto) {
-//     url.add(urlPhoto);
-//   }
-// }
-
-// Photos photoCocina = Photos(place: 'Cocina');
-// Photos photoCuarto = Photos(place: 'Cuarto');
-// Photos photoBath = Photos(place: 'Baño');
-// Photos photoSala = Photos(place: 'Zona Social');
-// Photos photoComedor = Photos(place: 'Comeder');
-// Photos photo = Photos(place: 'Comedor');
-// // Photos photoRoom1 = Photos(place: 'Comedor', url: "urlfoto1");
-// // Photos photoRoom = Photos(place: 'Comedor', url: "urlfoto2");
-
-// List<Photos> methodPractice(Photos inst) {
-//   final List<Photos> library = [];
-//   library.add(inst);
-//   return library;
-// }
-
-// // hardcore porn
-// _convertList() {
-
-// }
-
 List<Photo> cardPro = [
-  Photo(place: "Frente", url: []),
-  Photo(place: "Cocina", url: []),
-  Photo(place: "Zona Social", url: []),
-  Photo(place: "Comedor", url: []),
-  Photo(place: "Cuartos", url: []),
-  Photo(place: "Baños", url: []),
-  Photo(place: "Exteriores", url: [])
+  Photo(place: "Frente", url: [], id: []),
+  Photo(place: "Cocina", url: [], id: []),
+  Photo(place: "Zona Social", url: [], id: []),
+  Photo(place: "Comedor", url: [], id: []),
+  Photo(place: "Cuartos", url: [], id: []),
+  Photo(place: "Baños", url: [], id: []),
+  Photo(place: "Exteriores", url: [], id: [])
 ];
-
-// List<String> urls = [
-//   "url",
-//   "url",
-//   "url",
-//   "url",
-//   "url",
-// ];
-
-// final List<Photos> cardProperty = [
-//   Photos(
-//     place: "Cocina",
-
-//     url:
-//         'https://res.cloudinary.com/dfne0hspy/image/upload/v1602989421/sample.jpg',
-//         'https://res.cloudinary.com/dfne0hspy/image/upload/v1602989421/sample.jpg',
-//         'https://res.cloudinary.com/dfne0hspy/image/upload/v1602989421/sample.jpg',
-//   ),
-//   Photos(
-//       place: "Baños",
-//       url:
-//           'https://res.cloudinary.com/dfne0hspy/image/upload/v1603339597/efelpaqc8gndoqtynmm3.png'),
-//   Photos(
-//       place: "Comedor",
-//       url:
-//           'https://res.cloudinary.com/dfne0hspy/image/upload/v1603412138/zsxix5nj0jlgv2xm3xou.jpg'),
-//   Photos(
-//       place: "Cuartos",
-//       url:
-//           'https://res.cloudinary.com/dfne0hspy/image/upload/v1603470091/lkbxpekg3yryvfndo3su.jpg'),
-//   Photos(
-//       place: "Fachada/Frente",
-//       url:
-//           'https://res.cloudinary.com/dfne0hspy/image/upload/v1602989421/sample.jpg'),
-//   Photos(
-//       place: "Zona Social",
-//       url:
-//           'https://res.cloudinary.com/dfne0hspy/image/upload/v1602989421/sample.jpg'),
-//   Photos(
-//       place: "Jacuzzi",
-//       url:
-//           'https://res.cloudinary.com/dfne0hspy/image/upload/v1602989421/sample.jpg'),
-// ];
-
-// // final cardProperty = {
-// //   PropertyPhoto(
-// //     propertyPhotoPart: Part(
-// //       namePart: 'Cocina',
-// //       imageUrl: 'picture taken from ',
-// //     ),
-// //   ),
-// //   PropertyPhoto(
-// //     propertyPhotoPart: Part(
-// //       namePart: 'Cuarto',
-// //       imageUrl: 'picture taken from ',
-// //     ),
-// //   ),
-// //   PropertyPhoto(
-// //     propertyPhotoPart: Part(
-// //       namePart: 'Comedor',
-// //       imageUrl: 'picture taken from ',
-// //     ),
-// //   ),
-// //   PropertyPhoto(
-// //     propertyPhotoPart: Part(
-// //       namePart: 'Zona Social',
-// //       imageUrl: 'picture taken from ',
-// //     ),
-// //   ),
-// //   PropertyPhoto(
-// //     propertyPhotoPart: Part(
-// //       namePart: 'Fachada',
-// //       imageUrl: 'picture taken from ',
-// //     ),
-// //   ),
-// //   PropertyPhoto(
-// //     propertyPhotoPart: Part(
-// //       namePart: 'Baños',
-// //       imageUrl: 'picture taken from ',
-// //     ),
-// //   ),
-// // };

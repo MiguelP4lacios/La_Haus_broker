@@ -530,7 +530,7 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
                         style: TextStyle(fontSize: 18.0),
                       ),
                       onPressed: () {
-                        photoModel.agregar(propertyPlace, sub['url']);
+                        photoModel.agregar(propertyPlace, sub['url'], photoId);
                         // globals.propertyPlace['place'] = globals.place;
                         // globals.propertyPlace['url'] = sub['url'];
                         Navigator.pushReplacementNamed(
@@ -566,7 +566,6 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
             onPressed: () {
               photoProvider.deletePhoto(
                   photoId, globals.jsonProperty['id'].toString());
-              // globals.photoID = '';
               _showOption(context);
               Future.delayed(Duration(seconds: 5), () {
                 Navigator.of(context).pop(true);
@@ -577,7 +576,7 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
             child: Text('¿Tomar de nuevo?', style: TextStyle(fontSize: 18.0))),
         FlatButton(
           onPressed: () {
-            photoModel.agregar(propertyPlace, sub['url']);
+            photoModel.agregar(propertyPlace, sub['url'], photoId);
             Navigator.pushReplacementNamed(context, 'propertyReview');
           },
           child: Text(
@@ -613,7 +612,7 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
               style: TextStyle(fontSize: 18.0),
             ),
             onPressed: () {
-              photoModel.agregar(propertyPlace, sub['url']);
+              photoModel.agregar(propertyPlace, sub['url'], photoId);
               Navigator.pushReplacementNamed(context, 'propertyReview');
             })
       ]);
@@ -641,7 +640,7 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
         ),
         FlatButton(
           onPressed: () {
-            photoModel.agregar(propertyPlace, sub['url']);
+            photoModel.agregar(propertyPlace, sub['url'], photoId);
             Navigator.pushReplacementNamed(context, 'propertyReview');
           },
           child: Text(

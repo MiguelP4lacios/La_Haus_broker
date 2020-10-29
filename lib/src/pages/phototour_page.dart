@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/providers/photo_provider.dart';
+import 'package:login_bloc_pattern/model/photo_model.dart';
+
 import 'globals.dart' as globals;
 
 class PhotoTourPage extends StatelessWidget {
   // const PhotoTourPage({Key key}) : super(key: key);
   final photoProvider = PhotoProvider();
+  final photoModel = Photo();
 
   @override
   Widget build(BuildContext context) {
+    photoModel.resetList();
     photoProvider.getAllPhotos(globals.jsonProperty['id'].toString());
     return Scaffold(
         body: Container(

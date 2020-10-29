@@ -127,7 +127,7 @@ class FormP2Screen extends StatelessWidget {
                 ),
               ),
               DropdownButton(
-                hint: Text("Select item"),
+                hint: Text("Escoja una opción"),
                 value: snapshot.data,
                 isExpanded: true,
                 items: bloc.listUse.map((item) {
@@ -183,7 +183,7 @@ class FormP2Screen extends StatelessWidget {
                 ),
               ),
               DropdownButton(
-                hint: Text("Select item"),
+                hint: Text("Escoja una opción"),
                 value: snapshot.data,
                 isExpanded: true,
                 items: bloc.listDecision.map((item) {
@@ -207,15 +207,14 @@ class FormP2Screen extends StatelessWidget {
     List<Item> checkBoxList = _item.getItems();
     return Column(
       children: [
-        Center(child: Text("Areas comunes"),),
-        Container(
-          height: 225.0,
-          child: grupCheck(checkBoxList, bloc)),
+        Center(
+          child: Text("Áreas comunes"),
+        ),
+        Container(height: 225.0, child: grupCheck(checkBoxList, bloc)),
         SizedBox(height: 15.0)
       ],
     );
   }
-
 
   ListView grupCheck(List<Item> checkBoxList, FormBloc _bloc) {
     return new ListView.builder(
@@ -229,8 +228,8 @@ class FormP2Screen extends StatelessWidget {
                     stream: _bloc.checkboxController,
                     builder: (context, snapshot) {
                       return new CheckboxListTile(
-                        activeColor:
-                            Color.fromRGBO(0, 208, 174, 1.0), //Check is true color is green
+                        activeColor: Color.fromRGBO(
+                            0, 208, 174, 1.0), //Check is true color is green
                         dense: true, //font change
                         value: _bloc.mapCheckbox[index],
                         title: new Text(checkBoxList[index].title),
@@ -255,9 +254,8 @@ class FormP2Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Impuesto predial *',
-                  prefixText: '\$  ',
-                  hintText: '1000000',
+                  labelText: 'Impuesto Predial *',
+                  hintText: 'Mayor a 6 cifras',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
                     color: Color(0xFFD9D9D9),
@@ -297,7 +295,7 @@ class FormP2Screen extends StatelessWidget {
               onPressed: () {
                 if (!snapshot.hasData) {
                   showAlert(context, 'Campos obligatorios vácios',
-                      'Para continuar, llene los campos.'); // pop Error
+                      'Llene los campos para continuar.'); // pop Error
                 } else {
                   return (_pushScreen(context, FormP3Screen()));
                 }
