@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter/cupertino.dart';
 // import 'package:login_bloc_pattern/model/examplesModel.dart';
-import 'package:login_bloc_pattern/model/swiper_examples_model.dart';
+import '../models/swiper_examples_model.dart';
 
 class SwiperCardKitchen extends StatelessWidget {
   // final int index;

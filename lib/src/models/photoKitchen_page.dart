@@ -1,17 +1,17 @@
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:login_bloc_pattern/model/examplesModel.dart';
+import 'examplesModel.dart';
 // import 'package:login_bloc_pattern/src/models/apartment.dart';
 // import 'package:login_bloc_pattern/src/pages/globals.dart';
 // import 'package:path/path.dart' as path;
-import 'package:login_bloc_pattern/model/photo_model.dart';
+import 'package:login_bloc_pattern/src/models/photo_model.dart';
 import 'package:login_bloc_pattern/src/providers/photo_provider.dart';
 import 'package:login_bloc_pattern/src/resources/customDialog.dart';
 // import 'package:login_bloc_pattern/src/widgets/lateral_menu.dart';
 // import 'package:login_bloc_pattern/src/widgets/swipercard_examples.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'globals.dart' as globals;
+import '../pages/globals.dart' as globals;
 
 class PhotoKitchen extends StatelessWidget {
   // const PhotoKitchen({Key key}) : super(key: key);

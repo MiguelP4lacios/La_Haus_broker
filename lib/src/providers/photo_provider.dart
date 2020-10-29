@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:mime_type/mime_type.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:login_bloc_pattern/src/user_preferences/user_preferences.dart';
-import 'package:login_bloc_pattern/model/photo_model.dart';
+import 'package:login_bloc_pattern/src/models/photo_model.dart';
 
 class PhotoProvider {
   final Photo photoModel = Photo();

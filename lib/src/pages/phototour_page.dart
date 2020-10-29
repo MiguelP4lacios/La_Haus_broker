@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/providers/photo_provider.dart';
-import 'package:login_bloc_pattern/model/photo_model.dart';
+import 'package:login_bloc_pattern/src/models/photo_model.dart';
 
 import 'globals.dart' as globals;
 
