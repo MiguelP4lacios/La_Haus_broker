@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/model/photo_model.dart';
 import 'package:login_bloc_pattern/src/providers/photo_provider.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'globals.dart' as globals;
 
 // import 'globals.dart' as globals;
 
@@ -21,7 +22,11 @@ class _PropertyReviewState extends State<PropertyReview> {
     // List<PhotoProvider> property;
     // final Object propData = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      appBar: AppBar(title: Text('Resumen de la Propiedad')),
+      appBar: AppBar(
+          leading: IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () => Navigator.pushReplacementNamed(context, 'home')),
+          title: Text('Resumen de la Propiedad')),
       body: _list(_screen),
     );
   }
@@ -56,7 +61,8 @@ class _PropertyReviewState extends State<PropertyReview> {
                     ],
                   ),
                 ),
-                _imageValidation(cardPro[index].url, _screen),
+                _imageValidation(cardPro[index].id, cardPro[index].place,
+                    cardPro[index].url, _screen),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   FlatButton(
                       onPressed: () {
@@ -83,7 +89,8 @@ class _PropertyReviewState extends State<PropertyReview> {
         });
   }
 
-  Widget _imageValidation(List<String> url, Size screen) {
+  Widget _imageValidation(
+      List<String> id, String place, List<String> url, Size screen) {
     // swiper
     if (url.length != 0) {
       return Swiper(
@@ -98,13 +105,32 @@ class _PropertyReviewState extends State<PropertyReview> {
           return ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
               child: Container(
-                  child: FadeInImage(
-                // height: screen.height * 0.37,
-                // width: screen.width * 0.7,
-                fit: BoxFit.cover,
-                placeholder: AssetImage('assets/no-image.jpg'),
-                image: NetworkImage(url[index]),
-              )));
+                color: Colors.white,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    FadeInImage(
+                      // height: screen.height * 0.37,
+                      // width: screen.width * 0.7,
+                      fit: BoxFit.cover,
+                      placeholder: AssetImage('assets/no-image.jpg'),
+                      image: NetworkImage(url[index]),
+                    ),
+                    IconButton(
+                      alignment: Alignment.topRight,
+                      icon: Icon(Icons.delete, color: Colors.red),
+                      onPressed: () {
+                        photoProvider.deletePhoto(
+                            id[index],
+                            globals.jsonProperty[
+                                'id']); // TODO: REPLANTEAR PHOTO MODEL.
+                        photoModel.eliminar(place, url[index], id[index]);
+                        setState(() {}); // para la lista
+                      },
+                    ),
+                  ],
+                ),
+              ));
         },
         itemCount: url.length,
         pagination: new SwiperPagination(),

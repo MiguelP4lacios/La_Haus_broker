@@ -76,7 +76,7 @@ class FormP4Screen extends StatelessWidget {
                 ),
               ),
               DropdownButton(
-                hint: Text("Select item"),
+                hint: Text("Escoja una opción"),
                 value: snapshot.data,
                 isExpanded: true,
                 items: bloc.listDecision.map((item) {
@@ -102,11 +102,11 @@ class FormP4Screen extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  '¿Vive el alguien el inmueble? *',
+                  '¿Vive alguien en el inmueble? *',
                 ),
               ),
               DropdownButton(
-                hint: Text("Select item"),
+                hint: Text("Escoja una opción"),
                 value: snapshot.data,
                 isExpanded: true,
                 items: bloc.listDecision.map((item) {
@@ -136,7 +136,7 @@ class FormP4Screen extends StatelessWidget {
                 ),
               ),
               DropdownButton(
-                hint: Text("Select item"),
+                hint: Text("Escoja una opción"),
                 value: snapshot.data,
                 isExpanded: true,
                 items: bloc.listDecision.map((item) {
@@ -164,8 +164,7 @@ class FormP4Screen extends StatelessWidget {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Arrendamiento',
-                  prefixText: '\$  ',
-                  hintText: '1000000',
+                  hintText: 'Mayor a 6 cifras',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
                     color: Color(0xFFD9D9D9),
@@ -192,7 +191,7 @@ class FormP4Screen extends StatelessWidget {
                 ),
               ),
               DropdownButton(
-                hint: Text("Select item"),
+                hint: Text("Escoja una opción"),
                 value: snapshot.data,
                 isExpanded: true,
                 items: bloc.listDecision.map((item) {
@@ -249,6 +248,7 @@ class ProgressButton extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _ProgressButtonState();
 }
+
 class _ProgressButtonState extends State<ProgressButton>
     with TickerProviderStateMixin {
   int _state = 0;
@@ -276,36 +276,35 @@ class _ProgressButtonState extends State<ProgressButton>
           height: 48.0,
           width: _width,
           child: StreamBuilder<bool>(
-            stream: bloc.formP4Valid,
-            builder: (context, snapshot) {
-              return RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0)),
-                padding: EdgeInsets.all(0.0),
-                color: Color(0xFF00DDB3),
-                child: buildButtonChild(),
-                onPressed: !snapshot.hasData
-                    ? null
-                    : () async {
-                        if (await bloc.submit()) {
-                          /* print("Here → ${bloc.idProperty}"); */
-                          Navigator.of(context).pushReplacementNamed(
-                            'phototour', /* arguments: bloc.idProperty */
-                          );
-                        } else {
-                          showAlert(context, '', 'ERROR');
-                        }
-                      },
-                onHighlightChanged: (isPressed) {
-                  setState(() {
-                    if (_state == 0) {
-                      animateButton();
-                    }
-                  });
-                },
-              );
-            }
-          ),
+              stream: bloc.formP4Valid,
+              builder: (context, snapshot) {
+                return RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  padding: EdgeInsets.all(0.0),
+                  color: Color(0xFF00DDB3),
+                  child: buildButtonChild(),
+                  onPressed: !snapshot.hasData
+                      ? null
+                      : () async {
+                          if (await bloc.submit()) {
+                            /* print("Here → ${bloc.idProperty}"); */
+                            Navigator.of(context).pushReplacementNamed(
+                              'phototour', /* arguments: bloc.idProperty */
+                            );
+                          } else {
+                            showAlert(context, '', 'ERROR');
+                          }
+                        },
+                  onHighlightChanged: (isPressed) {
+                    setState(() {
+                      if (_state == 0) {
+                        animateButton();
+                      }
+                    });
+                  },
+                );
+              }),
         ));
   }
 
@@ -314,7 +313,8 @@ class _ProgressButtonState extends State<ProgressButton>
 
     _controller =
         AnimationController(duration: Duration(milliseconds: 300), vsync: this);
-    _animation = Tween(begin: 0.0, end: 1.0).animate(_controller)..addListener(() {
+    _animation = Tween(begin: 0.0, end: 1.0).animate(_controller)
+      ..addListener(() {
         setState(() {
           _width = initialWidth - ((initialWidth - 48.0) * _animation.value);
         });
@@ -328,10 +328,9 @@ class _ProgressButtonState extends State<ProgressButton>
     Timer(Duration(milliseconds: 3600), () {
       if (!_disposed) {
         setState(() {
-        _state = 0;
-        _width = double.infinity;
-
-      });
+          _state = 0;
+          _width = double.infinity;
+        });
       }
     });
   }
