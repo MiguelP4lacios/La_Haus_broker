@@ -12,7 +12,10 @@ class ProfileBloc with ProfileValidators {
   final _phoneController = BehaviorSubject<String>();
   final _idController = BehaviorSubject<String>();
   final _oldPasswordConfirmController = BehaviorSubject<String>();
+  final _newPasswordController = BehaviorSubject<String>();
   final _newPasswordConfirmController = BehaviorSubject<String>();
+  
+
 
 
 
@@ -31,7 +34,9 @@ class ProfileBloc with ProfileValidators {
   Stream<String> get idStream =>
       _idController.stream.transform(validateNumber);
   Stream<String> get oldPasswordConfirmStream => _oldPasswordConfirmController.stream;
+  Stream<String> get newPasswordStream => _newPasswordController.stream;
   Stream<String> get newPasswordConfirmStream => _newPasswordConfirmController.stream;
+
 
 
 
@@ -45,6 +50,8 @@ class ProfileBloc with ProfileValidators {
   Function(String) get changeId => _idController.sink.add;
   Function(String) get changeOldPasswordConfirm =>
       _oldPasswordConfirmController.sink.add;
+  Function(String) get changeNewPassword =>
+      _newPasswordController.sink.add;
   Function(String) get changeNewPasswordConfirm =>
       _newPasswordConfirmController.sink.add;
 
@@ -57,6 +64,7 @@ class ProfileBloc with ProfileValidators {
   String get phone => _phoneController.value;
   String get id => _idController.value;
   String get oldPasswordConfirm => _oldPasswordConfirmController.value;
+  String get newPassword => _newPasswordController.value;
   String get newPasswordConfirm => _newPasswordConfirmController.value;
 
 
@@ -68,6 +76,7 @@ class ProfileBloc with ProfileValidators {
     _phoneController.close();
     _idController.close();
     _oldPasswordConfirmController.close();
+    _newPasswordController.close();
     _newPasswordConfirmController.close();
   }
 }
