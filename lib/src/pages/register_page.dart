@@ -203,7 +203,7 @@ class RegisterPage extends StatelessWidget {
     Map<String, dynamic> registerData = {
       'email': bloc.email,
       'password': bloc.password,
-      'full_name': bloc.firstName + bloc.lastName,
+      'full_name': bloc.firstName +' '+ bloc.lastName,
       'cellphone': bloc.phoneNumber,
     };
     blocLogin.changeEmail(registerData['email']);
