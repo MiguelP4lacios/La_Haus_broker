@@ -102,7 +102,7 @@ class FormP4Screen extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  '¿Vive el alguien el inmueble? *',
+                  '¿Vive alguien el inmueble? *',
                 ),
               ),
               DropdownButton(

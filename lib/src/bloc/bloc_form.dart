@@ -275,7 +275,6 @@ class FormBloc {
   Map<int, bool> mapCheckbox = HashMap<int, bool>();
   Map<int, String> _mapAmenities = HashMap<int, String>();
 
-
   FormBloc() {
     // Initial data for list and map
     List<Item> _theAmenities = _item.getItems();
@@ -287,7 +286,6 @@ class FormBloc {
     checkboxController.add(mapCheckbox);
     checkboxController.stream.listen(setCheckboxHandler);
   }
-
 
   setCheckboxHandler(Map<int, bool> newMapCheckbox) {
     // New checkbox value for the itemModel id
