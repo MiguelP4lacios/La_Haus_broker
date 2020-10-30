@@ -557,98 +557,144 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
 
   Widget _dialogDeci(BuildContext context, Map sub, String propertyPlace) {
     if (sub['foco'] == false && sub['ilum'] == true) {
-      return Column(children: [
-        Text(
-          'Lo sentimos, su foto no fue aceptada por foco, por favor intente de nuevo',
-          style: TextStyle(fontSize: 12.0),
-        ),
-        FlatButton(
-            onPressed: () {
-              photoProvider.deletePhoto(
-                  photoId, globals.jsonProperty['id'].toString());
-              _showOption(context);
-              Future.delayed(Duration(seconds: 5), () {
-                Navigator.of(context).pop(true);
-              });
-              // Navigator.of(context, rootNavigator: true).pop();
-              // Navigator.pushReplacementNamed(context, 'phototourKitchen');
-            },
-            child: Text('¿Tomar de nuevo?', style: TextStyle(fontSize: 18.0))),
-        FlatButton(
-          onPressed: () {
-            photoModel.agregar(propertyPlace, sub['url'], photoId);
-            Navigator.pushReplacementNamed(context, 'propertyReview');
-          },
-          child: Text(
-            'Guardar',
-            style: TextStyle(fontSize: 18.0),
-          ),
-        )
-      ]);
+      return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+                'Lo sentimos, su foto no fue aceptada por foco, por favor intente de nuevo',
+                style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+                textAlign: TextAlign.center),
+            SizedBox(
+              height: 10.0,
+            ),
+            RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0),
+                ),
+                color: Theme.of(context).primaryColor,
+                onPressed: () {
+                  photoProvider.deletePhoto(
+                      photoId, globals.jsonProperty['id'].toString());
+                  _showOption(context);
+                  Future.delayed(Duration(seconds: 5), () {
+                    Navigator.of(context).pop(true);
+                  });
+                  // Navigator.of(context, rootNavigator: true).pop();
+                  // Navigator.pushReplacementNamed(context, 'phototourKitchen');
+                },
+                child: Text('¿Tomar de nuevo?',
+                    style: TextStyle(fontSize: 14.0, color: Colors.white))),
+            RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+              ),
+              color: Theme.of(context).primaryColor,
+              onPressed: () {
+                photoModel.agregar(propertyPlace, sub['url'], photoId);
+                Navigator.pushReplacementNamed(context, 'propertyReview');
+              },
+              child: Text(
+                'Guardar',
+                style: TextStyle(fontSize: 14.0, color: Colors.white),
+              ),
+            )
+          ]);
     } else if (sub['foco'] == true && sub['ilum'] == false) {
-      return Column(children: [
-        Text(
-          'Lo sentimos, su foto no fue aceptada por iluminación, por favor intente de nuevo',
-          style: TextStyle(fontSize: 12.0),
-        ),
-        FlatButton(
-            child: Text(
-              '¿Tomar de nuevo?',
-              style: TextStyle(fontSize: 18.0),
+      return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+                'Lo sentimos, su foto no fue aceptada por iluminación, por favor intente de nuevo',
+                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center),
+            SizedBox(
+              height: 10.0,
             ),
-            onPressed: () {
-              photoProvider.deletePhoto(
-                  photoId, globals.jsonProperty['id'].toString());
-              _showOption(context);
-              Future.delayed(Duration(seconds: 5), () {
-                Navigator.of(context).pop(true);
-              });
-              // Navigator.of(context, rootNavigator: true).pop();
-              // Navigator.of(context).pop();
-            }),
-        FlatButton(
-            child: Text(
-              'Guardar',
-              style: TextStyle(fontSize: 18.0),
-            ),
-            onPressed: () {
-              photoModel.agregar(propertyPlace, sub['url'], photoId);
-              Navigator.pushReplacementNamed(context, 'propertyReview');
-            })
-      ]);
+            RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0),
+                ),
+                color: Theme.of(context).primaryColor,
+                child: Text(
+                  '¿Tomar de nuevo?',
+                  style: TextStyle(fontSize: 14.0, color: Colors.white),
+                ),
+                onPressed: () {
+                  photoProvider.deletePhoto(
+                      photoId, globals.jsonProperty['id'].toString());
+                  _showOption(context);
+                  Future.delayed(Duration(seconds: 5), () {
+                    Navigator.of(context).pop(true);
+                  });
+                  // Navigator.of(context, rootNavigator: true).pop();
+                  // Navigator.of(context).pop();
+                }),
+            RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0),
+                ),
+                color: Theme.of(context).primaryColor,
+                child: Text(
+                  'Guardar',
+                  style: TextStyle(fontSize: 14.0, color: Colors.white),
+                ),
+                onPressed: () {
+                  photoModel.agregar(propertyPlace, sub['url'], photoId);
+                  Navigator.pushReplacementNamed(context, 'propertyReview');
+                })
+          ]);
     } else {
-      return Column(children: [
-        Text(
-          'Lo sentimos, su foto no fue aceptada por foco e iluminación, intente de nuevo',
-          style: TextStyle(fontSize: 12.0),
-        ),
-        FlatButton(
-          onPressed: () {
-            photoProvider.deletePhoto(
-                photoId, globals.jsonProperty['id'].toString());
-            _showOption(context);
-            Future.delayed(Duration(seconds: 5), () {
-              Navigator.of(context).pop(true);
-            });
-            // Navigator.of(context).pop();
-            // Navigator.of(context, rootNavigator: true).pop();
-          },
-          child: Text(
-            '¿Tomar de nuevo?',
-            style: TextStyle(fontSize: 18.0),
-          ),
-        ),
-        FlatButton(
-          onPressed: () {
-            photoModel.agregar(propertyPlace, sub['url'], photoId);
-            Navigator.pushReplacementNamed(context, 'propertyReview');
-          },
-          child: Text(
-            'Guardar',
-            style: TextStyle(fontSize: 18.0),
-          ),
-        )
-      ]);
+      return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+                'Lo sentimos, su foto no fue aceptada por foco e iluminación, intente de nuevo',
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center),
+            SizedBox(
+              height: 10.0,
+            ),
+            RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+              ),
+              color: Theme.of(context).primaryColor,
+              onPressed: () {
+                photoProvider.deletePhoto(
+                    photoId, globals.jsonProperty['id'].toString());
+                _showOption(context);
+                Future.delayed(Duration(seconds: 5), () {
+                  Navigator.of(context).pop(true);
+                });
+                // Navigator.of(context).pop();
+                // Navigator.of(context, rootNavigator: true).pop();
+              },
+              child: Text(
+                '¿Tomar de nuevo?',
+                style: TextStyle(fontSize: 14.0, color: Colors.white),
+              ),
+            ),
+            RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+              ),
+              color: Theme.of(context).primaryColor,
+              onPressed: () {
+                photoModel.agregar(propertyPlace, sub['url'], photoId);
+                Navigator.pushReplacementNamed(context, 'propertyReview');
+              },
+              child: Text(
+                'Guardar',
+                style: TextStyle(fontSize: 14.0, color: Colors.white),
+              ),
+            )
+          ]);
     }
   }
 }
