@@ -4,8 +4,6 @@ import 'package:login_bloc_pattern/src/providers/photo_provider.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'globals.dart' as globals;
 
-// import 'globals.dart' as globals;
-
 class PropertyReview extends StatefulWidget {
   // const PropertyReview({Key key}) : super(key: key);
   @override
@@ -19,13 +17,12 @@ class _PropertyReviewState extends State<PropertyReview> {
   @override
   Widget build(BuildContext context) {
     final _screen = MediaQuery.of(context).size;
-    // List<PhotoProvider> property;
-    // final Object propData = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
           leading: IconButton(
               icon: Icon(Icons.home),
-              onPressed: () => Navigator.pushReplacementNamed(context, 'home')),
+              onPressed: () =>
+                  Navigator.pushReplacementNamed(context, 'bottomBar')),
           title: Text('Resumen de la Propiedad')),
       body: _list(_screen),
     );
@@ -33,13 +30,9 @@ class _PropertyReviewState extends State<PropertyReview> {
 
   Widget _list(Size _screen) {
     print('largo del review');
-    // print(mapload.toString().length);
-    // print(mapload);
-    // print(mapload);
     return ListView.builder(
         itemCount: defaultList.length,
         itemBuilder: (context, index) {
-          // print(cardPro[index].url);
           return Card(
             elevation: 10.0,
             shape: RoundedRectangleBorder(
@@ -72,7 +65,16 @@ class _PropertyReviewState extends State<PropertyReview> {
                         Navigator.pushNamed(context, 'phototourKitchen',
                             arguments: defaultList[index].part);
                       },
-                      child: Text('Agregar fotos')),
+                      child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.0, vertical: 5.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30.0),
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          margin: EdgeInsets.all(10.0),
+                          child: Text('Agregar fotos',
+                              style: TextStyle(color: Colors.white)))),
                   // FlatButton(
                   //   onPressed: () => Navigator.pushReplacementNamed(
                   //       context, 'phototourKitchen'),
@@ -120,12 +122,13 @@ class _PropertyReviewState extends State<PropertyReview> {
                       alignment: Alignment.topRight,
                       icon: Icon(Icons.delete, color: Colors.red),
                       onPressed: () {
-                        photoProvider.deletePhoto(
-                            id[index],
-                            globals.jsonProperty[
-                                'id']); // TODO: REPLANTEAR PHOTO MODEL.
-                        photoModel.eliminar(place, url[index], id[index]);
-                        setState(() {}); // para la lista
+                        _dialogBin(id[index], globals.jsonProperty['id'], place,
+                            url[index]);
+                        // photoProvider.deletePhoto(
+                        //     id[index],
+                        //     globals.jsonProperty['id']);
+                        // photoModel.eliminar(place, url[index], id[index]);
+                        // setState(() {}); // para la lista
                       },
                     ),
                   ],
@@ -144,6 +147,45 @@ class _PropertyReviewState extends State<PropertyReview> {
           fit: BoxFit.cover);
     }
   }
+
+  void _dialogBin(String id, String propId, String place, String url) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          actionsPadding: EdgeInsets.symmetric(horizontal: 15.0),
+          title: Text('¿Desea eliminar esta foto?',
+              style: TextStyle(fontSize: 20.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          actions: [
+            RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0),
+                ),
+                color: Theme.of(context).primaryColor,
+                onPressed: () {
+                  photoProvider.deletePhoto(id, propId);
+                  photoModel.eliminar(place, url, id);
+                  setState(() {});
+                },
+                child: Text('Si',
+                    style: TextStyle(fontSize: 20.0, color: Colors.white))),
+            RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0),
+                ),
+                color: Theme.of(context).primaryColor,
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('No',
+                    style: TextStyle(fontSize: 20.0, color: Colors.white))),
+          ],
+          // actions: List<Widget> [
+        );
+      },
+    );
+  }
+  // para la lista
 }
 
 class DefaultList {
@@ -207,32 +249,6 @@ final List<DefaultList> defaultList = [
 //     ),
 //   );
 // }));
-
-// ListView(
-//       padding: EdgeInsets.all(10.0),
-//       children: <Widget>[
-//         _cardTipo1(context),
-//         SizedBox(height: 30.0),
-//         // _cardTipo2(),
-//         // SizedBox(height: 30.0),
-//         // _cardTipo2(),
-//         // SizedBox(height: 30.0),
-//         // _cardTipo2(),
-//         // SizedBox(height: 30.0),
-//         // _cardTipo2(),
-//         // SizedBox(height: 30.0),
-//         // _cardTipo2(),
-//         // SizedBox(height: 30.0),
-//         // _cardTipo2(),
-//         // SizedBox(height: 30.0),
-//         // _cardTipo2(),
-//         // SizedBox(height: 30.0),
-//         // _cardTipo2(),
-//         // SizedBox(height: 30.0),
-//         // _cardTipo2(),
-//         // SizedBox(height: 30.0),
-//       ],
-//     ),
 
 // Widget _cardTipo1(BuildContext context, Set<PropertyPhoto> cardProp) {
 //   return Card(borderOnForeground: ,)
