@@ -203,13 +203,20 @@ class RegisterPage extends StatelessWidget {
     Map<String, dynamic> registerData = {
       'email': bloc.email,
       'password': bloc.password,
-      'full_name': bloc.firstName +' '+ bloc.lastName,
+      'full_name': bloc.firstName + ' ' + bloc.lastName,
       'cellphone': bloc.phoneNumber,
     };
     blocLogin.changeEmail(registerData['email']);
     blocLogin.changePassword(registerData['password']);
     Map info = await userProvider.newUser(registerData);
     if (info['ok']) {
+      bloc.changeFirstName('');
+      bloc.changeLastName('');
+      bloc.changePassword('');
+      bloc.changePasswordConfirm('');
+      bloc.changeEmailConfirm('');
+      bloc.changeEmail('');
+      bloc.changePhoneNumber('');
       Navigator.pushReplacementNamed(context, 'bottomBar');
     } else {
       showAlert(context, '', 'El correo ingresado ya existe');
