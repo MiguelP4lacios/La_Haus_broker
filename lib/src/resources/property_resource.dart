@@ -18,16 +18,34 @@ Future<List<dynamic>> loadProperties() async {
         .get(url, headers: {'Authorization': 'Bearer ${_userPref.token}'});
     final decodedData = json.decode(resp.body);
     final decodedProps = decodedData['properties'];
+    List props;
 
     if (decodedProps.length != 0) {
-      decodedData['properties'].forEach((property) {
-        properties.add(HouseModel.fromJson(property));
-      });
+      props = decodedData['properties'];
+      for (int i = 0; i < props.length; i++) {
+        final prop = HouseModel.fromJson(props[i]);
+        final photo = await getPhoto(props[i]['id'].toString());
+        prop.img = photo;
+        properties.add(prop);
+      }
     }
     return properties;
   } catch (e) {
     print(e);
     return ['error_connection'];
+  }
+}
+
+Future getPhoto(String id) async {
+  final urlPhoto = "$_url/users/${_userPref.userId}/properties/$id/photos";
+  final photos = await http
+      .get(urlPhoto, headers: {'Authorization': 'Bearer ${_userPref.token}'});
+  final decodedPhotos = json.decode(photos.body);
+  final propsPhotos = decodedPhotos['photos'];
+  for (int i = 0; i < propsPhotos.length; i++) {
+    if (propsPhotos[i]['location'] == 'Frente') {
+      return propsPhotos[i]['url'];
+    }
   }
 }
 

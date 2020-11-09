@@ -7,7 +7,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.home(context);
-    bloc.getProperties();
     return StreamBuilder(
         stream: bloc.connectionStream,
         builder: (context, snapshot) {
@@ -15,12 +14,13 @@ class HomePage extends StatelessWidget {
             body: _getProperties(bloc),
             //floatingActionButton: _newHouseButton(context, bloc),
             //floatingActionButtonLocation:
-                //FloatingActionButtonLocation.centerFloat,
+            //FloatingActionButtonLocation.centerFloat,
           );
         });
   }
 
   Widget _getProperties(PropertiesBloc bloc) {
+    bloc.getProperties();
     /* it is in charge to create a widget which will receive all the houses once
     the server have been send the properties or a view soliciting the user
     refresh the page when the http request fails */
@@ -240,8 +240,9 @@ class HomePage extends StatelessWidget {
         children: <Widget>[
           FadeInImage(
             placeholder: AssetImage('assets/login/logo.png'),
-            image: NetworkImage(
-                'https://i.pinimg.com/originals/5d/7e/80/5d7e8095de543443153a701d2926710f.jpg'),
+            image: NetworkImage(property.img != null
+                ? property.img
+                : 'https://cdn.thinglink.me/gfx/icons/missing-thumbnail.png'),
           ),
           SizedBox(height: 10.0),
           address,

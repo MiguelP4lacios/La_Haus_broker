@@ -7,6 +7,8 @@ class LoginValidators {
       handleData: (password, sink) {
     if (password.length >= 6) {
       sink.add(password);
+    } else if (password.length == 0) {
+      sink.addError(null);
     } else {
       sink.addError('Contraseña debe ser mayor a 6 letras');
     }
@@ -19,6 +21,8 @@ class LoginValidators {
     RegExp regExp = new RegExp(pattern);
     if (regExp.hasMatch(email)) {
       sink.add(email);
+    } else if (email.length == 0) {
+      sink.addError(null);
     } else {
       sink.addError('Correo invalido');
     }

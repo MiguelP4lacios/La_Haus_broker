@@ -40,7 +40,8 @@ class HouseModel {
       this.empty,
       this.inhabitants,
       this.rent,
-      this.neighborhood});
+      this.neighborhood,
+      this.img});
   String id;
   String userId;
   String price;
@@ -60,6 +61,7 @@ class HouseModel {
   String rooms;
   String halfBathrooms;
   String parkingLot;
+  String img;
   bool utilityRoom;
   bool empty;
   bool inhabitants;

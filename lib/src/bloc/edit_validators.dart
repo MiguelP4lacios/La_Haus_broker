@@ -15,10 +15,10 @@ final validateErrors =
     } else {
       sink.addError('Usa solo Números');
     }
-    if (data[1].length >= 7) {
+    if (data[1].length >= 7 && data[1].length <= 9) {
       sink.add(data[1]);
     } else {
-      sink.addError('Precio debe ser superior a 6 dígitos');
+      sink.addError('Mayor a 6 menos de 10 dígitos');
     }
   } else if ("Barrio" == data[0] || "Dirección" == data[0]) {
     RegExp regExp = new RegExp(r'[\d\s\W]');
