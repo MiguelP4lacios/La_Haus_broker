@@ -7,7 +7,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.home(context);
-    bloc.getProperties();
     return StreamBuilder(
         stream: bloc.connectionStream,
         builder: (context, snapshot) {
@@ -21,6 +20,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _getProperties(PropertiesBloc bloc) {
+    bloc.getProperties();
     /* it is in charge to create a widget which will receive all the houses once
     the server have been send the properties or a view soliciting the user
     refresh the page when the http request fails */
