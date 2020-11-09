@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
             body: _getProperties(bloc),
             //floatingActionButton: _newHouseButton(context, bloc),
             //floatingActionButtonLocation:
-                //FloatingActionButtonLocation.centerFloat,
+            //FloatingActionButtonLocation.centerFloat,
           );
         });
   }
@@ -240,8 +240,9 @@ class HomePage extends StatelessWidget {
         children: <Widget>[
           FadeInImage(
             placeholder: AssetImage('assets/login/logo.png'),
-            image: NetworkImage(
-                'https://i.pinimg.com/originals/5d/7e/80/5d7e8095de543443153a701d2926710f.jpg'),
+            image: NetworkImage(property.img != null
+                ? property.img
+                : 'https://cdn.thinglink.me/gfx/icons/missing-thumbnail.png'),
           ),
           SizedBox(height: 10.0),
           address,

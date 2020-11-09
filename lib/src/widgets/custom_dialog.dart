@@ -631,7 +631,7 @@ Future<T> customShowDialog<T>({
   assert(child == null || builder == null);
   return Navigator.of(context, rootNavigator: true).push(new _DialogRoute<T>(
     child: child ?? new Builder(builder: builder),
-    theme: Theme.of(context, shadowThemeOnly: true),
+    theme: Theme.of(context),
     barrierDismissible: barrierDismissible,
     barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
   ));
