@@ -13,9 +13,9 @@ class HomePage extends StatelessWidget {
         builder: (context, snapshot) {
           return Scaffold(
             body: _getProperties(bloc),
-            floatingActionButton: _newHouseButton(context, bloc),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
+            //floatingActionButton: _newHouseButton(context, bloc),
+            //floatingActionButtonLocation:
+                //FloatingActionButtonLocation.centerFloat,
           );
         });
   }
@@ -241,7 +241,7 @@ class HomePage extends StatelessWidget {
           FadeInImage(
             placeholder: AssetImage('assets/login/logo.png'),
             image: NetworkImage(
-                'https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=6&m=1222357475&s=612x612&w=0&h=p8Qv0TLeMRxaES5FNfb09jK3QkJrttINH2ogIBXZg-c='),
+                'https://i.pinimg.com/originals/5d/7e/80/5d7e8095de543443153a701d2926710f.jpg'),
           ),
           SizedBox(height: 10.0),
           address,

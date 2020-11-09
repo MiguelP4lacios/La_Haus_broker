@@ -44,7 +44,7 @@ class UserProvider {
     data will be used instead of authdata*/
       'email': data['email'].toString(),
       'password': data['password'].toString(),
-      'full_name': data['first_name'].toString(),
+      'full_name': data['full_name'].toString(),
       'cellphone': data['cellphone'].toString()
       //'returnSecureToken': true,
     };

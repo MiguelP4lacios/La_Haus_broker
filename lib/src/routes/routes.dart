@@ -5,7 +5,7 @@ import 'package:login_bloc_pattern/src/pages/form_p1_screen.dart';
 import 'package:login_bloc_pattern/src/pages/home_page.dart';
 import 'package:login_bloc_pattern/src/pages/initial_page.dart';
 import 'package:login_bloc_pattern/src/pages/login_page.dart';
-import 'package:login_bloc_pattern/src/pages/photoKitchen_page.dart';
+import '../models/photoKitchen_page.dart';
 import 'package:login_bloc_pattern/src/pages/phototour_page.dart';
 import 'package:login_bloc_pattern/src/pages/register_page.dart';
 import 'package:login_bloc_pattern/src/pages/profile.dart';

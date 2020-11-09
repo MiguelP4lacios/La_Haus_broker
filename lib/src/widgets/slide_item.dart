@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_bloc_pattern/model/slide_model.dart';
+import '../models/slide_model.dart';
 
 class SlideItem extends StatelessWidget {
   // const SlideItem({Key key}) : super(key: key);
