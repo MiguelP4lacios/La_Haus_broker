@@ -96,7 +96,11 @@ class LoginPage extends StatelessWidget {
     Map info = await userProvider.login(bloc.email, bloc.password);
     print(info);
     if (info['ok']) {
-      Navigator.pushReplacementNamed(context, 'bottomBar');
+      bloc.changeEmail('');
+      bloc.changePassword('');
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          'bottomBar', (Route<dynamic> route) => false);
+      // Navigator.pushReplacementNamed(context, 'bottomBar');
     } else {
       showAlert(context, '', 'Correo o Contraseña incorrectos');
     }
