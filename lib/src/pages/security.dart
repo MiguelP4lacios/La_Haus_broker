@@ -192,7 +192,8 @@ class _SecurityPageState extends State<SecurityPage> {
         deleteUser();
         _userPref.userId = '';
         _userPref.token = '';
-        Navigator.of(context).pushNamed('login');
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          'login', (Route<dynamic> route) => false);
       },
       shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
