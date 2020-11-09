@@ -109,7 +109,8 @@ class _PerfilState extends State<Perfil> {
               // No se están borrando los datos!!!!!
               _userPref.token = "";
               _userPref.userId = "";
-              Navigator.of(context).pushNamed('login');
+              Navigator.of(context).pushNamedAndRemoveUntil(
+          'login', (Route<dynamic> route) => false);
             },
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
