@@ -8,7 +8,7 @@ class LoginValidators {
     if (password.length >= 6) {
       sink.add(password);
     } else if (password.length == 0) {
-      sink.addError(null);
+      sink.addError("no error");
     } else {
       sink.addError('Contraseña debe ser mayor a 6 letras');
     }
@@ -22,7 +22,7 @@ class LoginValidators {
     if (regExp.hasMatch(email)) {
       sink.add(email);
     } else if (email.length == 0) {
-      sink.addError(null);
+      sink.addError("no error");
     } else {
       sink.addError('Correo invalido');
     }

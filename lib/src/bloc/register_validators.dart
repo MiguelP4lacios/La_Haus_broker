@@ -24,8 +24,6 @@ class RegisterValidators {
       sink.addError('Debe contener 10 dígitos');
     } else if (!regExp.hasMatch(number)) {
       sink.add(number);
-    } else if (number.length == 0) {
-      sink.addError(null);
     } else {
       sink.addError('Solo los número son permitidos');
     }
