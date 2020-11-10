@@ -23,7 +23,8 @@ class _PropertyReviewState extends State<PropertyReview> {
               icon: Icon(Icons.home),
               onPressed: () =>
                   Navigator.pushReplacementNamed(context, 'bottomBar')),
-          title: Text('Resumen de la Propiedad')),
+          title: Text('Resumen de la Propiedad',
+              style: TextStyle(color: Colors.white))),
       body: _list(_screen),
     );
   }
@@ -54,8 +55,13 @@ class _PropertyReviewState extends State<PropertyReview> {
                     ],
                   ),
                 ),
-                _imageValidation(cardPro[index].id, cardPro[index].place,
-                    cardPro[index].url, _screen),
+                _imageValidation(
+                    cardPro[index].id,
+                    cardPro[index].place,
+                    cardPro[index].url,
+                    _screen,
+                    cardPro[index].foco,
+                    cardPro[index].ilum),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   FlatButton(
                       onPressed: () {
@@ -91,8 +97,8 @@ class _PropertyReviewState extends State<PropertyReview> {
         });
   }
 
-  Widget _imageValidation(
-      List<String> id, String place, List<String> url, Size screen) {
+  Widget _imageValidation(List<String> id, String place, List<String> url,
+      Size screen, List<bool> foco, List<bool> ilum) {
     // swiper
     if (url.length != 0) {
       return Swiper(
@@ -115,7 +121,7 @@ class _PropertyReviewState extends State<PropertyReview> {
                       // height: screen.height * 0.37,
                       // width: screen.width * 0.7,
                       fit: BoxFit.cover,
-                      placeholder: AssetImage('assets/no-image.jpg'),
+                      placeholder: AssetImage('assets/jar-loading.gif'),
                       image: NetworkImage(url[index]),
                     ),
                     IconButton(
@@ -123,7 +129,7 @@ class _PropertyReviewState extends State<PropertyReview> {
                       icon: Icon(Icons.delete, color: Colors.red),
                       onPressed: () {
                         _dialogBin(id[index], globals.jsonProperty['id'], place,
-                            url[index]);
+                            url[index], foco[index], ilum[index]);
                         // photoProvider.deletePhoto(
                         //     id[index],
                         //     globals.jsonProperty['id']);
@@ -131,6 +137,8 @@ class _PropertyReviewState extends State<PropertyReview> {
                         // setState(() {}); // para la lista
                       },
                     ),
+                    photoFeedback(
+                        id[index], place, url[index], foco[index], ilum[index]),
                   ],
                 ),
               ));
@@ -148,7 +156,33 @@ class _PropertyReviewState extends State<PropertyReview> {
     }
   }
 
-  void _dialogBin(String id, String propId, String place, String url) {
+  Widget photoFeedback(
+      String id, String place, String url, bool foco, bool ilum) {
+    if (foco == true && ilum == false) {
+      return processComparison('assets/images/foc-no-ilu.png');
+    } else if (foco == false && ilum == true) {
+      return processComparison('assets/images/ilu-no-foc.png');
+    } else if (foco == false && ilum == false) {
+      return processComparison('assets/images/no-foc-no-ilu.png');
+    } else {
+      return processComparison('assets/images/foc-ilu.png');
+    }
+  }
+
+  Widget processComparison(String photoPath) {
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Image(
+              alignment: Alignment.topLeft,
+              image: AssetImage(photoPath),
+              height: 40),
+        ]);
+  }
+
+  void _dialogBin(String id, String propId, String place, String url, bool foco,
+      bool ilum) {
     showDialog(
       context: context,
       builder: (context) {
@@ -166,7 +200,7 @@ class _PropertyReviewState extends State<PropertyReview> {
                 color: Theme.of(context).primaryColor,
                 onPressed: () {
                   photoProvider.deletePhoto(id, propId);
-                  photoModel.eliminar(place, url, id);
+                  photoModel.eliminar(place, url, id, foco, ilum);
                   setState(() {});
                 },
                 child: Text('Si',

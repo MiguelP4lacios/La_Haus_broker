@@ -121,7 +121,7 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
                     splashColor: Colors.lightGreen[100],
                     color: Colors.white,
                     iconSize: 40.0,
-                    icon: Icon(Icons.search),
+                    icon: Icon(Icons.save_alt),
                     onPressed: () async {
                       // _dialogWaiting(context);
                       // Future.delayed(Duration(seconds: 2));
@@ -133,7 +133,7 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
                       }
                     }),
                 Text(
-                  'Analizar',
+                  'Guardar',
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.white),
                 )
@@ -530,7 +530,8 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
                         style: TextStyle(fontSize: 18.0),
                       ),
                       onPressed: () {
-                        photoModel.agregar(propertyPlace, sub['url'], photoId);
+                        photoModel.agregar(propertyPlace, sub['url'], photoId,
+                            sub['foco'], sub['ilum']);
                         // globals.propertyPlace['place'] = globals.place;
                         // globals.propertyPlace['url'] = sub['url'];
                         Navigator.pushReplacementNamed(
@@ -594,11 +595,12 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
               ),
               color: Theme.of(context).primaryColor,
               onPressed: () {
-                photoModel.agregar(propertyPlace, sub['url'], photoId);
+                photoModel.agregar(propertyPlace, sub['url'], photoId,
+                    sub['foco'], sub['ilum']);
                 Navigator.pushReplacementNamed(context, 'propertyReview');
               },
               child: Text(
-                'Guardar',
+                'Guardar de todos modos',
                 style: TextStyle(fontSize: 14.0, color: Colors.white),
               ),
             )
@@ -640,11 +642,12 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
                 ),
                 color: Theme.of(context).primaryColor,
                 child: Text(
-                  'Guardar',
+                  'Guardar de todos modos',
                   style: TextStyle(fontSize: 14.0, color: Colors.white),
                 ),
                 onPressed: () {
-                  photoModel.agregar(propertyPlace, sub['url'], photoId);
+                  photoModel.agregar(propertyPlace, sub['url'], photoId,
+                      sub['foco'], sub['ilum']);
                   Navigator.pushReplacementNamed(context, 'propertyReview');
                 })
           ]);
@@ -686,11 +689,12 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
               ),
               color: Theme.of(context).primaryColor,
               onPressed: () {
-                photoModel.agregar(propertyPlace, sub['url'], photoId);
+                photoModel.agregar(propertyPlace, sub['url'], photoId,
+                    sub['foco'], sub['ilum']);
                 Navigator.pushReplacementNamed(context, 'propertyReview');
               },
               child: Text(
-                'Guardar',
+                'Guardar de todos modos',
                 style: TextStyle(fontSize: 14.0, color: Colors.white),
               ),
             )
