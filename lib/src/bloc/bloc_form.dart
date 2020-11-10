@@ -80,7 +80,7 @@ class FormBloc {
       _inhabitants.stream.transform(validateDropDown);
   Stream<String> get rentDesition =>
       _rentDesition.stream.transform(validateDropDown);
-  Stream<num> get rent => _rent.stream.transform(validateMoney);
+  Stream<num> get rent => _rent.stream.transform(validateNum);
   Stream<String> get mortgage => _mortgage.stream.transform(validateDropDown);
 
   /* Stream<dynamic> get idStream => _idProperty.stream;
@@ -414,7 +414,7 @@ class FormBloc {
             _inhabitants.value == 'Si' ? true.toString() : false.toString(),
         rent_desition:
             _rentDesition.value == 'Si' ? true.toString() : false.toString(),
-        rent: _rent.value.isEmpty ? null.toString() : _rent.value.toString(),
+        rent: _rent.value.toString(),
         mortgage: _mortgage.value == 'Si' ? true.toString() : false.toString());
     print(apartment.toJson());
     Map info = await propertyProvider.newProperty(apartment.toJson());
