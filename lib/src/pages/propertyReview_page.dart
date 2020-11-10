@@ -20,11 +20,13 @@ class _PropertyReviewState extends State<PropertyReview> {
     return Scaffold(
       appBar: AppBar(
           leading: IconButton(
-              icon: Icon(Icons.home),
+              color: Colors.white,
+              icon: Icon(Icons.arrow_back_ios),
               onPressed: () =>
                   Navigator.pushReplacementNamed(context, 'bottomBar')),
-          title: Text('Resumen de la Propiedad',
-              style: TextStyle(color: Colors.white))),
+          title: Text(
+            'Resumen de la Propiedad',
+          )),
       body: _list(_screen),
     );
   }
