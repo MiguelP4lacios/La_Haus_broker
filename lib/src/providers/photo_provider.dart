@@ -110,7 +110,6 @@ class PhotoProvider {
       acceptance['foco'] = decodedResp['photos']['accepted_foc'];
       acceptance['ilum'] = decodedResp['photos']['accepted_lum'];
       acceptance['url'] = decodedResp['photos']['url'];
-      acceptance['location'] = decodedResp['photos']['location'];
     }
     return acceptance;
   }

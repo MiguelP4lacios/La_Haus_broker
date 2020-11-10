@@ -126,21 +126,19 @@ class _PropertyReviewState extends State<PropertyReview> {
                       placeholder: AssetImage('assets/jar-loading.gif'),
                       image: NetworkImage(url[index]),
                     ),
-                    photoFeedback(
-                        id[index], place, url[index], foco[index], ilum[index]),
                     Container(
                       margin: EdgeInsets.only(
-                          left: 350, top: 3, right: 3, bottom: 350),
-                      height: 30,
-                      width: 40.0,
+                          left: 290, top: 3, right: 3, bottom: 250),
+                      // height: 30,
+                      // width: 40.0,
                       child: IconButton(
                         color: Colors.black,
-                        alignment: Alignment.topRight,
+                        alignment: Alignment.center,
                         icon: Icon(Icons.delete, color: Colors.red),
                         onPressed: () {
                           _dialogBin(id[index], globals.jsonProperty['id'],
                               place, url[index], foco[index], ilum[index]);
-                          // photoProvider.deletePhoto(
+                          // photoProvider.deletePhoto(6
                           //     id[index],
                           //     globals.jsonProperty['id']);
                           // photoModel.eliminar(place, url[index], id[index]);
@@ -148,6 +146,8 @@ class _PropertyReviewState extends State<PropertyReview> {
                         },
                       ),
                     ),
+                    photoFeedback(
+                        id[index], place, url[index], foco[index], ilum[index]),
                   ],
                 ),
               ));
