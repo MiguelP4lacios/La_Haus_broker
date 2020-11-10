@@ -567,7 +567,7 @@ class _PhotoKitchen2State extends State<PhotoKitchen2> {
                 style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                    color: Colors.black),
                 textAlign: TextAlign.center),
             SizedBox(
               height: 10.0,
