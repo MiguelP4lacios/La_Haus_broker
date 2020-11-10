@@ -51,7 +51,7 @@ class FormBloc {
   //Get Data from Streams (out)
   // 1
   Stream<String> get project => _project.stream.transform(validateString);
-  Stream<num> get price => _price.stream.transform(validateMoney);
+  Stream<num> get price => _price.stream.transform(validateMoney2);
   Stream<String> get neighborhood =>
       _neighborhood.stream.transform(validateString);
   Stream<String> get city => _city.stream.transform(validateString);
@@ -60,18 +60,18 @@ class FormBloc {
   Stream<num> get buildArea => _buildArea.stream.transform(validateNum);
   Stream<num> get privateArea => _privateArea.stream.transform(validateNum);
   // 2
-  Stream<num> get socialClass => _socialClass.stream.transform(validateNum);
+  Stream<num> get socialClass => _socialClass.stream.transform(validateSocialClass);
   Stream<String> get state => _state.stream.transform(validateDropDown);
-  Stream<num> get floor => _floor.stream.transform(validateMoney);
+  Stream<num> get floor => _floor.stream.transform(validateNum2);
   Stream<String> get elevator => _elevator.stream.transform(validateDropDown);
   Stream<String> get commonArea => _commonArea.stream.transform(validateString);
   Stream<num> get propertyTax => _propertyTax.stream.transform(validateMoney);
   // 3
-  Stream<num> get rooms => _rooms.stream.transform(validateMoney);
-  Stream<num> get bathrooms => _bathrooms.stream.transform(validateMoney);
+  Stream<num> get rooms => _rooms.stream.transform(validateNum2);
+  Stream<num> get bathrooms => _bathrooms.stream.transform(validateNum2);
   Stream<num> get halfBathrooms =>
-      _halfBathrooms.stream.transform(validateMoney);
-  Stream<num> get parkingLot => _parkingLot.stream.transform(validateMoney);
+      _halfBathrooms.stream.transform(validateNum2);
+  Stream<num> get parkingLot => _parkingLot.stream.transform(validateNum);
   Stream<String> get utilityRoom =>
       _utilityRoom.stream.transform(validateDropDown);
   // 4
@@ -210,21 +210,48 @@ class FormBloc {
 
   //Transformers
 
-  final validateMoney =
+  final validateMoney2 =
       StreamTransformer<String, int>.fromHandlers(handleData: (event, sink) {
     try {
       if (event.contains('.')) {
-        throw 'Whitout point, please';
+        throw 'Sin puntos, por favor';
       }
       RegExp regExp = new RegExp(r'([0-9])');
       if (regExp.hasMatch(event)) {
         sink.add(int.parse(event));
       } else {
-        throw 'Value must be a number';
+        throw 'El valor debe ser numérico.';
+      }
+      if (event.length < 7) {
+        throw 'El precio debe ser mayor a 7 cifras';
       }
     } catch (error) {
       if (error.toString().contains('FormatException:')) {
-        sink.addError('Invalid number');
+        sink.addError('Número invalido');
+      } else {
+        sink.addError(error);
+      }
+    }
+  });
+
+  final validateMoney =
+      StreamTransformer<String, int>.fromHandlers(handleData: (event, sink) {
+    try {
+      if (event.contains('.')) {
+        throw 'Sin puntos, por favor';
+      }
+      RegExp regExp = new RegExp(r'([0-9])');
+      if (regExp.hasMatch(event)) {
+        sink.add(int.parse(event));
+      } else {
+        throw 'El valor debe ser numérico.';
+      }
+      if (event.length < 6) {
+        throw 'El valor debe ser mayor a 6 cifras';
+      }
+    } catch (error) {
+      if (error.toString().contains('FormatException:')) {
+        sink.addError('Número invalido');
       } else {
         sink.addError(error);
       }
@@ -237,9 +264,58 @@ class FormBloc {
   final validateString =
       StreamTransformer<String, String>.fromHandlers(handleData: (event, sink) {
     if (event.length < 4) {
-      sink.addError('Value must be at Least 4 characters');
+      sink.addError('Debe ser mayor a 4 caracteres');
     } else {
       sink.add(event);
+    }
+  });
+
+
+  final validateSocialClass =
+      StreamTransformer<String, num>.fromHandlers(handleData: (event, sink) {
+    try {
+      if (event.contains('.')) {
+        throw 'Sin puntos, por favor';
+      }
+      RegExp regExp = new RegExp(r'([0-9])');
+      if (regExp.hasMatch(event)) {
+        sink.add(num.parse(event));
+      } else {
+        throw 'El valor debe ser numérico.';
+      }
+      if (event.length > 1) {
+        throw 'Estrato no valido';
+      }
+    } catch (error) {
+      if (error.toString().contains('FormatException:')) {
+        sink.addError('Número invalido');
+      } else {
+        sink.addError(error);
+      }
+    }
+  });
+
+  final validateNum2 =
+      StreamTransformer<String, num>.fromHandlers(handleData: (event, sink) {
+    try {
+      if (event.contains('.')) {
+        throw 'Sin puntos, por favor';
+      }
+      RegExp regExp = new RegExp(r'([0-9])');
+      if (regExp.hasMatch(event)) {
+        sink.add(num.parse(event));
+      } else {
+        throw 'El valor debe ser numérico.';
+      }
+      if (event.length > 2) {
+        throw 'El valor debe ser menor a 2 crifas';
+      }
+    } catch (error) {
+      if (error.toString().contains('FormatException:')) {
+        sink.addError('Número invalido');
+      } else {
+        sink.addError(error);
+      }
     }
   });
 
@@ -250,11 +326,11 @@ class FormBloc {
       if (regExp.hasMatch(event)) {
         sink.add(num.parse(event));
       } else {
-        throw 'Value must be a number';
+        throw 'El valor debe ser numérico.';
       }
     } catch (error) {
       if (error.toString().contains('FormatException:')) {
-        sink.addError('Invalid number');
+        sink.addError('Número invalido');
       } else {
         sink.addError(error);
       }
@@ -323,7 +399,8 @@ class FormBloc {
         state: _state.value.toString(),
         apt: _floor.value.toString(),
         elevator: _elevator.value == 'Si' ? true.toString() : false.toString(),
-        common_areas: a.toString(),/* _commonArea.value.toString(), */
+        common_areas: a.toString(),
+        /* _commonArea.value.toString(), */
         property_tax: _propertyTax.value.toString(),
         rooms: _rooms.value.toString(),
         bathrooms: _bathrooms.value.toString(),
@@ -337,9 +414,9 @@ class FormBloc {
             _inhabitants.value == 'Si' ? true.toString() : false.toString(),
         rent_desition:
             _rentDesition.value == 'Si' ? true.toString() : false.toString(),
-        rent: _rent.value.toString(),
+        rent: _rent.value.isEmpty ? null.toString() : _rent.value.toString(),
         mortgage: _mortgage.value == 'Si' ? true.toString() : false.toString());
-    //print(apartment.toJson());
+    print(apartment.toJson());
     Map info = await propertyProvider.newProperty(apartment.toJson());
     if (info['ok']) {
       /* changId(info['id']); */

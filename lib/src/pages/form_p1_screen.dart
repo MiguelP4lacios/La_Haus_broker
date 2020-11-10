@@ -108,7 +108,8 @@ class FormP1Screen extends StatelessWidget {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Precio *',
-                  hintText: 'Mayor a 7 cifras',
+                  prefix: Text("\$ "),
+                  hintText: '380000000',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
                     color: Color(0xFFD9D9D9),
@@ -198,7 +199,8 @@ class FormP1Screen extends StatelessWidget {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Administración *',
-                  hintText: 'Mayor a 6 cifras',
+                  prefix: Text("\$ "),
+                  hintText: '380000',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
                     color: Color(0xFFD9D9D9),

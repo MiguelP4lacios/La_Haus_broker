@@ -155,7 +155,7 @@ class FormP2Screen extends StatelessWidget {
               TextField(
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  labelText: 'Piso/Apartamento *',
+                  labelText: 'Piso *',
                   hintText: '3',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
@@ -255,7 +255,8 @@ class FormP2Screen extends StatelessWidget {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Impuesto Predial *',
-                  hintText: 'Mayor a 6 cifras',
+                  prefix: Text("\$ "),
+                  hintText: '380000',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
                     color: Color(0xFFD9D9D9),
