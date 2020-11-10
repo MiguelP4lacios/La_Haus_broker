@@ -110,6 +110,7 @@ class PhotoProvider {
       acceptance['foco'] = decodedResp['photos']['accepted_foc'];
       acceptance['ilum'] = decodedResp['photos']['accepted_lum'];
       acceptance['url'] = decodedResp['photos']['url'];
+      acceptance['location'] = decodedResp['photos']['location'];
     }
     return acceptance;
   }
@@ -131,8 +132,8 @@ class PhotoProvider {
     print(photos);
     for (var item in photos) {
       if (item['location'] != null) {
-        photoModel.agregar(
-            item['location'], item['url'], item['id'].toString());
+        photoModel.agregar(item['location'], item['url'], item['id'].toString(),
+            item['accepted_foc'], item['accepted_lum']);
       }
     }
     return;
