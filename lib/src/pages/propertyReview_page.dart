@@ -20,7 +20,7 @@ class _PropertyReviewState extends State<PropertyReview> {
     return Scaffold(
       appBar: AppBar(
           leading: IconButton(
-              color: Colors.white,
+              color: Colors.black,
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () =>
                   Navigator.pushReplacementNamed(context, 'bottomBar')),
@@ -126,21 +126,28 @@ class _PropertyReviewState extends State<PropertyReview> {
                       placeholder: AssetImage('assets/jar-loading.gif'),
                       image: NetworkImage(url[index]),
                     ),
-                    IconButton(
-                      alignment: Alignment.topRight,
-                      icon: Icon(Icons.delete, color: Colors.red),
-                      onPressed: () {
-                        _dialogBin(id[index], globals.jsonProperty['id'], place,
-                            url[index], foco[index], ilum[index]);
-                        // photoProvider.deletePhoto(
-                        //     id[index],
-                        //     globals.jsonProperty['id']);
-                        // photoModel.eliminar(place, url[index], id[index]);
-                        // setState(() {}); // para la lista
-                      },
-                    ),
                     photoFeedback(
                         id[index], place, url[index], foco[index], ilum[index]),
+                    Container(
+                      margin: EdgeInsets.only(
+                          left: 350, top: 3, right: 3, bottom: 350),
+                      height: 30,
+                      width: 40.0,
+                      child: IconButton(
+                        color: Colors.black,
+                        alignment: Alignment.topRight,
+                        icon: Icon(Icons.delete, color: Colors.red),
+                        onPressed: () {
+                          _dialogBin(id[index], globals.jsonProperty['id'],
+                              place, url[index], foco[index], ilum[index]);
+                          // photoProvider.deletePhoto(
+                          //     id[index],
+                          //     globals.jsonProperty['id']);
+                          // photoModel.eliminar(place, url[index], id[index]);
+                          // setState(() {}); // para la lista
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ));
@@ -161,13 +168,13 @@ class _PropertyReviewState extends State<PropertyReview> {
   Widget photoFeedback(
       String id, String place, String url, bool foco, bool ilum) {
     if (foco == true && ilum == false) {
-      return processComparison('assets/images/foc-no-ilu.png');
+      return processComparison('assets/images/foc-no-ilu-w.png');
     } else if (foco == false && ilum == true) {
-      return processComparison('assets/images/ilu-no-foc.png');
+      return processComparison('assets/images/ilu-no-foc-w.png');
     } else if (foco == false && ilum == false) {
-      return processComparison('assets/images/no-foc-no-ilu.png');
+      return processComparison('assets/images/no-foc-no-ilu-w.png');
     } else {
-      return processComparison('assets/images/foc-ilu.png');
+      return processComparison('assets/images/foc-ilu-w.png');
     }
   }
 
@@ -201,6 +208,7 @@ class _PropertyReviewState extends State<PropertyReview> {
                 ),
                 color: Theme.of(context).primaryColor,
                 onPressed: () {
+                  Navigator.of(context).pop();
                   photoProvider.deletePhoto(id, propId);
                   photoModel.eliminar(place, url, id, foco, ilum);
                   setState(() {});
