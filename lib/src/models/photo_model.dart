@@ -28,8 +28,10 @@ class Photo {
   String place;
   List<String> url;
   List<String> id;
+  List<bool> foco;
+  List<bool> ilum;
 
-  Photo({this.place, this.url, this.id});
+  Photo({this.place, this.url, this.id, this.foco, this.ilum});
 
   factory Photo.fromJson(Map<String, dynamic> json) => Photo(
         place: json["place"],
@@ -41,20 +43,24 @@ class Photo {
         "url": url,
       };
 
-  agregar(String place, String url, String id) {
+  agregar(String place, String url, String id, bool foco, bool ilum) {
     for (var item in cardPro) {
       if (item.place == place) {
         item.url.add(url);
         item.id.add(id);
+        item.foco.add(foco);
+        item.ilum.add(ilum);
       }
     }
   }
 
-  eliminar(String place, String url, String id) {
+  eliminar(String place, String url, String id, bool foco, bool ilum) {
     for (var item in cardPro) {
       if (item.place == place) {
         item.url.remove(url);
         item.id.remove(id);
+        item.foco.remove(foco);
+        item.ilum.remove(ilum);
       }
     }
   }
@@ -63,16 +69,18 @@ class Photo {
     for (var item in cardPro) {
       item.url = [];
       item.id = [];
+      item.foco = [];
+      item.ilum = [];
     }
   }
 }
 
 List<Photo> cardPro = [
-  Photo(place: "Frente", url: [], id: []),
-  Photo(place: "Cocina", url: [], id: []),
-  Photo(place: "Zona Social", url: [], id: []),
-  Photo(place: "Comedor", url: [], id: []),
-  Photo(place: "Cuartos", url: [], id: []),
-  Photo(place: "Baños", url: [], id: []),
-  Photo(place: "Exteriores", url: [], id: [])
+  Photo(place: "Frente", url: [], id: [], foco: [], ilum: []),
+  Photo(place: "Cocina", url: [], id: [], foco: [], ilum: []),
+  Photo(place: "Zona Social", url: [], id: [], foco: [], ilum: []),
+  Photo(place: "Comedor", url: [], id: [], foco: [], ilum: []),
+  Photo(place: "Cuartos", url: [], id: [], foco: [], ilum: []),
+  Photo(place: "Baños", url: [], id: [], foco: [], ilum: []),
+  Photo(place: "Exteriores", url: [], id: [], foco: [], ilum: [])
 ];
