@@ -7,8 +7,8 @@ class LoginValidators {
       handleData: (password, sink) {
     if (password.length >= 6) {
       sink.add(password);
-      // } else if (password.length == 0) {
-      //   sink.addError("no error");
+    } else if (password.length == 0) {
+      sink.addError("no error");
     } else {
       sink.addError('Contraseña debe ser mayor a 6 letras');
     }
