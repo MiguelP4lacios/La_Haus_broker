@@ -164,7 +164,8 @@ class FormP4Screen extends StatelessWidget {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Arrendamiento',
-                  hintText: 'Mayor a 6 cifras',
+                  prefix: Text("\$ "),
+                  hintText: '880000',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
                     color: Color(0xFFD9D9D9),
