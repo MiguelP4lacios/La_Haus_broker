@@ -16,24 +16,26 @@ class UserProvider {
     };
 
     print("auth: " + authData.toString());
+    try {
+      final resp = await http.post(
+          'https://lahaus.herokuapp.com/api/v1/login/?email=${email.toString()}&password=${password.toString()}',
+          headers: {'Authorization': 'Bearer token'});
 
-    final resp = await http.post(
-        'https://lahaus.herokuapp.com/api/v1/login/?email=${email.toString()}&password=${password.toString()}',
-        headers: {'Authorization': 'Bearer token'});
+      print("my body:" + resp.body);
 
-    print("my body:" + resp.body);
-
-    Map<String, dynamic> decodedResp = json.decode(resp.body);
-    if (decodedResp.containsKey('token')) {
-      _userPref.token = decodedResp['token'];
-      _userPref.userId = decodedResp['users']['id'].toString();
-      _userPref.name = decodedResp['users']['full_name'].toString();
-      _userPref.email = decodedResp['users']['email'].toString();
-      _userPref.cellphone = decodedResp['users']['cellphone'].toString();
-      return {'ok': true};
-    } else {
-      // TODO: Manage better the error massages
-      return {'ok': false, 'message': decodedResp['errors']};
+      Map<String, dynamic> decodedResp = json.decode(resp.body);
+      if (decodedResp.containsKey('token')) {
+        _userPref.token = decodedResp['token'];
+        _userPref.userId = decodedResp['users']['id'].toString();
+        _userPref.name = decodedResp['users']['full_name'].toString();
+        _userPref.email = decodedResp['users']['email'].toString();
+        _userPref.cellphone = decodedResp['users']['cellphone'].toString();
+        return {'ok': true, 'massage': 'ok'};
+      } else {
+        return {'ok': false, 'message': decodedResp['errors']};
+      }
+    } catch (e) {
+      return {'ok': false, 'message': 'La sesión ha expirado'};
     }
   }
 
@@ -48,20 +50,24 @@ class UserProvider {
       'cellphone': data['cellphone'].toString()
       //'returnSecureToken': true,
     };
-    final resp = await http.post('https://lahaus.herokuapp.com/api/v1/signup',
-        body: json.encode(authData),
-        headers: {'Content-Type': 'application/json'});
-    print(resp.body);
-    Map<String, dynamic> decodedResp = json.decode(resp.body);
-    if (decodedResp.containsKey('token')) {
-      _userPref.token = decodedResp['token'];
-      _userPref.userId = decodedResp['users']['id'].toString();
-      _userPref.name = decodedResp['users']['full_name'].toString();
-      _userPref.email = decodedResp['users']['email'].toString();
-      _userPref.cellphone = decodedResp['users']['cellphone'].toString();
-      return {'ok': true};
-    } else {
-      return {'ok': false, 'message': decodedResp['errors']};
+    try {
+      final resp = await http.post('https://lahaus.herokuapp.com/api/v1/signup',
+          body: json.encode(authData),
+          headers: {'Content-Type': 'application/json'});
+      print(resp.body);
+      Map<String, dynamic> decodedResp = json.decode(resp.body);
+      if (decodedResp.containsKey('token')) {
+        _userPref.token = decodedResp['token'];
+        _userPref.userId = decodedResp['users']['id'].toString();
+        _userPref.name = decodedResp['users']['full_name'].toString();
+        _userPref.email = decodedResp['users']['email'].toString();
+        _userPref.cellphone = decodedResp['users']['cellphone'].toString();
+        return {'ok': true, 'message': "ok"};
+      } else {
+        return {'ok': false, 'message': decodedResp['errors']};
+      }
+    } catch (e) {
+      return {'ok': false, 'message': 'La sesión ha expirado'};
     }
   }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
 import 'package:login_bloc_pattern/src/bloc/properties_bloc.dart';
-import 'package:login_bloc_pattern/src/widgets/app_bar.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.home(context);
+    bloc.getProperties();
     return StreamBuilder(
         stream: bloc.connectionStream,
         builder: (context, snapshot) {
@@ -20,7 +20,6 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _getProperties(PropertiesBloc bloc) {
-    bloc.getProperties();
     /* it is in charge to create a widget which will receive all the houses once
     the server have been send the properties or a view soliciting the user
     refresh the page when the http request fails */
@@ -39,7 +38,6 @@ class HomePage extends StatelessWidget {
           bloc.changeConnection(true);
           return _propertyList(bloc, snapshot.data);
         }
-        //TODO: create a condition to show an user advice indicading the http request fail and how to refresh the page
       },
     );
   }
@@ -271,23 +269,6 @@ class HomePage extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(context, 'edition', arguments: property);
       },
-    );
-  }
-
-  _newHouseButton(BuildContext context, PropertiesBloc bloc) {
-    /* Floating button to create a new House
-    it goes to the view in charge to create a new one */
-    return FloatingActionButton(
-      heroTag: null,
-      child:
-          Image.asset('assets/images/add.png', color: Colors.white, scale: 3),
-      backgroundColor:
-          bloc.connection ? Color.fromRGBO(0, 208, 174, 1.0) : Colors.grey[300],
-      onPressed: bloc.connection == true
-          ? () {
-              Navigator.pushNamed(context, 'new_property');
-            }
-          : null,
     );
   }
 }
