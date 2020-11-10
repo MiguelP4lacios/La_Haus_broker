@@ -27,6 +27,9 @@ class UserProvider {
     if (decodedResp.containsKey('token')) {
       _userPref.token = decodedResp['token'];
       _userPref.userId = decodedResp['users']['id'].toString();
+      _userPref.name = decodedResp['users']['full_name'].toString();
+      _userPref.email = decodedResp['users']['email'].toString();
+      _userPref.cellphone = decodedResp['users']['cellphone'].toString();
       return {'ok': true};
     } else {
       // TODO: Manage better the error massages
@@ -41,7 +44,7 @@ class UserProvider {
     data will be used instead of authdata*/
       'email': data['email'].toString(),
       'password': data['password'].toString(),
-      'full_name': data['first_name'].toString(),
+      'full_name': data['full_name'].toString(),
       'cellphone': data['cellphone'].toString()
       //'returnSecureToken': true,
     };

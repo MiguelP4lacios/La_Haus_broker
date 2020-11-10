@@ -1,44 +1,46 @@
-// import 'package:flutter/material.dart';
-// import 'dart:js';
-
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:login_bloc_pattern/src/models/apartment.dart';
 import 'dart:convert';
-// import 'dart:io';
 import 'package:mime_type/mime_type.dart';
 import 'package:http_parser/http_parser.dart';
-
 import 'package:login_bloc_pattern/src/user_preferences/user_preferences.dart';
+import 'package:login_bloc_pattern/src/models/photo_model.dart';
 
 class PhotoProvider {
+  final Photo photoModel = Photo();
   final _userPref = new UserPreferences();
-  // final String _url = 'https://lahaus.herokuapp.com/api/v1/users/13';
-  // final _url = 'https://lahaus.herokuapp.com/api/v1/users';
+  final String urlApi = "https://lahaus.herokuapp.com/api/v1/";
 
-  // final endpointAnal = 'https://lahaus.heroku.com';
-
-  Future<bool> sendPhoto(
-      String propertyUrl, BuildContext context, dynamic propData) async {
-    // final propData = ModalRoute.of(context).settings.arguments;
-    final endpoint = Uri.parse(
-        'https://lahaus.herokuapp.com/api/v1/users/${_userPref.userId}/properties/${propData}');
-
-    final photoAcceptance = http.MultipartRequest('POST', endpoint);
-
-    final imageAccept = http.MultipartFile.fromString('text', propertyUrl);
-
-    photoAcceptance.files.add(imageAccept);
-
-    final response = await photoAcceptance.send();
-    final resp = await http.Response.fromStream(response);
-
-    if (resp.statusCode != 200) {
-      return false;
-    } else {
-      return true;
+  Future<String> sendPhoto(
+      String urlPhoto, String propertyId, String propertyPlace) async {
+    print(propertyId + 'property id');
+    print(urlPhoto + ' url test');
+    final url =
+        "$urlApi/users/${_userPref.userId}/properties/$propertyId/photos";
+    final response = await http.post(url, headers: {
+      'accept': 'application/json',
+      'Authorization': 'Bearer ${_userPref.token}'
+    }, body: {
+      'url': urlPhoto,
+      'location': propertyPlace,
+    });
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print('somth wrong');
+      print(response.body);
+      return null;
     }
+    Map<String, dynamic> decodedResp = json.decode(response.body);
+    print('photoId');
+    print(decodedResp['photos']['id']);
+
+    return decodedResp['photos']['id'].toString();
+
+    // if (decodedResp.containsKey('idToken')) {
+    //   _userPref.token = decodedResp['idToken'];
+    //   return {'ok': true};
+    // } else {
+    //   return {'ok': false, 'message': decodedResp['error']['message']};
+    // }
   }
 
   // Future<List<Apartment>> loadProperty() async {
@@ -60,7 +62,8 @@ class PhotoProvider {
   //   return properties;
   // }
 
-  Future<String> uploadPhoto(PickedFile image) async {
+  Future<String> uploadPhoto(File image) async {
+    // final img = FileImage(image).;
     final url = Uri.parse(
         'https://api.cloudinary.com/v1_1/dfne0hspy/image/upload/?upload_preset=wp889nbl');
 
@@ -82,8 +85,81 @@ class PhotoProvider {
       return null;
     }
     final respData = json.decode(resp.body);
-    print(respData);
+    print(respData['secure_url']);
 
     return respData['secure_url'];
+  }
+
+  //pooling para recibir la información de la foto (GET)
+  Future<Map> getInfoPhoto(String photoId, String propertyId) async {
+    final url =
+        "$urlApi/users/${_userPref.userId}/properties/$propertyId/photos/$photoId";
+    Map acceptance = {"foco": null, "ilum": null, "url": null};
+    while (acceptance['foco'] == null && acceptance['ilum'] == null) {
+      Future.delayed(Duration(seconds: 1));
+      final response = await http.get(url, headers: {
+        'accept': 'application/json',
+        'Authorization': 'Bearer ${_userPref.token}'
+      });
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        print('somth wrong');
+        print(response.body);
+        return null;
+      }
+      Map<String, dynamic> decodedResp = json.decode(response.body);
+      acceptance['foco'] = decodedResp['photos']['accepted_foc'];
+      acceptance['ilum'] = decodedResp['photos']['accepted_lum'];
+      acceptance['url'] = decodedResp['photos']['url'];
+    }
+    return acceptance;
+  }
+
+  Future getAllPhotos(String propertyId) async {
+    final url =
+        "$urlApi/users/${_userPref.userId}/properties/$propertyId/photos/";
+
+    final response = await http.get(url, headers: {
+      'accept': 'application/json',
+      'Authorization': 'Bearer ${_userPref.token}'
+    });
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print('somth wrong');
+      print(response.body);
+      return null;
+    }
+    final photos = json.decode(response.body)['photos'];
+    print(photos);
+    for (var item in photos) {
+      if (item['location'] != null) {
+        photoModel.agregar(
+            item['location'], item['url'], item['id'].toString());
+      }
+    }
+    return;
+  }
+
+  // print(acceptance);
+//     if (decodedResp.containsKey('idToken')) {
+//       _userPref.token = decodedResp['idToken'];
+//       return {'ok': true};
+//     } else {
+//       return {'ok': false, 'message': decodedResp['error']['message']};
+//     }
+
+// Debe de haber una animación de cargando mientras se hace el pooling
+//  mientras la respuesta sea difernete a null haga la petición
+  Future deletePhoto(String photoId, String propertyId) async {
+    final url =
+        "$urlApi/users/${_userPref.userId}/properties/$propertyId/photos/$photoId";
+    final response = await http.delete(url, headers: {
+      'accept': 'application/json',
+      'Authorization': 'Bearer ${_userPref.token}'
+    });
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      print('somth wrong');
+      print(response.body);
+      return null;
+    }
+    return;
   }
 }

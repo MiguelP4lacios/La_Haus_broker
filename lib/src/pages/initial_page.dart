@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_bloc_pattern/model/slide_model.dart';
+import '../models/slide_model.dart';
 import 'package:login_bloc_pattern/src/widgets/slide_dots.dart';
 import 'package:login_bloc_pattern/src/widgets/slide_item.dart';
 

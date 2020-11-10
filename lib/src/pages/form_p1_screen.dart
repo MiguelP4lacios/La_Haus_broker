@@ -76,7 +76,6 @@ class FormP1Screen extends StatelessWidget {
     );
   }
 
-
   Widget project(FormBloc bloc) {
     return StreamBuilder<String>(
         stream: bloc.project,
@@ -109,8 +108,7 @@ class FormP1Screen extends StatelessWidget {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Precio *',
-                  prefixText: '\$  ',
-                  hintText: '1000000',
+                  hintText: 'Mayor a 7 cifras',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
                     color: Color(0xFFD9D9D9),
@@ -179,7 +177,7 @@ class FormP1Screen extends StatelessWidget {
                 keyboardType: TextInputType.streetAddress,
                 decoration: InputDecoration(
                   labelText: 'Dirección *',
-                  hintText: 'Calle 45#12-34',
+                  hintText: 'Calle 45 # 12-34',
                   errorText: snapshot.error,
                 ),
                 onChanged: bloc.changeAddress,
@@ -200,8 +198,7 @@ class FormP1Screen extends StatelessWidget {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Administración *',
-                  prefixText: '\$  ',
-                  hintText: '1000000',
+                  hintText: 'Mayor a 6 cifras',
                   alignLabelWithHint: true,
                   hintStyle: TextStyle(
                     color: Color(0xFFD9D9D9),
@@ -282,8 +279,8 @@ class FormP1Screen extends StatelessWidget {
               ),
               onPressed: () {
                 if (!snapshot.hasData) {
-                  showAlert(context, 'Campos obligatorios vácios',
-                      'Para continuar, llene los campos.'); // pop Error
+                  showAlert(context, 'Campos obligatorios vacíos',
+                      'Llene los campos para continuar.'); // pop Error
                 } else {
                   return (_pushScreen(context, FormP2Screen()));
                 }

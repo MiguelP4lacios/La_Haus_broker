@@ -179,11 +179,11 @@ class FormP3Screen extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  'Cuartos utiles *',
+                  'Cuartos útiles *',
                 ),
               ),
               DropdownButton(
-                hint: Text("Select item"),
+                hint: Text("Escoja una opción"),
                 value: snapshot.data,
                 isExpanded: true,
                 items: bloc.listDecision.map((item) {
@@ -219,7 +219,7 @@ class FormP3Screen extends StatelessWidget {
               onPressed: () {
                 if (!snapshot.hasData) {
                   showAlert(context, 'Campos obligatorios vácios',
-                      'Para continuar, llene los campos.'); // pop Error
+                      'Llene los campos para continuar.'); // pop Error
                 } else {
                   return (_pushScreen(context, FormP4Screen()));
                 }

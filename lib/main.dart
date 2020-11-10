@@ -15,13 +15,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _userPref = new UserPreferences();
+    /* _userPref.token = ""; 
+    _userPref.userId = "";
+    _userPref.name = "";
+    _userPref.email = "";
+    _userPref.cellphone = ""; */
     print(_userPref.token);
-    print(_userPref.userId);
+    print(_userPref.userId); 
+    print(_userPref.name);
+    print(_userPref.email);
+    print(_userPref.cellphone);
     return BlocProvider(
       child: MaterialApp(
         title: 'La Haus Brokers',
         debugShowCheckedModeBanner: false,
-        initialRoute: _userPref.token == '' ? 'introslide' : 'bottomBar',
+        initialRoute: _userPref.token == '' ? 'introslide' : 'login',
         routes: getAppRoutes(),
         theme: ThemeData(primaryColor: Color.fromRGBO(0, 208, 174, 1.0)),
       ),

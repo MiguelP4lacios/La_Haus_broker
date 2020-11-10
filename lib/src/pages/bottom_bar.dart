@@ -17,8 +17,8 @@ class _BottomBarState extends State<BottomBar> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions = 
   [
-    PropertyPage(),
     HomePage(),
+    PropertyPage(),
     Perfil(),    
   ];
 
@@ -44,18 +44,6 @@ class _BottomBarState extends State<BottomBar> {
           BottomNavigationBarItem(
               icon: Container(
                 child: Image(
-                  image: AssetImage('assets/images/add.png'),
-                  fit: BoxFit.cover),
-                width: 30,
-                height: 30,
-              ),
-              title: Text(
-                'Agregar',
-                style: TextStyle(fontSize: 14),
-              )),
-          BottomNavigationBarItem(
-              icon: Container(
-                child: Image(
                   image: AssetImage('assets/images/folder.png'),
                   fit: BoxFit.cover),
                 width: 30,
@@ -63,6 +51,18 @@ class _BottomBarState extends State<BottomBar> {
               ),
               title: Text(
                 'Propiedades',
+                style: TextStyle(fontSize: 14),
+              )),
+          BottomNavigationBarItem(
+              icon: Container(
+                child: Image(
+                  image: AssetImage('assets/images/add.png'),
+                  fit: BoxFit.cover),
+                width: 30,
+                height: 30,
+              ),
+              title: Text(
+                'Agregar',
                 style: TextStyle(fontSize: 14),
               )),
           BottomNavigationBarItem(

@@ -7,7 +7,7 @@ class Card {
   Card({@required this.imageUrl, @required this.description});
 }
 
-final cardlistKitchen = [
+final List<Card> cardlistKitchen = [
   Card(
       imageUrl: 'assets/nice_kitchens/k1.jpg',
       description:
@@ -118,46 +118,6 @@ final cardlistCommonAreas = [
 ];
 
 // final cardlistPatio = [
-//   Card(
-//       imageUrl: 'assets/nice_bedrooms/bed1.jpg',
-//       description:
-//           'Recuerda que la iluminacion es esencial para una buena foto.'),
-//   Card(
-//       imageUrl: 'assets/nice_bedrooms/bed2.jpg',
-//       description: 'El lugar debe estar limpio y ordenado.'),
-//   Card(
-//       imageUrl: 'assets/nice_bedrooms/bed3.jpg',
-//       description: 'Captura el detalle y el ambiente que comunica el lugar.'),
-//   Card(
-//       imageUrl: 'assets/nice_bedrooms/bed4.jpg',
-//       description:
-//           'Captura todo el lugar haciendo la toma desde una distancia adecuada.'),
-//   Card(
-//       imageUrl: 'assets/nice_bedrooms/bed5.jpg',
-//       description: 'Otro buen ejemplo de la distancia.'),
-// ];
-
-// final cardlist = [
-//   Card(
-//       imageUrl: 'assets/nice_bedrooms/bed1.jpg',
-//       description:
-//           'Recuerda que la iluminacion es esencial para una buena foto.'),
-//   Card(
-//       imageUrl: 'assets/nice_bedrooms/bed2.jpg',
-//       description: 'El lugar debe estar limpio y ordenado.'),
-//   Card(
-//       imageUrl: 'assets/nice_bedrooms/bed3.jpg',
-//       description: 'Captura el detalle y el ambiente que comunica el lugar.'),
-//   Card(
-//       imageUrl: 'assets/nice_bedrooms/bed4.jpg',
-//       description:
-//           'Captura todo el lugar haciendo la toma desde una distancia adecuada.'),
-//   Card(
-//       imageUrl: 'assets/nice_bedrooms/bed5.jpg',
-//       description: 'Otro buen ejemplo de la distancia.'),
-// ];
-
-// final cardlist = [
 //   Card(
 //       imageUrl: 'assets/nice_bedrooms/bed1.jpg',
 //       description:
