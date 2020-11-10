@@ -96,11 +96,14 @@ class LoginPage extends StatelessWidget {
     Map info = await userProvider.login(bloc.email, bloc.password);
     print(info);
     if (info['ok']) {
-      bloc.changeEmail('');
-      bloc.changePassword('');
+      // bloc.changeEmail('');
+      // bloc.changePassword('');
       Navigator.of(context).pushNamedAndRemoveUntil(
           'bottomBar', (Route<dynamic> route) => false);
       // Navigator.pushReplacementNamed(context, 'bottomBar');
+    } else if (info['massage'] == "La sesión ha expirado") {
+      showAlert(context, '',
+          'No se puede establecer conexión, intentelo nuevamente en unos minutos');
     } else {
       showAlert(context, '', 'Correo o Contraseña incorrectos');
     }

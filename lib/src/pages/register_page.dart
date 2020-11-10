@@ -218,6 +218,9 @@ class RegisterPage extends StatelessWidget {
       bloc.changeEmail('');
       bloc.changePhoneNumber('');
       Navigator.pushReplacementNamed(context, 'bottomBar');
+    } else if (info['massage'] == 'La sesión ha expirado') {
+      showAlert(context, '',
+          'No se puede establecer conexión, intentelo nuevamente en unos minutos');
     } else {
       showAlert(context, '', 'El correo ingresado ya existe');
     }
