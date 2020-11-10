@@ -96,8 +96,8 @@ class LoginPage extends StatelessWidget {
     Map info = await userProvider.login(bloc.email, bloc.password);
     print(info);
     if (info['ok']) {
-      // bloc.changeEmail('');
-      // bloc.changePassword('');
+      bloc.changeEmail('');
+      bloc.changePassword('');
       Navigator.of(context).pushNamedAndRemoveUntil(
           'bottomBar', (Route<dynamic> route) => false);
       // Navigator.pushReplacementNamed(context, 'bottomBar');
