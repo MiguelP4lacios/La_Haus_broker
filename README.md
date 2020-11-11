@@ -1,7 +1,7 @@
 # La Haus Brokers
 <img width="100%" src="https://angellovc.github.io/lading-haus-brokers/assets/images/banner.png">
 
-[![Download Badge](https://img.shields.io/badge/LaHaus-Download-00d0ae?style=flat-square&logo=&logoColor=white&link=https://drive.google.com/file/d/1FHmTTQDliNqGD2fp-bQMOUgQCuJyLIT2/view?usp=sharing)](https://drive.google.com/file/d/1FHmTTQDliNqGD2fp-bQMOUgQCuJyLIT2/view?usp=sharing)
+[![Download Badge](https://img.shields.io/badge/LaHaus-Download-00d0ae?style=flat-square&logo=&logoColor=white&link=https://docs.google.com/uc?export=download&id=1FHmTTQDliNqGD2fp-bQMOUgQCuJyLIT2)](https://docs.google.com/uc?export=download&id=1FHmTTQDliNqGD2fp-bQMOUgQCuJyLIT2)
 
 ---
 <!-- TABLE OF CONTENTS -->
