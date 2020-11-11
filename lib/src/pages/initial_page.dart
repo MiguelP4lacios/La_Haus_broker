@@ -9,6 +9,7 @@ class IntroSlide extends StatefulWidget {
   _IntroSlideState createState() => _IntroSlideState();
 }
 
+// this page view controls the slides in the introduction or beginning of the app
 class _IntroSlideState extends State<IntroSlide> {
   int _currentpage = 0;
   final PageController _pageController = PageController(initialPage: 0);
@@ -69,7 +70,6 @@ class _IntroSlideState extends State<IntroSlide> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
-                            // crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               for (int i = 0; i < slidelist.length; i++)
                                 if (i == _currentpage)
@@ -84,9 +84,6 @@ class _IntroSlideState extends State<IntroSlide> {
                   ],
                 ),
               ),
-              // SizedBox(
-              //   height: 20.0,
-              // ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [

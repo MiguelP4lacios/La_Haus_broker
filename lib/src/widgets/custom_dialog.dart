@@ -1,7 +1,3 @@
-// Copyright 2015 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:async';
 import 'dart:ui';
 
@@ -10,22 +6,6 @@ import 'package:flutter/widgets.dart';
 
 import 'package:flutter/material.dart';
 
-// Examples can assume:
-// enum Department { treasury, state }
-
-/// A material design dialog.
-///
-/// This dialog widget does not have any opinion about the contents of the
-/// dialog. Rather than using this widget directly, consider using [AlertDialog]
-/// or [SimpleDialog], which implement specific kinds of material design
-/// dialogs.
-///
-/// See also:
-///
-///  * [AlertDialog], for dialogs that have a message and some buttons.
-///  * [SimpleDialog], for dialogs that offer a variety of options.
-///  * [showDialog], which actually displays the dialog and returns its result.
-///  * <https://material.google.com/components/dialogs.html>
 class Dialog extends StatelessWidget {
   /// Creates a dialog.
   ///
