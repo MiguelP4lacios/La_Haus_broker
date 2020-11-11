@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-// import 'package:login_bloc_pattern/src/widgets/app_bar.dart';
 import 'globals.dart' as globals;
 
+
+// Page to choose the property type
 class PropertyPage extends StatefulWidget {
   @override
   _PropertyPageState createState() => _PropertyPageState();

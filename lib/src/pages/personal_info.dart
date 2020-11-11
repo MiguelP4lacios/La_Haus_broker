@@ -3,7 +3,7 @@ import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
 import 'package:login_bloc_pattern/src/bloc/profile_bloc.dart';
 import 'package:login_bloc_pattern/src/user_preferences/user_preferences.dart';
 
-
+// General view of the user's data
 class PersonalPage extends StatefulWidget {
   @override
   _PersonalPageState createState() => _PersonalPageState();
@@ -39,7 +39,7 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-
+  // form to update the personal information 
   Widget _personalInfo(BuildContext context) {
     final bloc = BlocProvider.profile(context); // ESTO HAY QUE CAMBIARLO ???
     final sizeScreen = MediaQuery.of(context).size;
@@ -53,7 +53,7 @@ class _PersonalPageState extends State<PersonalPage> {
             CircleAvatar( // esto puede ser un floatingactionbutton
               // backgroundImage: ,
               radius: 40.0,
-              child: Text('MP',
+              child: Text( _userPref.name[0],
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w800,
@@ -121,7 +121,7 @@ class _PersonalPageState extends State<PersonalPage> {
             decoration: InputDecoration(
               // icon: Icon(Icons.perm_identity, color: buttonColor),
               labelText: 'Nombres',
-              hintText: 'Miguel', // Aquí se va a leer los datos previos
+              hintText:  _userPref.name.split(" ")[0],
               errorText: snapshot.error,
             ),
             onChanged: (value) => bloc.changeFirstName(value), // escuchar datos
@@ -138,9 +138,8 @@ class _PersonalPageState extends State<PersonalPage> {
         return Container(
           child: TextField(
             decoration: InputDecoration(
-              // icon: Icon(Icons.perm_identity, color: buttonColor),
               labelText: 'Apellidos',
-              hintText: 'Palacios', // Aquí se va a leer los datos previos
+              hintText: _userPref.name.split(" ")[1],
               errorText: snapshot.error,
             ),
             onChanged: (value) => bloc.changeLastName(value),
@@ -158,9 +157,8 @@ class _PersonalPageState extends State<PersonalPage> {
             child: TextField(
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                // icon: Icon(Icons.alternate_email, color: buttonColor),
                 labelText: 'Correo',
-                hintText: '1234@gmail.com', // Aquí se va a leer los datos previos
+                hintText: _userPref.email,
                 errorText: snapshot.error,
               ),
               onChanged: (value) => bloc.changeEmail(value),
@@ -176,9 +174,8 @@ class _PersonalPageState extends State<PersonalPage> {
           return Container(
             child: TextField(
               decoration: InputDecoration(
-                // icon: Icon(Icons.alternate_email, color: buttonColor),
                 labelText: 'Ciudad',
-                hintText: 'Medellín', // Aquí se va a leer los datos previos
+                hintText: 'Medellín',
                 errorText: snapshot.error,
               ),
               onChanged: (value) => bloc.changeEmail(value),
@@ -195,9 +192,8 @@ class _PersonalPageState extends State<PersonalPage> {
             child: TextField(
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
-                // icon: Icon(Icons.alternate_email, color: buttonColor),
                 labelText: 'Celular',
-                hintText: '+573055608598', // Aquí se va a leer los datos previos
+                hintText: _userPref.cellphone,
                 errorText: snapshot.error,
               ),
               onChanged: (value) => bloc.changeEmail(value),
@@ -213,9 +209,8 @@ class _PersonalPageState extends State<PersonalPage> {
           return Container(
             child: TextField(
               decoration: InputDecoration(
-                // icon: Icon(Icons.alternate_email, color: buttonColor),
                 labelText: 'Cédula',
-                hintText: '', // Aquí se va a leer los datos previos
+                hintText: '',
                 errorText: snapshot.error,
               ),
               onChanged: (value) => bloc.changeEmail(value),

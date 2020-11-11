@@ -1,5 +1,4 @@
-// ignore: todo
-// TODO Implement this library.
+// Global variables
 library la_haus_broker.globals;
 
 String propertyType = '';
