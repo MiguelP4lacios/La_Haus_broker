@@ -43,6 +43,8 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _emptyProperties(bloc) {
+    /* This view is showd to the user when it does not have any propertie
+    published yet */
     return RefreshIndicator(
       onRefresh: () => bloc.getProperties(),
       child: ListView(
@@ -85,6 +87,9 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _connectionLost(PropertiesBloc bloc) {
+    /* If the HTTP response fails, the application manage that error by showing
+    this view that ask the user to review his connection and try refeshing the
+    app again, thats the reason why this widget is using a refreshindicator */
     return Center(
       child: RefreshIndicator(
         onRefresh: () => bloc.getProperties(),
@@ -193,7 +198,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Text(
-            property.bathrooms,
+            property.rooms,
             style: TextStyle(
               color: Color.fromRGBO(128, 128, 128, 0.5),
               fontSize: 20,
@@ -210,7 +215,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Text(
-            property.bathrooms,
+            property.parkingLot,
             style: TextStyle(
               color: Color.fromRGBO(128, 128, 128, 0.5),
               fontSize: 20,
@@ -254,6 +259,10 @@ class HomePage extends StatelessWidget {
     );
 
     return GestureDetector(
+      /* This is the shell when the preview of the property will showed to the
+      broker, once the user tab in any part of the shell it will be redirected
+      to the edit page in which they will can edit the house information or 
+      change the photos */
       child: Container(
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
