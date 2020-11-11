@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'apartment.g.dart';
 
 @JsonSerializable()
+// Model aparment
 class Apartment {
   String built_type;
   String project;
@@ -63,5 +64,6 @@ class Apartment {
       this.rent,
       this.mortgage});
 
+  // Convert the instance to Json
   Map<String, dynamic> toJson() => _$ApartmentToJson(this);
 }

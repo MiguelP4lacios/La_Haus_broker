@@ -2,16 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/widgets/app_bar.dart';
 import 'form_p2_screen.dart';
-/* import '../blocs/bloc_form_p1.dart';*/
 import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
 import 'package:login_bloc_pattern/src/widgets/show_alert.dart';
 
-/* import '../blocs/bloc_form_p1.dart';*/
-//import './widget/form_widgets.dart';
 
 class FormP1Screen extends StatelessWidget {
   const FormP1Screen({Key key}) : super(key: key);
 
+  // Forward to next form
   _pushScreen(BuildContext context, Widget screen) {
     Navigator.of(context).push(CupertinoPageRoute(
       builder: (context) => screen,
@@ -287,7 +285,6 @@ class FormP1Screen extends StatelessWidget {
                   return (_pushScreen(context, FormP2Screen()));
                 }
               },
-              /* !snapshot.hasData ? null : _pushScreen(context, FormP2Screen()) */
               splashColor: Color(0xFF56b473),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0)),

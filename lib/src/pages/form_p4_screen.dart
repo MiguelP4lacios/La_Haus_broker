@@ -41,7 +41,6 @@ class FormP4Screen extends StatelessWidget {
               cardForm(null, rentDesition(bloc)),
               cardForm(null, rent(bloc)),
               cardForm(null, mortgage(bloc)),
-              //nextButton(bloc),
               ProgressButton(),
             ],
           ),
@@ -209,40 +208,6 @@ class FormP4Screen extends StatelessWidget {
           );
         });
   }
-
-  Widget nextButton(FormBloc bloc) {
-    return StreamBuilder<bool>(
-        stream: bloc.formP4Valid,
-        builder: (context, snapshot) {
-          return RaisedButton(
-            child: Center(
-              child: Text(
-                'Finalizar',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500),
-              ),
-            ),
-            onPressed: !snapshot.hasData
-                ? null
-                : () async {
-                    if (await bloc.submit()) {
-                      /* print("Here → ${bloc.idProperty}"); */
-                      Navigator.of(context).pushNamed(
-                        'phototour', /* arguments: bloc.idProperty */
-                      );
-                    } else {
-                      showAlert(context, '', 'ERROR');
-                    }
-                  },
-            splashColor: Color(0xFF56b473),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
-            color: Color(0xFF00DDB3),
-          );
-        });
-  }
 }
 
 class ProgressButton extends StatefulWidget {
@@ -289,12 +254,11 @@ class _ProgressButtonState extends State<ProgressButton>
                       ? null
                       : () async {
                           if (await bloc.submit()) {
-                            /* print("Here → ${bloc.idProperty}"); */
                             Navigator.of(context).pushReplacementNamed(
-                              'phototour', /* arguments: bloc.idProperty */
+                              'phototour',
                             );
                           } else {
-                            showAlert(context, '', 'ERROR');
+                            showAlert(context, 'Oups', 'Algo salío mal');
                           }
                         },
                   onHighlightChanged: (isPressed) {

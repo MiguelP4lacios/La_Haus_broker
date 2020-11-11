@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/widgets/app_bar.dart';
 import 'form_p3_screen.dart';
-/* import '../blocs/bloc_form_p2.dart'; */
 import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
 import 'package:login_bloc_pattern/src/widgets/show_alert.dart';
 import '../models/amenities.dart';
@@ -140,7 +139,6 @@ class FormP2Screen extends StatelessWidget {
                 }).toList(),
                 onChanged: bloc.changeState,
               ),
-              //Container(height: 15.0),
             ],
           );
         });
@@ -196,7 +194,6 @@ class FormP2Screen extends StatelessWidget {
                 }).toList(),
                 onChanged: bloc.changeElevator,
               ),
-              //Container(height: 15.0),
             ],
           );
         });
@@ -272,6 +269,7 @@ class FormP2Screen extends StatelessWidget {
   }
 
   Widget nextButton(FormBloc bloc) {
+    // toggle switch to show fields according to house or apartment
     _switchWidgetBloc() {
       if (globals.propertyType == "Apartamento") {
         return bloc.formP2Valid;
@@ -301,7 +299,6 @@ class FormP2Screen extends StatelessWidget {
                   return (_pushScreen(context, FormP3Screen()));
                 }
               },
-              /* !snapshot.hasData ? null : _pushScreen(context, FormP2Screen()) */
               splashColor: Color(0xFF56b473),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0)),

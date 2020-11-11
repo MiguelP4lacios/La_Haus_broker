@@ -83,10 +83,6 @@ class FormBloc {
   Stream<num> get rent => _rent.stream.transform(validateNum);
   Stream<String> get mortgage => _mortgage.stream.transform(validateDropDown);
 
-  /* Stream<dynamic> get idStream => _idProperty.stream;
-
-  dynamic get idProperty => _idProperty.value; */
-
   // Form validate
   // 1
   Stream<bool> get formP1Valid => Rx.combineLatest6(
@@ -172,7 +168,6 @@ class FormBloc {
   Function(String) get changeRent => _rent.sink.add;
   Function(String) get changeMortgage => _mortgage.sink.add;
 
-  /* Function(dynamic) get changId => _idProperty.sink.add; */
 
   dispose() {
     // 1
@@ -205,7 +200,6 @@ class FormBloc {
     _rent.close();
     _mortgage.close();
 
-    /* _idProperty.close(); */
   }
 
   //Transformers
@@ -256,9 +250,6 @@ class FormBloc {
         sink.addError(error);
       }
     }
-    /* if (prise.contains('.')) {
-      s'Whitout point, please';
-    } */
   });
 
   final validateString =
@@ -370,15 +361,6 @@ class FormBloc {
     if (mapCheckbox.containsKey(id)) {
       mapCheckbox[id] = check;
     }
-
-    /* print('-----------');
-    print('newMapCheckbox: $newMapCheckbox');
-    print('_mapCheckbox: $mapCheckbox');
-    print('-----------');
-    print(mapCheckbox.length); */
-
-    /* print(a.toString());
-    print(a.toString().runtimeType); */
   }
 
   //Functions
@@ -400,7 +382,6 @@ class FormBloc {
         apt: _floor.value.toString(),
         elevator: _elevator.value == 'Si' ? true.toString() : false.toString(),
         common_areas: a.toString(),
-        /* _commonArea.value.toString(), */
         property_tax: _propertyTax.value.toString(),
         rooms: _rooms.value.toString(),
         bathrooms: _bathrooms.value.toString(),
@@ -416,10 +397,8 @@ class FormBloc {
             _rentDesition.value == 'Si' ? true.toString() : false.toString(),
         rent: _rent.value.toString(),
         mortgage: _mortgage.value == 'Si' ? true.toString() : false.toString());
-    print(apartment.toJson());
-    Map info = await propertyProvider.newProperty(apartment.toJson());
+    Map info = await propertyProvider.newProperty(apartment.toJson()); 
     if (info['ok']) {
-      /* changId(info['id']); */
       return true;
     } else {
       return false;
