@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Information about the app and the company
 class HelpPage extends StatefulWidget {
   @override
   _HelpPageState createState() => _HelpPageState();
