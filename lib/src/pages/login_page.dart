@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/bloc/bloc_provider.dart';
+import 'package:login_bloc_pattern/src/bloc/login_bloc.dart';
 import 'package:login_bloc_pattern/src/resources/user_resource.dart';
 import 'package:login_bloc_pattern/src/widgets/show_alert.dart';
 
@@ -20,6 +21,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _loginForm(BuildContext context) {
+    /* This is the shell in which text fields will take place */
     final bloc = BlocProvider.login(context);
     final sizeScreen = MediaQuery.of(context).size;
 
@@ -48,7 +50,7 @@ class LoginPage extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Text('Authentication'),
+                Text('Autenticación'),
                 SizedBox(height: 30.0),
                 _createEmail(bloc),
                 SizedBox(height: 30),
@@ -60,7 +62,7 @@ class LoginPage extends StatelessWidget {
           ),
           SizedBox(height: 20),
           FlatButton(
-            child: Text('Create a new account'),
+            child: Text('Crear nuevo usuario'),
             onPressed: () =>
                 Navigator.pushReplacementNamed(context, 'register'),
           ),
@@ -70,6 +72,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _createButton(LoginBloc bloc) {
+    /* This button is used to get into the application */
     return StreamBuilder(
         stream: bloc.formValidStream,
         builder: (context, snapshot) {
@@ -77,7 +80,7 @@ class LoginPage extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 17.0),
               child: Text(
-                'Login',
+                'Ingresar',
                 style: TextStyle(fontSize: 18.0),
               ),
             ),
@@ -92,16 +95,30 @@ class LoginPage extends StatelessWidget {
   }
 
   _login(LoginBloc bloc, BuildContext context) async {
+    /* This function is executed once the user have pressed the "ingresar" 
+    button, this button make an HTTP request to the server with the user
+    information requesting to let it in, if the HTTP response is OK,
+    the user will be get into the Home page; other way, an error massage
+    will be shown to the user depending on the imposibility to get access */
     Map info = await userProvider.login(bloc.email, bloc.password);
+    print(info);
     if (info['ok']) {
-      Navigator.pushReplacementNamed(context, 'home');
+      bloc.changeEmail('');
+      bloc.changePassword('');
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          'bottomBar', (Route<dynamic> route) => false);
+      // Navigator.pushReplacementNamed(context, 'bottomBar');
+    } else if (info['massage'] == "La sesión ha expirado") {
+      showAlert(context, '',
+          'No se puede establecer conexión, intentelo nuevamente en unos minutos');
     } else {
-      showAlert(context, 'Email or Password incorrect');
+      showAlert(context, '', 'Correo o Contraseña incorrectos');
     }
     // Navigator.pushNamed(context, 'home');
   }
 
   Widget _createPassword(LoginBloc bloc) {
+    /* Password Text Field */
     return StreamBuilder(
       stream: bloc.passwordStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -111,8 +128,10 @@ class LoginPage extends StatelessWidget {
             obscureText: true,
             decoration: InputDecoration(
               icon: Icon(Icons.lock, color: buttonColor),
-              labelText: 'Password',
-              errorText: snapshot.error,
+              labelText: 'Contraseña',
+              errorText: snapshot.error != null && snapshot.error == "no error"
+                  ? null
+                  : snapshot.error,
             ),
             onChanged: (value) => bloc.changePassword(value),
           ),
@@ -122,6 +141,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _createEmail(LoginBloc bloc) {
+    /* Email Text Field */
     return StreamBuilder(
         stream: bloc.emailStream,
         builder: (context, snapshot) {
@@ -132,8 +152,11 @@ class LoginPage extends StatelessWidget {
               decoration: InputDecoration(
                 icon: Icon(Icons.alternate_email, color: buttonColor),
                 hintText: 'Example@email.com',
-                labelText: 'Email',
-                errorText: snapshot.error,
+                labelText: 'Correo',
+                errorText:
+                    snapshot.error != null && snapshot.error == "no error"
+                        ? null
+                        : snapshot.error,
               ),
               onChanged: (value) => bloc.changeEmail(value),
             ),
@@ -142,6 +165,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _createBackground(BuildContext context) {
+    /* It is in charge to beutify the login background */
     final heightScreen = MediaQuery.of(context).size.height;
     final backGroundPurple = Container(
       height: heightScreen,

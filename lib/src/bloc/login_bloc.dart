@@ -5,6 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
 
 class LoginBloc with LoginValidators {
+  /* Stream Controllers */
   final _emailController = BehaviorSubject<String>();
   final _passwordController = BehaviorSubject<String>();
 
@@ -15,6 +16,7 @@ class LoginBloc with LoginValidators {
       _passwordController.stream.transform(validatePassword);
   Stream<bool> get formValidStream =>
       Rx.combineLatest2(emailStream, passwordStream, (email, pass) => true);
+
   /* Creation of a get to inser value to the
   streams Insert Values to the Stream */
   Function(String) get changeEmail => _emailController.sink.add;
@@ -24,7 +26,7 @@ class LoginBloc with LoginValidators {
   String get email => _emailController.value;
   String get password => _passwordController.value;
 
-  dispose() {
+  void dispose() {
     _emailController?.close();
     _passwordController?.close();
   }

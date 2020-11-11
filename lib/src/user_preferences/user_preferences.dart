@@ -34,6 +34,38 @@ class UserPreferences {
     _prefs.setString('token', value);
   }
 
+  get userId {
+    return _prefs.getString('userId') ?? '';
+  }
+
+  set userId(String value) {
+    _prefs.setString('userId', value);
+  }
+
+  get name {
+    return _prefs.getString('name') ?? '';
+  }
+
+  set name(String value) {
+    _prefs.setString('name', value);
+  }
+
+  get cellphone {
+    return _prefs.getString('cellphone') ?? '';
+  }
+
+  set cellphone(String value) {
+    _prefs.setString('cellphone', value);
+  }
+
+  get email {
+    return _prefs.getString('email') ?? '';
+  }
+
+  set email(String value) {
+    _prefs.setString('email', value);
+  }
+
   // GET y SET de la última página
   get ultimaPagina {
     return _prefs.getString('ultimaPagina') ?? 'login';
