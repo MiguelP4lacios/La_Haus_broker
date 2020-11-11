@@ -1,6 +1,8 @@
 # La Haus Brokers
 <img width="100%" src="https://angellovc.github.io/lading-haus-brokers/assets/images/banner.png">
 
+[![Download Badge](https://img.shields.io/badge/LaHaus-Download-00d0ae?style=flat-square&logo=&logoColor=white&link=https://drive.google.com/file/d/1FHmTTQDliNqGD2fp-bQMOUgQCuJyLIT2/view?usp=sharing)](https://drive.google.com/file/d/1FHmTTQDliNqGD2fp-bQMOUgQCuJyLIT2/view?usp=sharing)
+
 ---
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
@@ -85,19 +87,22 @@ We have decided to use the Bloc pattern, based on the Model View Controller, whi
 
 <img width="100%" src="https://i.imgur.com/i1IrsOE.jpg">
 
-## Dependencies
-
-* rxdart
-* http
-* json_annotation
-* shared_preferences
-* country_icons
-* intro_slider
-* image_picker
-* imagebutton
-* flutter_swiper
-* permission_handler
-* mime_type
+## dependencies:
+  [settings_ui](https://pub.dev/packages/settings_ui)
+  [cupertino_icons](https://pub.dev/packages/cupertino_icons)
+  [rxdart](https://pub.dev/packages/rxdart)
+  [http](https://pub.dev/packages/http)
+  [json_annotation](https://pub.dev/packages/json_annotation)
+  [shared_preferences](https://pub.dev/packages/shared_preferences)
+  [country_icons](https://pub.dev/packages/country_icons)
+  [intro_slider](https://pub.dev/packages/intro_slider)
+  [image_picker](https://pub.dev/packages/image_picker)
+  [imagebutton](https://pub.dev/packages/imagebutton)
+  [flutter_swiper](https://pub.dev/packages/flutter_swiper)
+  [permission_handler](https://pub.dev/packages/permission_handler)
+  [mime_type](https://pub.dev/packages/mime_type)
+  [build_runner](https://pub.dev/packages/build_runner)
+  [json_serializable](https://pub.dev/packages/json_serializable)
 
 ## Authors
 #### Angello Villegas - Full Stack Developer
