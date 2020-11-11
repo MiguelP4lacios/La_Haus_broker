@@ -224,7 +224,6 @@ class FormP3Screen extends StatelessWidget {
                   return (_pushScreen(context, FormP4Screen()));
                 }
               },
-              /* !snapshot.hasData ? null : _pushScreen(context, FormP2Screen()) */
               splashColor: Color(0xFF56b473),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0)),

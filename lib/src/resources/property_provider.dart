@@ -14,18 +14,12 @@ class PropertyProvider {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${_userPref.token}'
         });
-    print(resp.statusCode);
-    print(resp.body.toString());
-    //ResApartment ap = ResApartment.fromJson(json.decode(resp.body));
     Map<String, dynamic> ap = json.decode(resp.body);
-    print(ap);
     if (resp.statusCode == 201) {
       globals.jsonProperty = ap['properties'];
-      return {
-        'ok': true, /* 'property': ap['properties'] */
-      };
+      return {'ok': true};
     } else {
-      return {'ok': false}; //'message': decodedResp['errors']};
+      return {'ok': false};
     }
   }
 }

@@ -1,4 +1,4 @@
-// model amenities.
+// Model amenities.
 class Item {
   int id;
   String title;
@@ -68,6 +68,7 @@ class Item {
     "Terraza"
   ];
 
+  // Get the amenities checked
   List<String> getAm(
       Map<int, bool> checkBoxes, Map<int, String> checkAmenities) {
     List<String> _am = [];
@@ -82,8 +83,8 @@ class Item {
     return _am;
   }
 
+  // Get all amenities
   List<Item> getItems() {
-    print(_amenities[61]);
 
     List<Item> _items = [];
     for (var i = 0; i < _amenities.length; i++) {
