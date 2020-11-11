@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/widgets/swipercard_examples.dart';
 
+// This model controls the list for showing the examples requested by the user. It stores the methods, icons, titles and description necessary to show the grrat pictures taken.//
 class ExamplesView {
   final IconData icon;
   final String title;

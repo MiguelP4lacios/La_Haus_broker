@@ -5,7 +5,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'globals.dart' as globals;
 
 class PropertyReview extends StatefulWidget {
-  // const PropertyReview({Key key}) : super(key: key);
+  /// const PropertyReview({Key key}) : super(key: key);
   @override
   _PropertyReviewState createState() => _PropertyReviewState();
 }
@@ -32,7 +32,7 @@ class _PropertyReviewState extends State<PropertyReview> {
   }
 
   Widget _list(Size _screen) {
-    print('largo del review');
+    /// render empty tiles based on a default list
     return ListView.builder(
         itemCount: defaultList.length,
         itemBuilder: (context, index) {
@@ -67,8 +67,6 @@ class _PropertyReviewState extends State<PropertyReview> {
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   FlatButton(
                       onPressed: () {
-                        // photoModel.agregar(defaultList[index].part,
-                        //     "https://res.cloudinary.com/babylist/image/upload/f_auto,q_auto:best,c_scale,w_768/v1512679429/best_cribs_header_xzdciu.jpg");
                         setState(() {});
                         Navigator.pushNamed(context, 'phototourKitchen',
                             arguments: defaultList[index].part);
@@ -83,16 +81,7 @@ class _PropertyReviewState extends State<PropertyReview> {
                           margin: EdgeInsets.all(10.0),
                           child: Text('Agregar fotos',
                               style: TextStyle(color: Colors.white)))),
-                  // FlatButton(
-                  //   onPressed: () => Navigator.pushReplacementNamed(
-                  //       context, 'phototourKitchen'),
-                  //   child: Text('Agregar mas fotos'),
-                  // ),
                 ]),
-                // Image(
-                //   image: NetworkImage(
-                //       'https://static.photocdn.pt/images/articles/2018/03/20/articles/2017_8/Natural_Night.jpg'),
-                // ),
               ],
             ),
           );
@@ -101,10 +90,9 @@ class _PropertyReviewState extends State<PropertyReview> {
 
   Widget _imageValidation(List<String> id, String place, List<String> url,
       Size screen, List<bool> foco, List<bool> ilum) {
-    // swiper
+    // swiper and validation to the feedback to the user
     if (url.length != 0) {
       return Swiper(
-        // viewportFraction: 2.0,
         loop: false,
         containerWidth: 1.0,
         containerHeight: 1.0,
@@ -120,8 +108,6 @@ class _PropertyReviewState extends State<PropertyReview> {
                   fit: StackFit.expand,
                   children: [
                     FadeInImage(
-                      // height: screen.height * 0.37,
-                      // width: screen.width * 0.7,
                       fit: BoxFit.cover,
                       placeholder: AssetImage('assets/jar-loading.gif'),
                       image: NetworkImage(url[index]),
@@ -129,8 +115,6 @@ class _PropertyReviewState extends State<PropertyReview> {
                     Container(
                       margin: EdgeInsets.only(
                           left: 290, top: 3, right: 3, bottom: 250),
-                      // height: 30,
-                      // width: 40.0,
                       child: IconButton(
                         color: Colors.black,
                         alignment: Alignment.center,
@@ -138,11 +122,6 @@ class _PropertyReviewState extends State<PropertyReview> {
                         onPressed: () {
                           _dialogBin(id[index], globals.jsonProperty['id'],
                               place, url[index], foco[index], ilum[index]);
-                          // photoProvider.deletePhoto(6
-                          //     id[index],
-                          //     globals.jsonProperty['id']);
-                          // photoModel.eliminar(place, url[index], id[index]);
-                          // setState(() {}); // para la lista
                         },
                       ),
                     ),
@@ -167,6 +146,7 @@ class _PropertyReviewState extends State<PropertyReview> {
 
   Widget photoFeedback(
       String id, String place, String url, bool foco, bool ilum) {
+    // decides the feedback of each picture to the user
     if (foco == true && ilum == false) {
       return processComparison('assets/images/foc-no-ilu-w.png');
     } else if (foco == false && ilum == true) {
@@ -179,6 +159,7 @@ class _PropertyReviewState extends State<PropertyReview> {
   }
 
   Widget processComparison(String photoPath) {
+    // optimization to the previous method
     return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -192,40 +173,39 @@ class _PropertyReviewState extends State<PropertyReview> {
 
   void _dialogBin(String id, String propId, String place, String url, bool foco,
       bool ilum) {
+    // Alert Dialog which shows whether the user wants to erase a pic or not
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          actionsPadding: EdgeInsets.symmetric(horizontal: 15.0),
-          title: Text('¿Desea eliminar esta foto?',
-              style: TextStyle(fontSize: 20.0)),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          actions: [
-            RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(18.0),
-                ),
-                color: Theme.of(context).primaryColor,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  photoProvider.deletePhoto(id, propId);
-                  photoModel.eliminar(place, url, id, foco, ilum);
-                  setState(() {});
-                },
-                child: Text('Si',
-                    style: TextStyle(fontSize: 20.0, color: Colors.white))),
-            RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(18.0),
-                ),
-                color: Theme.of(context).primaryColor,
-                onPressed: () => Navigator.of(context).pop(),
-                child: Text('No',
-                    style: TextStyle(fontSize: 20.0, color: Colors.white))),
-          ],
-          // actions: List<Widget> [
-        );
+            actionsPadding: EdgeInsets.symmetric(horizontal: 15.0),
+            title: Text('¿Desea eliminar esta foto?',
+                style: TextStyle(fontSize: 20.0)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            actions: [
+              RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(18.0),
+                  ),
+                  color: Theme.of(context).primaryColor,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    photoProvider.deletePhoto(id, propId);
+                    photoModel.eliminar(place, url, id, foco, ilum);
+                    setState(() {});
+                  },
+                  child: Text('Si',
+                      style: TextStyle(fontSize: 20.0, color: Colors.white))),
+              RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(18.0),
+                  ),
+                  color: Theme.of(context).primaryColor,
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('No',
+                      style: TextStyle(fontSize: 20.0, color: Colors.white))),
+            ]);
       },
     );
   }
@@ -234,7 +214,6 @@ class _PropertyReviewState extends State<PropertyReview> {
 
 class DefaultList {
   String part;
-
   DefaultList({this.part});
 }
 
@@ -247,93 +226,3 @@ final List<DefaultList> defaultList = [
   DefaultList(part: "Baños"),
   DefaultList(part: "Exteriores"),
 ];
-
-// Widget _createList() {
-//   return FutureBuilder(
-//       future: photoProvider.loadProperty(),
-//       builder:
-//           (BuildContext context, AsyncSnapshot<List<Apartment>> snapshot) {
-//         if (snapshot.hasData) {
-//           final apartments = snapshot.data;
-//           return ListView.builder(
-//               itemCount: apartments.length,
-//               itemBuilder: (context, i) =>
-//                   _cardTipo1(context, apartments[i]));
-//         } else {
-//           return Center(
-//             child: CircularProgressIndicator(),
-//           );
-//         }
-//       });
-// }
-
-// Widget _cardTipo2() {
-//   return Card(
-//     elevation: 10.0,
-//     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-//     clipBehavior: Clip.antiAlias,
-//     child: Column(
-//       children: <Widget>[
-//         FadeInImage(
-//           image: NetworkImage(
-//               'https://static.photocdn.pt/images/articles/2018/03/20/articles/2017_8/Natural_Night.jpg'),
-//           placeholder: AssetImage('assets/jar-loading.gif'),
-//           fadeInDuration: Duration(milliseconds: 200),
-//           height: 300.0,
-//           fit: BoxFit.cover,
-//         ),
-//         // Image(
-//         //   image: NetworkImage(
-//         //       'https://static.photocdn.pt/images/articles/2018/03/20/articles/2017_8/Natural_Night.jpg'),
-//         // ),
-//         Container(
-//             padding: EdgeInsets.all(10.0),
-//             child: Text('Fuji Mountain -Japan'))
-//       ],
-//     ),
-//   );
-// }));
-
-// Widget _cardTipo1(BuildContext context, Set<PropertyPhoto> cardProp) {
-//   return Card(borderOnForeground: ,)
-
-// }
-
-// Widget _cardTipo1(BuildContext context, Set<PropertyPhoto> cardProp) {
-//   // final propertyMap = globals.propertyTour;
-//   return Card(
-//     elevation: 10.0,
-//     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-//     child: Column(
-//       children: [
-//         ListTile(
-//           title: Text("${widget.steps[index][part]}"),
-//           // subtitle: Text('Property located in HollyWood Springs'),
-//         ),
-//         Row(
-//           children: [
-//             FlatButton(
-//                 onPressed: () =>
-//                     Navigator.pushNamed(context, 'phototourKitchen'),
-//                 child: Text('Edit')),
-//             FlatButton(onPressed: () {}, child: Text('Publish')),
-//           ],
-//           mainAxisAlignment: MainAxisAlignment.end,
-//         ),
-//         Column(
-//           children: [
-//             FadeInImage(
-//               image: AssetImage('assets/nice_kitchens/k7.jpg'),
-//               placeholder: AssetImage('assets/jar-loading.gif'),
-//               fadeInDuration: Duration(milliseconds: 200),
-//               height: 300.0,
-//               fit: BoxFit.cover,
-//             ),
-//             Container(
-//                 padding: EdgeInsets.all(10.0), child: Text('House Sold'))
-//           ],
-//         ),
-//       ],
-//     ),
-//   );
-// }

@@ -13,8 +13,7 @@ class PhotoProvider {
 
   Future<String> sendPhoto(
       String urlPhoto, String propertyId, String propertyPlace) async {
-    print(propertyId + 'property id');
-    print(urlPhoto + ' url test');
+    //Sends the photo to back-end to be analyzed
     final url =
         "$urlApi/users/${_userPref.userId}/properties/$propertyId/photos";
     final response = await http.post(url, headers: {
@@ -25,45 +24,15 @@ class PhotoProvider {
       'location': propertyPlace,
     });
     if (response.statusCode != 200 && response.statusCode != 201) {
-      print('somth wrong');
-      print(response.body);
       return null;
     }
     Map<String, dynamic> decodedResp = json.decode(response.body);
-    print('photoId');
-    print(decodedResp['photos']['id']);
 
     return decodedResp['photos']['id'].toString();
-
-    // if (decodedResp.containsKey('idToken')) {
-    //   _userPref.token = decodedResp['idToken'];
-    //   return {'ok': true};
-    // } else {
-    //   return {'ok': false, 'message': decodedResp['error']['message']};
-    // }
   }
 
-  // Future<List<Apartment>> loadProperty() async {
-  //   final url = '/$_url/13/properties/13.json'; // from backend
-  //   final resp = await http.get(url);
-
-  //   final Map<String, dynamic> decodedData = json.decode(resp.body);
-  //   final List<Apartment> properties = new List();
-
-  //   if (decodedData == null) return [];
-
-  //   decodedData.forEach((id, prop) {
-  //     final propTemp = Apartment.fromJson(prop);
-  //     properties.add(propTemp);
-  //   });
-
-  //   print(properties);
-
-  //   return properties;
-  // }
-
   Future<String> uploadPhoto(File image) async {
-    // final img = FileImage(image).;
+    // uploads the photo taken to the cloud (storage)
     final url = Uri.parse(
         'https://api.cloudinary.com/v1_1/dfne0hspy/image/upload/?upload_preset=wp889nbl');
 
@@ -90,8 +59,8 @@ class PhotoProvider {
     return respData['secure_url'];
   }
 
-  //pooling para recibir la información de la foto (GET)
   Future<Map> getInfoPhoto(String photoId, String propertyId) async {
+    //pooling to receive the information of the photo (GET)
     final url =
         "$urlApi/users/${_userPref.userId}/properties/$propertyId/photos/$photoId";
     Map acceptance = {"foco": null, "ilum": null, "url": null};
@@ -102,8 +71,6 @@ class PhotoProvider {
         'Authorization': 'Bearer ${_userPref.token}'
       });
       if (response.statusCode != 200 && response.statusCode != 201) {
-        print('somth wrong');
-        print(response.body);
         return null;
       }
       Map<String, dynamic> decodedResp = json.decode(response.body);
@@ -115,6 +82,7 @@ class PhotoProvider {
   }
 
   Future getAllPhotos(String propertyId) async {
+    // request to back-end the pictures from a specific property and store them in a list
     final url =
         "$urlApi/users/${_userPref.userId}/properties/$propertyId/photos/";
 
@@ -123,12 +91,9 @@ class PhotoProvider {
       'Authorization': 'Bearer ${_userPref.token}'
     });
     if (response.statusCode != 200 && response.statusCode != 201) {
-      print('somth wrong');
-      print(response.body);
       return null;
     }
     final photos = json.decode(response.body)['photos'];
-    print(photos);
     for (var item in photos) {
       if (item['location'] != null) {
         photoModel.agregar(item['location'], item['url'], item['id'].toString(),
@@ -138,17 +103,10 @@ class PhotoProvider {
     return;
   }
 
-  // print(acceptance);
-//     if (decodedResp.containsKey('idToken')) {
-//       _userPref.token = decodedResp['idToken'];
-//       return {'ok': true};
-//     } else {
-//       return {'ok': false, 'message': decodedResp['error']['message']};
-//     }
-
 // Debe de haber una animación de cargando mientras se hace el pooling
 //  mientras la respuesta sea difernete a null haga la petición
   Future deletePhoto(String photoId, String propertyId) async {
+    // it deletes the photo from the list to be rendered
     final url =
         "$urlApi/users/${_userPref.userId}/properties/$propertyId/photos/$photoId";
     final response = await http.delete(url, headers: {

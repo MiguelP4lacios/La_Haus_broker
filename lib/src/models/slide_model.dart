@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// this model permits to store the list for the introduction slide
 class Slide {
   final String imageUrl;
   final String title;
