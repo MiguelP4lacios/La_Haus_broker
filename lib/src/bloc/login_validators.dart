@@ -3,6 +3,15 @@ could be send */
 import 'dart:async';
 
 class LoginValidators {
+  /* Login Bloc Stream validations
+
+    In the validations, "no error" massage tells to the view that dont need to 
+    display an error this massage is used when the type something and that is
+    deleted. In this cases the stream ends flowing an empty string, so this
+    massage no error is sent to prevent the "ingresar" button will be activated 
+    and no one error message will be showed
+    */
+
   final validatePassword = StreamTransformer<String, String>.fromHandlers(
       handleData: (password, sink) {
     if (password.length >= 6) {

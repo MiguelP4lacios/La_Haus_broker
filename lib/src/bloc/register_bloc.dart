@@ -4,6 +4,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
 
 class RegisterBloc extends LoginBloc with RegisterValidators {
+  /* Stream Controlls */
   final _emailControllerConfirm = BehaviorSubject<String>();
   final _firstNameController = BehaviorSubject<String>();
   final _lastNameController = BehaviorSubject<String>();
@@ -21,6 +22,7 @@ class RegisterBloc extends LoginBloc with RegisterValidators {
   Stream<String> get phoneNumberStream =>
       _phoneNumberController.stream.transform(validateNumber);
   Stream<dynamic> get indicativeStream => _indicativeController.stream;
+
   /* Stream combinations */
   Stream<bool> get confirmPasswordValid =>
       Rx.combineLatest2(passwordStream, passwordConfirmStream, checkIdentical);
@@ -33,6 +35,7 @@ class RegisterBloc extends LoginBloc with RegisterValidators {
       confirmPasswordValid,
       confirmEmailValid,
       checkFieldsCompleted);
+
   /* Creation of a get to inser value to the
   streams Insert Values to the Stream */
   Function(String) get changeEmailConfirm => _emailControllerConfirm.sink.add;
@@ -42,6 +45,7 @@ class RegisterBloc extends LoginBloc with RegisterValidators {
   Function(String) get changePasswordConfirm =>
       _passwordConfirmController.sink.add;
   Function(dynamic) get changeIndicative => _indicativeController.sink.add;
+
   /* get the last value introduced into the streams */
   String get emailConfirm => _emailControllerConfirm.value;
   String get firstName => _firstNameController.value;
@@ -49,6 +53,7 @@ class RegisterBloc extends LoginBloc with RegisterValidators {
   String get phoneNumber => _phoneNumberController.value;
   String get passwordConfirm => _passwordConfirmController.value;
   String get indicative => _indicativeController.value;
+
   /* close the stream where necessary */
   dispose() {
     _emailControllerConfirm?.close();

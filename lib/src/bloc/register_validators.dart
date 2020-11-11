@@ -1,7 +1,10 @@
 import 'dart:async';
 
 class RegisterValidators {
+  /* Register Bloc Validators */
+
   bool checkIdentical(String textField, String textConfirm) {
+    /* Check if two streams are flowing identical information */
     if (textField == textConfirm) {
       return (true);
     } else {
@@ -10,6 +13,8 @@ class RegisterValidators {
   }
 
   bool checkFieldsCompleted(a, b, c, d, e) {
+    /* Check that all the streams have been completely fill
+    it is used to prevent to send incomplete information to the backend */
     if (d == true && e == true) {
       return true;
     } else {

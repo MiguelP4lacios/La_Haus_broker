@@ -21,6 +21,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _loginForm(BuildContext context) {
+    /* This is the shell in which text fields will take place */
     final bloc = BlocProvider.login(context);
     final sizeScreen = MediaQuery.of(context).size;
 
@@ -71,6 +72,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _createButton(LoginBloc bloc) {
+    /* This button is used to get into the application */
     return StreamBuilder(
         stream: bloc.formValidStream,
         builder: (context, snapshot) {
@@ -93,6 +95,11 @@ class LoginPage extends StatelessWidget {
   }
 
   _login(LoginBloc bloc, BuildContext context) async {
+    /* This function is executed once the user have pressed the "ingresar" 
+    button, this button make an HTTP request to the server with the user
+    information requesting to let it in, if the HTTP response is OK,
+    the user will be get into the Home page; other way, an error massage
+    will be shown to the user depending on the imposibility to get access */
     Map info = await userProvider.login(bloc.email, bloc.password);
     print(info);
     if (info['ok']) {
@@ -111,6 +118,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _createPassword(LoginBloc bloc) {
+    /* Password Text Field */
     return StreamBuilder(
       stream: bloc.passwordStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -133,6 +141,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _createEmail(LoginBloc bloc) {
+    /* Email Text Field */
     return StreamBuilder(
         stream: bloc.emailStream,
         builder: (context, snapshot) {
@@ -156,6 +165,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _createBackground(BuildContext context) {
+    /* It is in charge to beutify the login background */
     final heightScreen = MediaQuery.of(context).size.height;
     final backGroundPurple = Container(
       height: heightScreen,

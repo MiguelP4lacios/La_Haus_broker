@@ -18,6 +18,7 @@ This is a an abstraction of a house used to manage all the attributes of a house
        "mortage": "",
 } */
 class HouseModel {
+  /* This model is used in the Home Page view to manage and show the houses */
   HouseModel(
       {this.id,
       this.userId,

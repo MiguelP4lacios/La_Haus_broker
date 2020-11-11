@@ -29,6 +29,7 @@ class RegisterPage extends StatelessWidget {
   }
 
   Widget _registerForm(BuildContext context) {
+    /* Shell in which all the register text fields will go */
     final bloc = BlocProvider.register(context);
     final sizeScreen = MediaQuery.of(context).size;
 
@@ -88,6 +89,10 @@ class RegisterPage extends StatelessWidget {
   }
 
   Widget _createConfirmPassword(RegisterBloc bloc) {
+    /* Confirm pasword is requering to secure the can rememeber his password
+    and are not having errors on it
+    
+    It field is checking if password field is indentical to this field */
     return StreamBuilder(
       stream: bloc.confirmPasswordValid,
       builder: (context, snapshot) {
@@ -110,6 +115,7 @@ class RegisterPage extends StatelessWidget {
   }
 
   Widget _phoneField(BuildContext context, RegisterBloc bloc, double width) {
+    /* Text field */
     return StreamBuilder(
       stream: bloc.phoneNumberStream,
       builder: (context, snapshot) {
@@ -130,6 +136,7 @@ class RegisterPage extends StatelessWidget {
   }
 
   Widget _createPhoneNumber(BuildContext context, RegisterBloc bloc) {
+    /* Phone number container */
     final widthScreen = MediaQuery.of(context).size.width;
     return Container(
       width: widthScreen * 0.7,
@@ -176,6 +183,9 @@ class RegisterPage extends StatelessWidget {
   }
 
   Widget _createButton(RegisterBloc bloc) {
+    /* This is the register button used to send to backend all the information
+    necessary to create a newUser it make use of the _register function
+    to send the information and go to the next page in a secure way */
     return StreamBuilder(
         stream: bloc.allFiledsCompleted,
         builder: (context, snapshot) {
@@ -199,6 +209,10 @@ class RegisterPage extends StatelessWidget {
   }
 
   _register(RegisterBloc bloc, BuildContext context) async {
+    /* Once the user have pressed "register" this function will make an HTTP
+    request to the server trying to create a new user, if the response if OK
+    all the streams will be flush and the user will be redirected to the Homa
+    Page in other hand, an error message will be showed */
     final blocLogin = BlocProvider.login(context);
     Map<String, dynamic> registerData = {
       'email': bloc.email,
