@@ -17,11 +17,15 @@
 
 ## An App for House Brokers
 
-La haus app is an application not for customers, but for sellers our app is oriented to improve the service offered 
-by the Haus company to people interested in sell a house quickly, smooth and easy, without any burocratic.
+La Haus Brokers App is an application intended for sellers, brokers and property owners who want to promote and sell their properties easily.  Our app is oriented to improve the service offered 
+by La Haus Real Estate Company to people interested in selling a house or apartment quickly, smooth and easy, without any burocratic procedure.
 
-## value proposal
-Our application not only automate and make easier the task to sell houses, but it help users to take better pics using computational  vision to assess the its quality, tell what is wrong and how to improve it
+## Value proposal
+Our application, not only automates and makes easier the task to sell houses, but it also helps users to take better photos using computational vision to improve its quality, retrieves a feedback of what is wrong and how to improve it.
+
+## Mentoring and Teamwork
+
+Project developed at Holberton School Colombia with the mentoring and supervision of La Haus in order to impact the real estate procedures and deals.
 
 ## Overview
 
@@ -83,7 +87,7 @@ Used to store permanently few important information, preferences and important s
 
 ## Pattern Design
 
-We have decided to use the Bloc pattern, based on the Model View Controller, which make or application organized, scalable and easy to mantein.
+We have decided to use the Bloc pattern, based on the Model View Controller, which make or application organized, scalable and easy to mantain.
 
 <img width="100%" src="https://i.imgur.com/i1IrsOE.jpg">
 
