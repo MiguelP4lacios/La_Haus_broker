@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// page view for different settings
 class SettingsPage extends StatefulWidget {
   @override
   _SettingsPageState createState() => _SettingsPageState();

@@ -4,6 +4,7 @@ import 'package:login_bloc_pattern/src/bloc/profile_bloc.dart';
 import 'package:login_bloc_pattern/src/resources/profile_resource.dart';
 import 'package:login_bloc_pattern/src/user_preferences/user_preferences.dart';
 
+// Page view for the security data
 class SecurityPage extends StatefulWidget {
   @override
   _SecurityPageState createState() => _SecurityPageState();
@@ -40,9 +41,10 @@ class _SecurityPageState extends State<SecurityPage> {
 
 
 
-
+  // form for password
+  // This page is offline because of the backend
   Widget _personalInfo(BuildContext context) {
-    final bloc = BlocProvider.profile(context); // ESTO HAY QUE CAMBIARLO ???
+    final bloc = BlocProvider.profile(context);
     final sizeScreen = MediaQuery.of(context).size;
 
     return SingleChildScrollView(
@@ -96,7 +98,6 @@ class _SecurityPageState extends State<SecurityPage> {
                 ),
               ),
               onPressed: () {
-                //Aquí debería de ir un alert dialog antes de eliminar usuario!!!
                 showAlertDialog(context);
               },
               shape:
@@ -122,7 +123,6 @@ class _SecurityPageState extends State<SecurityPage> {
         return Container(
           child: TextField(
             decoration: InputDecoration(
-              // icon: Icon(Icons.perm_identity, color: buttonColor),
               labelText: 'Contraseña vieja',
               hintText: '******', // Aquí se va a leer los datos previos
               errorText: snapshot.error,
@@ -141,7 +141,6 @@ class _SecurityPageState extends State<SecurityPage> {
         return Container(
           child: TextField(
             decoration: InputDecoration(
-              // icon: Icon(Icons.perm_identity, color: buttonColor),
               labelText: 'Nueva contraseña',
               hintText: '*******', // Aquí se va a leer los datos previos
               errorText: snapshot.error,
@@ -160,7 +159,6 @@ class _SecurityPageState extends State<SecurityPage> {
         return Container(
           child: TextField(
             decoration: InputDecoration(
-              // icon: Icon(Icons.perm_identity, color: buttonColor),
               labelText: 'confirmar contraseña',
               hintText: '*******', // Aquí se va a leer los datos previos
               errorText: snapshot.error,

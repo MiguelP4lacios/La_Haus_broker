@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:login_bloc_pattern/src/user_preferences/user_preferences.dart';
 
+ // General view of profile section
 class Perfil extends StatefulWidget {
   @override
   _PerfilState createState() => _PerfilState();
 }
 
-// ignore: unused_element
 class _PerfilState extends State<Perfil> {
   final _userPref = new UserPreferences();
-  // Estas dfos variables estarán en userpreferences
-  // final nombre = "Miguel"; // unused
-  // final apellido = "Palacios"; // unused
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +17,6 @@ class _PerfilState extends State<Perfil> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          // SizedBox(height: 10),
           Card(
             // Rectangulo superior
             shape: RoundedRectangleBorder(
@@ -39,8 +35,7 @@ class _PerfilState extends State<Perfil> {
                       color: Colors.white, fontWeight: FontWeight.w500)),
               leading: CircleAvatar(
                 child: Text(
-                    _userPref
-                        .name[0], //estas variables serán del user preferences
+                    _userPref.name[0],
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.w800)),
                 backgroundColor: Color.fromRGBO(255, 174, 0, 1.0),
@@ -48,7 +43,6 @@ class _PerfilState extends State<Perfil> {
               trailing: Icon(Icons.edit, color: Colors.white),
             ),
           ),
-          // SizedBox(height: 40),
           Card(
             // Submenu central
             color: Colors.white,
@@ -96,7 +90,6 @@ class _PerfilState extends State<Perfil> {
               ],
             ),
           ),
-          // SizedBox(height: 20),
           RaisedButton(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
@@ -106,7 +99,6 @@ class _PerfilState extends State<Perfil> {
               ),
             ),
             onPressed: () {
-              // No se están borrando los datos!!!!!
               _userPref.token = "";
               _userPref.userId = "";
               Navigator.of(context).pushNamedAndRemoveUntil(
